@@ -3,465 +3,568 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HIV Smart Education - Platform Edukasi</title>
-    <!-- Font & Ikon Modern -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>HIV Smart Education - Platform Literasi Digital</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --primary: #4f46e5;
+            --primary-light: #e0e7ff;
             --secondary: #06b6d4;
+            --secondary-light: #ecfeff;
             --success: #10b981;
             --danger: #ef4444;
             --warning: #f59e0b;
-            --background: #f8fafc;
-            --surface: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.05);
+            --shadow-md: 0 10px 25px -5px rgba(79, 70, 229, 0.1), 0 8px 10px -6px rgba(79, 70, 229, 0.05);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--background);
+            background: var(--bg-gradient);
             color: var(--text-main);
-            padding-bottom: 80px;
+            min-height: 100vh;
+            padding-bottom: 100px;
         }
 
-        /* Top Bar */
-        .top-bar {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        /* Premium Header Hero */
+        .hero-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            padding: 20px;
+            padding: 40px 24px;
             text-align: center;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+            border-bottom-left-radius: var(--radius-lg);
+            border-bottom-right-radius: var(--radius-lg);
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        .top-bar h1 { font-size: 1.5rem; font-weight: 700; }
-        .top-bar p { font-size: 0.85rem; opacity: 0.9; margin-top: 4px; }
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(50px);
+        }
 
-        /* Container & Halaman */
+        .hero-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-header p {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-top: 6px;
+            font-weight: 400;
+        }
+
+        /* Container Main */
         .container {
             padding: 20px;
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 540px;
+            margin: -20px auto 0 auto;
+            position: relative;
+            z-index: 10;
         }
 
+        /* Page Controller with Smooth Micro-Animation */
         .page {
             display: none;
-            animation: fadeIn 0.4s ease-in-out;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .page.active {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Card Style */
+        /* Elegant Floating Cards */
         .card {
-            background: var(--surface);
-            border-radius: 16px;
-            padding: 20px;
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 24px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 255, 255, 0.7);
         }
 
         .card h2 {
-            font-size: 1.2rem;
-            margin-bottom: 12px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: var(--primary);
+            gap: 12px;
         }
 
-        /* Status Grid di Dashboard */
-        .status-grid {
+        .card h2 i {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+        }
+
+        /* Modern Dashboard Stats Grid */
+        .grid-stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 15px;
+            gap: 14px;
+            margin-top: 10px;
         }
 
-        .status-item {
-            background: #f1f5f9;
-            padding: 15px;
-            border-radius: 12px;
+        .stat-box {
+            background: #f8fafc;
+            padding: 20px 16px;
+            border-radius: var(--radius-md);
             text-align: center;
-            border-left: 4px solid var(--primary);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
         }
 
-        .status-item.post { border-left-color: var(--secondary); }
-        .status-item.points { border-left-color: var(--warning); grid-column: span 2; }
+        .stat-box:hover { transform: translateY(-2px); }
+        .stat-box.pre { border-top: 4px solid var(--primary); }
+        .stat-box.post { border-top: 4px solid var(--secondary); }
+        .stat-box.xp { grid-column: span 2; border-top: 4px solid var(--warning); background: linear-gradient(to bottom, #ffffff, #fffbeb); }
 
-        .status-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
-        .status-value { font-size: 1.4rem; font-weight: 700; margin-top: 4px; }
+        .stat-title { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-num { font-size: 1.75rem; font-weight: 700; color: var(--text-main); margin-top: 4px; }
 
-        /* Kuis & Soal */
-        .quiz-progress {
+        /* Beautiful Quiz & Options UI */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
             font-size: 0.85rem;
             color: var(--text-muted);
-            margin-bottom: 10px;
-            text-align: right;
-        }
-
-        .question-box {
-            font-size: 1.05rem;
             font-weight: 600;
-            margin-bottom: 20px;
-            line-height: 1.5;
         }
 
-        .options-list {
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.6;
+            color: var(--text-main);
+            margin-bottom: 24px;
+        }
+
+        .options-container {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        .option-btn {
-            background: var(--surface);
+        .option-card {
+            background: #ffffff;
             border: 2px solid #e2e8f0;
-            padding: 14px;
-            border-radius: 10px;
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
             text-align: left;
             font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-main);
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .option-btn:hover {
+        .option-card:hover {
             border-color: var(--primary);
-            background: #f5f3ff;
+            background: var(--primary-light);
+            color: var(--primary);
         }
 
-        /* Tombol Umum */
-        .btn-main {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        /* Neumorphic Buttons */
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             border: none;
-            padding: 14px;
-            border-radius: 12px;
+            padding: 16px;
+            border-radius: var(--radius-md);
             width: 100%;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
-            margin-top: 10px;
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.25);
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            transition: all 0.2s ease;
         }
 
-        .btn-main:disabled {
-            background: #cbd5e1;
+        .btn-gradient:active {
+            transform: scale(0.98);
+        }
+
+        .btn-gradient:disabled {
+            background: #cbd5e1 !important;
             color: #94a3b8;
             cursor: not-allowed;
             box-shadow: none;
         }
 
-        /* List Menu Layanan VCT */
-        .vct-item {
-            padding: 12px;
-            border-bottom: 1px solid #e2e8f0;
+        /* Clean List VCT Interactive */
+        .vct-card {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
-        .vct-item:last-child { border-bottom: none; }
-        .vct-name { font-weight: 600; font-size: 0.95rem; }
-        .vct-loc { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+        .vct-icon {
+            background: #ffe4e6;
+            color: var(--danger);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+        }
+        .vct-info h4 { font-size: 1rem; font-weight: 600; }
+        .vct-info p { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
 
-        /* Bottom Nav Bar */
-        .bottom-nav {
+        /* Premium Floating Bottom Navigation */
+        .navigation-bar {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--surface);
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
-            border-top-left-radius: 16px;
-            border-top-right-radius: 16px;
-            z-index: 100;
+            padding: 10px 6px;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            z-index: 1000;
         }
 
-        .nav-item {
+        .nav-link {
             display: flex;
             flex-direction: column;
             align-items: center;
             color: var(--text-muted);
             background: none;
             border: none;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
+            font-weight: 600;
             cursor: pointer;
-            width: 20%;
+            width: 22%;
+            padding: 8px 0;
+            border-radius: 14px;
+            transition: all 0.3s ease;
         }
 
-        .nav-item i { font-size: 1.25rem; margin-bottom: 4px; }
-        .nav-item.active { color: var(--primary); font-weight: 600; }
+        .nav-link i { font-size: 1.3rem; margin-bottom: 4px; transition: transform 0.2s; }
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+        .nav-link.active i { transform: translateY(-2px); }
     </style>
 </head>
 <body>
 
-    <!-- Top Info Bar -->
-    <div class="top-bar">
-        <h1 id="app-title">HIV Smart Education</h1>
-        <p id="app-subtitle">Evaluasi & Literasi Digital Remaja</p>
+    <!-- Header Hero -->
+    <div class="hero-header">
+        <h1>HIV Smart Education</h1>
+        <p>Inovasi Media Edukasi & Evaluasi Kesehatan Remaja</p>
     </div>
 
     <div class="container">
 
-        <!-- 1. HALAMAN PRE-TEST -->
-        <div id="page-pretest" class="page active">
+        <!-- STAGE 1: PRE-TEST (Halaman Awal Wajib) -->
+        <div id="view-pretest" class="page active">
             <div class="card">
-                <h2><i class="fas fa-file-alt"></i> Pre-Test Evaluasi</h2>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
-                    Silakan isi tes awal ini terlebih dahulu untuk mengukur pemahaman dasarmu sebelum masuk ke modul belajar.
-                </p>
-                <div class="quiz-progress" id="pre-progress">Soal 1 dari 3</div>
-                <div class="question-box" id="pre-question">Memuat soal...</div>
-                <div class="options-list" id="pre-options"></div>
+                <h2><i class="fas fa-clipboard-question"></i> Pre-Test Evaluasi</h2>
+                <div class="quiz-header">
+                    <span>Uji Wawasan Awal</span>
+                    <span id="pre-counter">Soal 1/3</span>
+                </div>
+                <div class="question-text" id="pre-question">Memuat soal analisis...</div>
+                <div class="options-container" id="pre-options"></div>
             </div>
         </div>
 
-        <!-- 2. HALAMAN DASHBOARD -->
-        <div id="page-dashboard" class="page">
+        <!-- STAGE 2: DASHBOARD UTAMA -->
+        <div id="view-dashboard" class="page">
             <div class="card">
-                <h2><i class="fas fa-chart-line"></i> Dashboard Pencapaian</h2>
-                <p style="font-size: 0.85rem; color: var(--text-muted);">Pantau perkembangan hasil belajarmu di sini secara real-time:</p>
+                <h2><i class="fas fa-chart-simple"></i> Hasil Analisis Grafik</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Hasil komparasi pre-test dan post-test untuk mengukur tingkat literasi:</p>
                 
-                <div class="status-grid">
-                    <div class="status-item">
-                        <div class="status-label">SKOR PRE-TEST</div>
-                        <div class="status-value" id="score-pre">-</div>
+                <div class="grid-stats">
+                    <div class="stat-box pre">
+                        <div class="stat-title">Skor Pre-Test</div>
+                        <div class="stat-num" id="val-pre">-</div>
                     </div>
-                    <div class="status-item post">
-                        <div class="status-label">SKOR POST-TEST</div>
-                        <div class="status-value" id="score-post">-</div>
+                    <div class="stat-box post">
+                        <div class="stat-title">Skor Post-Test</div>
+                        <div class="stat-num" id="val-post">-</div>
                     </div>
-                    <div class="status-item points">
-                        <div class="status-label">GAMIFIKASI LEVEL & XP</div>
-                        <div class="status-value" id="user-xp" style="font-size: 1.1rem; color: var(--warning);">
-                            <i class="fas fa-star"></i> Level 1 (0 XP)
+                    <div class="stat-box xp">
+                        <div class="stat-title">Gamifikasi Medali Pengetahuan</div>
+                        <div class="stat-num" id="val-xp" style="font-size: 1.15rem; color: var(--warning); font-weight: 600;">
+                            <i class="fas fa-award"></i> Tingkat 1 (0 Poin)
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="card">
-                <h2><i class="fas fa-graduation-cap"></i> Klaim Sertifikat Digital</h2>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
-                    Selesaikan Post-Test dengan nilai minimal 60 untuk membuka sertifikat kelulusan edukasi.
+                <h2><i class="fas fa-id-card"></i> Sertifikat Kelulusan Digital</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+                    Selesaikan Post-Test dengan nilai minimal <strong>60</strong> untuk membuka akses unduh klaim nama.
                 </p>
-                <input type="text" id="cert-name" placeholder="Masukkan nama lengkapmu..." style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; margin-bottom: 10px; font-size: 0.9rem;">
-                <button class="btn-main" id="btn-cert" disabled onclick="claimCertificate()">
-                    <i class="fas fa-certificate"></i> Unduh Sertifikat
+                <input type="text" id="input-nama" placeholder="Ketik nama lengkap Anda di sini..." style="width: 100%; padding: 14px; border-radius: 12px; border: 2px solid #e2e8f0; margin-bottom: 14px; font-size: 0.95rem; font-weight: 500;">
+                <button class="btn-gradient" id="btn-download" disabled onclick="triggerCertificate()">
+                    <i class="fas fa-cloud-arrow-down"></i> Unduh Sertifikat Resmi
                 </button>
             </div>
         </div>
 
-        <!-- 3. HALAMAN MODUL -->
-        <div id="page-modul" class="page">
+        <!-- STAGE 3: MODUL EDUKASI -->
+        <div id="view-modul" class="page">
             <div class="card">
-                <h2><i class="fas fa-book-open"></i> Materi Edukasi HIV</h2>
-                <div style="font-size: 0.9rem; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
-                    <p><strong>Apa itu HIV?</strong><br>HIV (Human Immunodeficiency Virus) adalah virus yang menyerang sistem kekebalan tubuh manusia, khususnya sel CD4.</p>
-                    <p><strong>Bagaimana Cara Penularannya?</strong><br>HIV menular melalui kontak cairan tubuh tertentu seperti darah, ASI, semen, dan cairan vagina. HIV <strong>TIDAK</strong> menular lewat gigitan nyamuk, jabat tangan, atau berbagi alat makan.</p>
-                </div>
-                <button class="btn-main" style="margin-top: 20px;" onclick="addXP(50)">
-                    <i class="fas fa-check-circle"></i> Selesai Membaca (+50 XP)
-                </button>
-            </div>
-        </div>
-
-        <!-- 4. HALAMAN LAYANAN VCT -->
-        <div id="page-layanan" class="page">
-            <div class="card">
-                <h2><i class="fas fa-hospital-user"></i> Rujukan VCT Sulawesi Tenggara</h2>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Daftar faskes resmi penyedia layanan konseling dan tes HIV gratis & rahasia:</p>
-                <div class="vct-item">
-                    <div class="vct-name">RSUD Kota Baubau</div>
-                    <div class="vct-loc"><i class="fas fa-map-marker-alt"></i> Kota Baubau, Sulawesi Tenggara</div>
-                </div>
-                <div class="vct-item">
-                    <div class="vct-name">Puskesmas Wolio</div>
-                    <div class="vct-loc"><i class="fas fa-map-marker-alt"></i> Kec. Wolio, Kota Baubau</div>
-                </div>
-                <div class="vct-item">
-                    <div class="vct-name">RSUD Provinsi Sultra</div>
-                    <div class="vct-loc"><i class="fas fa-map-marker-alt"></i> Kota Kendari, Sulawesi Tenggara</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 5. HALAMAN POST-TEST -->
-        <div id="page-posttest" class="page">
-            <div class="card">
-                <h2><i class="fas fa-user-check"></i> Post-Test Akhir</h2>
-                <div id="post-intro">
-                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
-                        Uji kembali pemahamanmu setelah membaca modul materi untuk membandingkan peningkatan skormu.
+                <h2><i class="fas fa-book-open-reader"></i> E-Modul Interaktif</h2>
+                <div style="font-size: 0.95rem; line-height: 1.7; display: flex; flex-direction: column; gap: 16px; color: #334155;">
+                    <div style="background: #fafafa; padding: 16px; border-radius: 16px; border-left: 5px solid var(--primary);">
+                        <h4 style="color: var(--primary); margin-bottom: 4px;">Apa itu HIV & AIDS?</h4>
+                        <p>HIV adalah virus yang melemahkan sistem imun tubuh dengan merusak sel darah putih. Hubungan infeksi berlanjut kronis tanpa penanganan medis teratur disebut AIDS.</p>
+                    </div>
+                    <div style="background: #fafafa; padding: 16px; border-radius: 16px; border-left: 5px solid var(--secondary);">
+                        <h4 style="color: var(--secondary); margin-bottom: 4px;">Fakta Media Penularan</h4>
+                        <p>Menular secara eksklusif lewat pertukaran cairan tubuh: Darah, Cairan Kelamin, serta Air Susu Ibu (ASI).</p>
+                    </div>
+                    <p style="color: var(--danger); font-weight: 600; font-size: 0.85rem; background: #fff1f2; padding: 12px; border-radius: 12px;">
+                        <i class="fas fa-triangle-exclamation"></i> MITOS: Berjabat tangan, berpelukan, gigitan nyamuk, atau bertukar sendok TIDAK menularkan virus sama sekali.
                     </p>
-                    <button class="btn-main" onclick="startPostTest()">Mulai Post-Test</button>
                 </div>
-                <div id="post-quiz-area" style="display: none;">
-                    <div class="quiz-progress" id="post-progress">Soal 1 dari 3</div>
-                    <div class="question-box" id="post-question">Memuat soal...</div>
-                    <div class="options-list" id="post-options"></div>
+                <button class="btn-gradient" style="margin-top: 24px;" onclick="claimBonusXP(50)">
+                    <i class="fas fa-circle-check"></i> Selesai Mempelajari Modul (+50 XP)
+                </button>
+            </div>
+        </div>
+
+        <!-- STAGE 4: DIREKTORI LAYANAN VCT SULTRA -->
+        <div id="view-vct" class="page">
+            <div class="card">
+                <h2><i class="fas fa-house-medical"></i> Rujukan VCT Sulawesi Tenggara</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Daftar Fasilitas Kesehatan Konseling dan Tes HIV Sukarela Terdekat:</p>
+                
+                <div class="vct-card">
+                    <div class="vct-icon"><i class="fas fa-hospital"></i></div>
+                    <div class="vct-info">
+                        <h4>RSUD Kota Baubau</h4>
+                        <p><i class="fas fa-location-dot"></i> Kota Baubau, Sulawesi Tenggara</p>
+                    </div>
+                </div>
+                <div class="vct-card">
+                    <div class="vct-icon"><i class="fas fa-clinic-medical"></i></div>
+                    <div class="vct-info">
+                        <h4>Puskesmas Wolio</h4>
+                        <p><i class="fas fa-location-dot"></i> Kec. Wolio, Kota Baubau</p>
+                    </div>
+                </div>
+                <div class="vct-card">
+                    <div class="vct-icon"><i class="fas fa-hospital-user"></i></div>
+                    <div class="vct-info">
+                        <h4>RSUD Provinsi Sultra</h4>
+                        <p><i class="fas fa-location-dot"></i> Kota Kendari, Sulawesi Tenggara</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 5: POST-TEST -->
+        <div id="view-posttest" class="page">
+            <div class="card">
+                <h2><i class="fas fa-user-graduate"></i> Post-Test Konfirmasi</h2>
+                <div id="intro-post">
+                    <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px;">
+                        Uji ulang pemahaman kognitif Anda untuk membandingkan peningkatan indeks literasi sebelum dan sesudah mempelajari materi.
+                    </p>
+                    <button class="btn-gradient" onclick="initiatePostTest()">Mulai Ujian Post-Test</button>
+                </div>
+                <div id="box-post-quiz" style="display: none;">
+                    <div class="quiz-header">
+                        <span>Evaluasi Komparasi Akhir</span>
+                        <span id="post-counter">Soal 1/3</span>
+                    </div>
+                    <div class="question-text" id="post-question">Memuat soal post-test...</div>
+                    <div class="options-container" id="post-options"></div>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Bottom Navigation Bar (Muncul setelah Pre-Test Selesai) -->
-    <div class="bottom-nav" id="main-nav" style="display: none;">
-        <button class="nav-item active" onclick="switchPage('dashboard', this)"><i class="fas fa-th-large"></i>Utama</button>
-        <button class="nav-item" onclick="switchPage('modul', this)"><i class="fas fa-book"></i>Modul</button>
-        <button class="nav-item" onclick="switchPage('layanan', this)"><i class="fas fa-heartbeat"></i>VCT Sultra</button>
-        <button class="nav-item" onclick="switchPage('posttest', this)"><i class="fas fa-edit"></i>Post-Test</button>
+    <!-- Floating Navigation Bar -->
+    <div class="navigation-bar" id="app-navigation" style="display: none;">
+        <button class="nav-link active" onclick="navigatePage('dashboard', this)"><i class="fas fa-grip"></i>Dashboard</button>
+        <button class="nav-link" onclick="navigatePage('modul', this)"><i class="fas fa-book-bookmark"></i>Modul</button>
+        <button class="nav-link" onclick="navigatePage('vct', this)"><i class="fas fa-heart-pulse"></i>VCT Sultra</button>
+        <button class="nav-link" onclick="navigatePage('posttest', this)"><i class="fas fa-file-pen"></i>Post-Test</button>
     </div>
 
     <script>
-        // Data Soal Evaluasi
-        const questions = [
-            { q: "Manakah cairan tubuh berikut yang TIDAK dapat menularkan HIV?", o: ["Darah", "Air Liur / Keringat", "ASI", "Cairan Vagina"], a: 1 },
-            { q: "Tahapan akhir dari infeksi infeksi virus HIV di dalam tubuh disebut dengan istilah?", o: ["ODHA", "VCT", "AIDS", "Fase Laten"], a: 2 },
-            { q: "Fasilitas medis terintegrasi untuk melakukan konseling klinis dan tes HIV secara sukarela disebut?", o: ["Layanan VCT", "IGD Darurat", "Laboratorium Utama", "Apotek Kimia"], a: 0 }
+        // Dataset Soal Berstandar Evaluasi
+        const structuralQuestions = [
+            { q: "Manakah di antara kelompok cairan tubuh berikut yang tidak memiliki konsentrasi virus untuk menularkan HIV?", o: ["Cairan Vagina & Semen", "Darah Pengguna Jarum", "Air Keringat & Air Liur", "Air Susu Ibu (ASI)"], a: 2 },
+            { q: "Fase terminal kronis akibat penurunan drastis sistem imun tubuh oleh infeksi virus HIV jangka panjang dikenal sebagai?", o: ["Fase Laten", "AIDS", "Sindrom Inkubasi", "ODHA Aktif"], a: 1 },
+            { q: "Unit medis terintegrasi yang melayani pemeriksaan diagnostik dini serta konseling HIV secara rahasia dinamakan?", o: ["Instalasi Gawat Darurat", "Laboratorium Pusat", "Klinik VCT", "Apotek Faskes"], a: 2 }
         ];
 
-        let currentPreIndex = 0;
-        let preScore = 0;
-        let currentPostIndex = 0;
-        let postScore = 0;
-        let totalXP = 0;
-        let preTestDone = false;
+        let idxPre = 0, scorePre = 0;
+        let idxPost = 0, scorePost = 0;
+        let accumulatedXP = 0;
+        let preCompleted = false;
 
-        // Inisialisasi Soal Pertama Pre-Test
-        function loadPreQuestion() {
-            if(currentPreIndex < questions.length) {
-                document.getElementById('pre-progress').innerText = `Soal ${currentPreIndex + 1} dari ${questions.length}`;
-                document.getElementById('pre-question').innerText = questions[currentPreIndex].q;
+        // Render Pre-Test
+        function renderPreQuestion() {
+            if(idxPre < structuralQuestions.length) {
+                document.getElementById('pre-counter').innerText = `Soal ${idxPre + 1} dari ${structuralQuestions.length}`;
+                document.getElementById('pre-question').innerText = structuralQuestions[idxPre].q;
                 
-                let htmlOptions = "";
-                questions[currentPreIndex].o.forEach((opt, idx) => {
-                    htmlOptions += `<button class="option-btn" onclick="handlePreAnswer(${idx})">${opt}</button>`;
+                let markup = "";
+                structuralQuestions[idxPre].o.forEach((opt, idx) => {
+                    markup += `<button class="option-card" onclick="processPreAnswer(${idx})">${opt} <i class="fas fa-chevron-right" style="font-size:0.8rem; opacity:0.4;"></i></button>`;
                 });
-                document.getElementById('pre-options').innerHTML = htmlOptions;
+                document.getElementById('pre-options').innerHTML = markup;
             } else {
-                finishPreTest();
+                finalizePreTest();
             }
         }
 
-        function handlePreAnswer(selectedIndex) {
-            if(selectedIndex === questions[currentPreIndex].a) {
-                preScore += 100 / questions.length;
+        function processPreAnswer(chosenIdx) {
+            if(chosenIdx === structuralQuestions[idxPre].a) {
+                scorePre += 100 / structuralQuestions.length;
             }
-            currentPreIndex++;
-            loadPreQuestion();
+            idxPre++;
+            renderPreQuestion();
         }
 
-        function finishPreTest() {
-            preTestDone = true;
-            document.getElementById('score-pre').innerText = Math.round(preScore);
-            alert(`Pre-Test selesai! Skor awal kamu: ${Math.round(preScore)}. Sekarang kamu bisa membuka Dashboard dan Menu Belajar.`);
+        function finalizePreTest() {
+            preCompleted = true;
+            document.getElementById('val-pre').innerText = Math.round(scorePre);
+            alert(`Pre-Test terekam! Skor Awal Anda: ${Math.round(scorePre)}. Panel menu utama dan dashboard sekarang dapat Anda akses.`);
             
-            // Tampilkan navigasi utama bawah
-            document.getElementById('main-nav').style.display = 'flex';
-            // Pindahkan langsung ke halaman dashboard utama
-            switchPage('dashboard', document.querySelector('.nav-item'));
+            document.getElementById('app-navigation').style.display = 'flex';
+            navigatePage('dashboard', document.querySelector('.nav-link'));
         }
 
-        // Navigasi Halaman
-        function switchPage(pageId, element) {
-            if(!preTestDone) {
-                alert("Kamu harus menyelesaikan Pre-Test terlebih dahulu!");
-                return;
-            }
+        // Router Navigasi Halaman
+        function navigatePage(targetId, btnRef) {
+            if(!preCompleted) return;
+            
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
             
-            document.getElementById(`page-${pageId}`).classList.add('active');
-            if(element) element.classList.add('active');
+            let targetPage = document.getElementById(`view-${targetId}`);
+            targetPage.classList.add('active');
+            if(btnRef) btnRef.classList.add('active');
         }
 
-        // Kontrol Post Test
-        function startPostTest() {
-            document.getElementById('post-intro').style.display = 'none';
-            document.getElementById('post-quiz-area').style.display = 'block';
-            loadPostQuestion();
+        // Render Post-Test
+        function initiatePostTest() {
+            document.getElementById('intro-post').style.display = 'none';
+            document.getElementById('box-post-quiz').style.display = 'block';
+            renderPostQuestion();
         }
 
-        function loadPostQuestion() {
-            if(currentPostIndex < questions.length) {
-                document.getElementById('post-progress').innerText = `Soal ${currentPostIndex + 1} dari ${questions.length}`;
-                document.getElementById('post-question').innerText = questions[currentPostIndex].q;
+        function renderPostQuestion() {
+            if(idxPost < structuralQuestions.length) {
+                document.getElementById('post-counter').innerText = `Soal ${idxPost + 1} dari ${structuralQuestions.length}`;
+                document.getElementById('post-question').innerText = structuralQuestions[idxPost].q;
                 
-                let htmlOptions = "";
-                questions[currentPostIndex].o.forEach((opt, idx) => {
-                    htmlOptions += `<button class="option-btn" onclick="handlePostAnswer(${idx})">${opt}</button>`;
+                let markup = "";
+                structuralQuestions[idxPost].o.forEach((opt, idx) => {
+                    markup += `<button class="option-card" onclick="processPostAnswer(${idx})">${opt} <i class="fas fa-chevron-right" style="font-size:0.8rem; opacity:0.4;"></i></button>`;
                 });
-                document.getElementById('post-options').innerHTML = htmlOptions;
+                document.getElementById('post-options').innerHTML = markup;
             } else {
-                finishPostTest();
+                finalizePostTest();
             }
         }
 
-        function handlePostAnswer(selectedIndex) {
-            if(selectedIndex === questions[currentPostIndex].a) {
-                postScore += 100 / questions.length;
+        function processPostAnswer(chosenIdx) {
+            if(chosenIdx === structuralQuestions[idxPost].a) {
+                scorePost += 100 / structuralQuestions.length;
             }
-            currentPostIndex++;
-            loadPostQuestion();
+            idxPost++;
+            renderPostQuestion();
         }
 
-        function finishPostTest() {
-            let finalPost = Math.round(postScore);
-            document.getElementById('score-post').innerText = finalPost;
-            document.getElementById('post-quiz-area').innerHTML = `<div style="text-align:center; padding: 20px;"><i class="fas fa-check-circle" style="font-size:3rem; color:var(--success); margin-bottom:10px;"></i><p>Post-Test Selesai! Skor akhir kamu berhasil disimpan di Dashboard utama.</p></div>`;
+        function finalizePostTest() {
+            let finalPost = Math.round(scorePost);
+            document.getElementById('val-post').innerText = finalPost;
+            document.getElementById('box-post-quiz').innerHTML = `
+                <div style="text-align:center; padding: 20px 0;">
+                    <i class="fas fa-circle-check" style="font-size:3.5rem; color:var(--success); margin-bottom:12px;"></i>
+                    <h3 style="margin-bottom:6px;">Post-Test Selesai!</h3>
+                    <p style="font-size:0.9rem; color:var(--text-muted);">Data statistik Anda berhasil diperbarui di halaman utama.</p>
+                </div>`;
             
-            addXP(100);
+            claimBonusXP(100);
             
-            // Cek kelulusan sertifikat (minimal skor 60)
             if(finalPost >= 60) {
-                document.getElementById('btn-cert').removeAttribute('disabled');
+                document.getElementById('btn-download').removeAttribute('disabled');
             }
-            alert(`Post-Test Berhasil! Skor Evaluasi Akhirmu: ${finalPost}`);
+            alert(`Post-Test Selesai! Skor Akhir Evaluasi: ${finalPost}`);
         }
 
-        // Logika Gamifikasi XP
-        function addXP(amount) {
-            totalXP += amount;
-            let level = Math.floor(totalXP / 100) + 1;
-            document.getElementById('user-xp').innerHTML = `<i class="fas fa-star"></i> Level ${level} (${totalXP} XP)`;
+        // Logika Poin Literasi
+        function claimBonusXP(qty) {
+            accumulatedXP += qty;
+            let level = Math.floor(accumulatedXP / 100) + 1;
+            document.getElementById('val-xp').innerHTML = `<i class="fas fa-award"></i> Tingkat ${level} (${accumulatedXP} Poin)`;
         }
 
-        // Simulasi Cetak Sertifikat
-        function claimCertificate() {
-            let nama = document.getElementById('cert-name').value.trim();
-            if(!nama) {
-                alert("Silakan masukkan nama lengkapmu terlebih dahulu untuk dicetak di sertifikat!");
+        // Mekanisme Sertifikat
+        function triggerCertificate() {
+            let namaLengkap = document.getElementById('input-nama').value.trim();
+            if(!namaLengkap) {
+                alert("Harap masukkan nama Anda untuk proses generate sertifikat digital!");
                 return;
             }
-            alert(`Selamat ${nama}! Sertifikat digital "Edukator Remaja HIV Smart" kamu berhasil diterbitkan dengan skor Post-Test: ${Math.round(postScore)}.`);
+            alert(`Selamat, ${namaLengkap}! Dokumen digital "Remaja Pelopor Literasi HIV" diterbitkan secara legal dengan Skor Akhir Evaluasi: ${Math.round(scorePost)}.`);
         }
 
-        // Jalankan Pre-Test pertama kali saat web dibuka
         window.onload = function() {
-            loadPreQuestion();
+            renderPreQuestion();
         };
     </script>
 </body>
