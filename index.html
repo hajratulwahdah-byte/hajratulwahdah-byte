@@ -3,321 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduCare HIV/AIDS - Platform Edukasi Remaja Kreatif</title>
+    <title>Edu-Youth HIV/AIDS Awareness</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-        body { font-family: 'Poppins', sans-serif; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .pulse-animation { animation: pulse 2s infinite; }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); }
+        .card-glow { box-shadow: 0 0 20px rgba(99, 102, 241, 0.15); }
+        .anim-float { animation: float 3s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
 
-    <nav class="bg-gradient-to-r from-red-600 to-rose-500 text-white shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2 cursor-pointer" onclick="switchTab('beranda')">
-                <i class="fa-solid fa-ribbon text-2xl animate-bounce"></i>
-                <span class="font-bold text-xl tracking-wider">EduCare <span class="text-yellow-300">HIV</span></span>
+    <nav class="bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-800 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="showSection('home')">
+                <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/30">
+                    <i class="fa-solid fa-shield-virus"></i>
+                </div>
+                <span class="font-bold text-lg bg-gradient-to-r content-box from-indigo-400 to-pink-500 bg-clip-text text-transparent">EduYouth HIV</span>
             </div>
-            <div class="hidden md:flex space-x-1 text-sm font-semibold">
-                <button onclick="switchTab('beranda')" class="nav-btn px-3 py-2 rounded-lg hover:bg-red-700 transition">Beranda</button>
-                <button onclick="switchTab('pretest')" class="nav-btn px-3 py-2 rounded-lg hover:bg-red-700 transition">Pre/Post Test</button>
-                <button onclick="switchTab('belajar')" class="nav-btn px-3 py-2 rounded-lg hover:bg-red-700 transition">Menu Belajar</button>
-                <button onclick="switchTab('fakta-mitos')" class="nav-btn px-3 py-2 rounded-lg hover:bg-red-700 transition">Fakta/Mitos</button>
-                <button onclick="switchTab('kuis')" class="nav-btn px-3 py-2 rounded-lg hover:bg-red-700 transition">Kuis Interaktif</button>
-                <button onclick="switchTab('peta')" class="nav-btn px-3 py-2 rounded-lg hover:bg-red-700 transition">Peta Layanan VCT</button>
-                <button onclick="switchTab('dashboard')" class="nav-btn px-3 py-2 rounded-lg bg-red-800 text-yellow-300 hover:bg-red-900 transition"><i class="fa-solid fa-user-chart mr-1"></i> Dashboard</button>
+            
+            <div class="flex items-center gap-4 bg-slate-800/80 px-4 py-1.5 rounded-full border border-slate-700">
+                <div class="flex items-center gap-1.5 text-amber-400">
+                    <i class="fa-solid fa-star text-sm"></i>
+                    <span id="user-xp" class="font-bold text-sm">0 XP</span>
+                </div>
+                <div class="h-4 w-px bg-slate-700"></div>
+                <div class="flex items-center gap-1.5 text-pink-400">
+                    <i class="fa-solid fa-medal text-sm"></i>
+                    <span id="user-badge" class="font-bold text-xs">Novice Fighter</span>
+                </div>
             </div>
         </div>
     </nav>
 
-    <main class="flex-grow container mx-auto px-4 py-8 max-w-6xl">
+    <main class="flex-1 max-w-5xl w-full mx-auto p-4 md:p-6 pb-24">
+        
+        <section id="home-section" class="space-y-8 animate-fade-in">
+            <div class="text-center space-y-4 py-8">
+                <span class="px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-semibold uppercase tracking-wider border border-indigo-500/20">Media Edukasi Interaktif Generasi Muda</span>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Putus Stigma, <br class="md:hidden"><span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">Sambung Wawasan Seputar HIV/AIDS</span></h1>
+                <p class="text-slate-400 max-w-xl mx-auto text-sm md:text-base">Aplikasi belajar interaktif yang dikembangkan khusus remaja untuk memahami HIV/AIDS secara objektif, ilmiah, dan seru.</p>
+            </div>
 
-        <section id="beranda" class="tab-content active space-y-8 animate-fade-in">
-            <div class="bg-white rounded-3xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2 items-center p-8 md:p-12 gap-8 border border-slate-100">
-                <div class="space-y-6">
-                    <span class="bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Kreativitas Pemuda Sultra</span>
-                    <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">Patahkan Stigma, Perluas <span class="text-red-600">Wawasan!</span></h1>
-                    <p class="text-slate-600 leading-relaxed text-base">Platform edukasi interaktif HIV/AIDS khusus remaja yang seru, valid secara ilmiah, dan bebas dari penghakiman. Ayo ukur pengetahuanmu dan dapatkan badge tertinggimu!</p>
-                    <div class="flex flex-wrap gap-4">
-                        <button onclick="switchTab('pretest')" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg shadow-red-200 transition transform hover:-translate-y-0.5">Mulai Pre-Test</button>
-                        <button onclick="switchTab('belajar')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-6 py-3 rounded-xl transition">Jelajahi Materi</button>
-                    </div>
+            <div class="bg-gradient-to-r from-indigo-900/40 to-slate-800/80 p-6 rounded-2xl border border-indigo-500/30 card-glow flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="space-y-1 text-center md:text-left">
+                    <h3 class="font-bold text-lg text-white flex items-center gap-2 justify-center md:justify-start">
+                        <i class="fa-solid fa-chart-line text-indigo-400"></i> Tolok Ukur Pengetahuan (LKTI Tracker)
+                    </h3>
+                    <p class="text-xs text-slate-400">Uji pemahamanmu sebelum dan sesudah belajar untuk melihat grafik kenaikan ilmumu.</p>
                 </div>
-                <div class="flex justify-center">
-                    <svg class="w-full max-w-sm pulse-animation" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="100" cy="100" r="80" fill="#FEE2E2" />
-                        <path d="M100,40 C70,40 50,60 50,90 C50,130 100,170 100,170 C100,170 150,130 150,90 C150,60 130,40 100,40 Z" fill="#EF4444" />
-                        <circle cx="100" cy="90" r="25" fill="#FFFFFF" opacity="0.3" />
-                        <path d="M85,90 Q100,110 115,90" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" fill="none"/>
-                    </svg>
+                <div class="flex gap-3 w-full md:w-auto">
+                    <button onclick="startTest('pre')" id="btn-pretest" class="flex-1 md:flex-initial bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition shadow-lg shadow-indigo-600/20 whitespace-nowrap"><i class="fa-solid fa-play mr-2"></i>Mulai Pre-Test</button>
+                    <button onclick="startTest('post')" id="btn-posttest" class="flex-1 md:flex-initial bg-slate-700 opacity-50 cursor-not-allowed text-white px-5 py-2.5 rounded-xl font-bold text-sm transition whitespace-nowrap" disabled><i class="fa-solid fa-graduation-cap mr-2"></i>Mulai Post-Test</button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-gradient-to-br from-amber-400 to-orange-500 text-white p-6 rounded-2xl shadow-md flex items-center space-x-4">
-                    <i class="fa-solid fa-trophy text-4xl opacity-80"></i>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/80 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-xl"><i class="fa-solid fa-bullseye"></i></div>
                     <div>
-                        <h3 class="font-bold text-lg">Kumpulkan Badge</h3>
-                        <p class="text-sm opacity-90">Selesaikan kuis untuk klaim Badge Emas "Duta EduCare"!</p>
+                        <div class="text-xs text-slate-400">Skor Pre-Test</div>
+                        <div id="dash-pre" class="text-xl font-bold text-white">-</div>
                     </div>
                 </div>
-                <div class="bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-6 rounded-2xl shadow-md flex items-center space-x-4">
-                    <i class="fa-solid fa-bullseye text-4xl opacity-80"></i>
+                <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/80 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400 text-xl"><i class="fa-solid fa-trophy"></i></div>
                     <div>
-                        <h3 class="font-bold text-lg">Pantau Progres Belajar</h3>
-                        <p class="text-sm opacity-90">Bandingkan nilai Pre-Test dan Post-Test di Dashboard.</p>
+                        <div class="text-xs text-slate-400">Skor Post-Test</div>
+                        <div id="dash-post" class="text-xl font-bold text-white">-</div>
                     </div>
                 </div>
-                <div class="bg-gradient-to-br from-emerald-500 to-teal-600 text-white p-6 rounded-2xl shadow-md flex items-center space-x-4">
-                    <i class="fa-solid fa-map-location-dot text-4xl opacity-80"></i>
+                <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/80 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-xl"><i class="fa-solid fa-arrow-trend-up"></i></div>
                     <div>
-                        <h3 class="font-bold text-lg">Akses VCT Sultra</h3>
-                        <p class="text-sm opacity-90">Temukan titik fasilitas kesehatan terdekat di Sultra.</p>
+                        <div class="text-xs text-slate-400">Efektivitas Belajar</div>
+                        <div id="dash-gain" class="text-xl font-bold text-emerald-400">-</div>
                     </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+                <button onclick="showSection('belajar')" class="p-5 text-left bg-slate-800 hover:bg-slate-700/80 rounded-2xl border border-slate-700 transition duration-300 group">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-xl mb-4 group-hover:scale-110 transition"><i class="fa-solid fa-book-open"></i></div>
+                    <h4 class="font-bold text-white mb-1">Menu Belajar</h4>
+                    <p class="text-xs text-slate-400">Pelajari materi HIV, imun, penularan, dan pencegahan secara interaktif.</p>
+                </button>
+                <button onclick="startFaktaMitos()" class="p-5 text-left bg-slate-800 hover:bg-slate-700/80 rounded-2xl border border-slate-700 transition duration-300 group">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 text-xl mb-4 group-hover:scale-110 transition"><i class="fa-solid fa-circle-question"></i></div>
+                    <h4 class="font-bold text-white mb-1">Fakta vs Mitos</h4>
+                    <p class="text-xs text-slate-400">Uji 10 mitos populer yang sering salah dipahami masyarakat luas.</p>
+                </button>
+                <button onclick="startQuiz()" class="p-5 text-left bg-slate-800 hover:bg-slate-700/80 rounded-2xl border border-slate-700 transition duration-300 group">
+                    <div class="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400 text-xl mb-4 group-hover:scale-110 transition"><i class="fa-solid fa-gamepad"></i></div>
+                    <h4 class="font-bold text-white mb-1">Kuis Interaktif</h4>
+                    <p class="text-xs text-slate-400">Tantang wawasanmu dengan 10 kuis ber-skor otomatis & naikkan XP-mu.</p>
+                </button>
+                <button onclick="showSection('vct')" class="p-5 text-left bg-slate-800 hover:bg-slate-700/80 rounded-2xl border border-slate-700 transition duration-300 group">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-xl mb-4 group-hover:scale-110 transition"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <h4 class="font-bold text-white mb-1">Peta Faskes VCT</h4>
+                    <p class="text-xs text-slate-400">Informasi rujukan layanan konsultasi & pemeriksaan HIV di Sultra.</p>
+                </button>
+            </div>
+        </section>
+
+        <section id="belajar-section" class="hidden space-y-6 animate-fade-in">
+            <div class="flex flex-wrap gap-2 p-1.5 bg-slate-800/80 rounded-xl border border-slate-700 overflow-x-auto">
+                <button onclick="switchTab('pengertian')" class="tab-btn active-tab flex-1 min-w-[120px] px-4 py-2 rounded-lg font-bold text-xs md:text-sm text-center transition">Pengertian</button>
+                <button onclick="switchTab('imun')" class="tab-btn flex-1 min-w-[120px] px-4 py-2 rounded-lg font-bold text-xs md:text-sm text-center text-slate-400 transition">Sistem Imun</button>
+                <button onclick="switchTab('penularan')" class="tab-btn flex-1 min-w-[120px] px-4 py-2 rounded-lg font-bold text-xs md:text-sm text-center text-slate-400 transition">Cara Penularan</button>
+                <button onclick="switchTab('pencegahan')" class="tab-btn flex-1 min-w-[120px] px-4 py-2 rounded-lg font-bold text-xs md:text-sm text-center text-slate-400 transition">Pencegahan</button>
+            </div>
+
+            <div id="tab-pengertian" class="tab-content bg-slate-800/40 p-6 rounded-2xl border border-slate-700/60 space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-700 pb-3">
+                    <i class="fa-solid fa-dna text-indigo-400 text-2xl"></i>
+                    <h2 class="text-xl font-bold text-white">Apa sih bedanya HIV dan AIDS?</h2>
+                </div>
+                <p class="text-sm md:text-base leading-relaxed text-slate-300">
+                    Banyak yang mengira **HIV** dan **AIDS** adalah hal yang sama persis, padahal beda level lho! 
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                    <div class="p-4 bg-slate-800 rounded-xl border-l-4 border-indigo-500">
+                        <span class="font-bold text-indigo-400 text-sm block mb-1">HIV (Human Immunodeficiency Virus)</span>
+                        <p class="text-xs text-slate-300 leading-relaxed">Adalah **virusnya**. Nama virus yang menyerang dan melemahkan sistem kekebalan tubuh manusia. Orang yang terinfeksi disebut ODHIV (Orang Dengan HIV) dan bisa terlihat sangat sehat selama bertahun-tahun tanpa gejala luar.</p>
+                    </div>
+                    <div class="p-4 bg-slate-800 rounded-xl border-l-4 border-pink-500">
+                        <span class="font-bold text-pink-400 text-sm block mb-1">AIDS (Acquired Immunodeficiency Syndrome)</span>
+                        <p class="text-xs text-slate-300 leading-relaxed">Adalah **stadium akhir/kumpulan gejala** akibat rusaknya sistem imun oleh infeksi HIV yang tidak diobati. Di tahap ini, tubuh jadi sangat rapuh bahkan terhadap flu atau batuk ringan sekalipun.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-imun" class="tab-content hidden bg-slate-800/40 p-6 rounded-2xl border border-slate-700/60 space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-700 pb-3">
+                    <i class="fa-solid fa-shield text-emerald-400 text-2xl"></i>
+                    <h2 class="text-xl font-bold text-white">Medan Perang: HIV vs Sel Darah Putih (CD4)</h2>
+                </div>
+                <p class="text-sm md:text-base leading-relaxed text-slate-300">
+                    Sistem kekebalan tubuh kita punya "komandan jenderal" namanya **Sel T-Helper** atau sering disebut **Sel CD4**. 
+                </p>
+                <div class="bg-slate-800 p-4 rounded-xl flex items-start gap-3">
+                    <div class="text-amber-400 text-lg mt-0.5"><i class="fa-solid fa-circle-exclamation"></i></div>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        **Bagaimana HIV merusak sistem tubuh?** Virus HIV bertindak layaknya pembajak. Ia tidak hanya membunuh sel kekebalan, tetapi masuk ke dalam sel CD4, membajak mesin biologis sel tersebut untuk memperbanyak dirinya sendiri, lalu meledakkan sel tersebut dari dalam untuk menyebarkan pasukan virus baru. Akibatnya, jumlah CD4 terus turun drastis, menyisakan pertahanan tubuh yang kosong tanpa arah.
+                    </p>
+                </div>
+            </div>
+
+            <div id="tab-penularan" class="tab-content hidden bg-slate-800/40 p-6 rounded-2xl border border-slate-700/60 space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-700 pb-3">
+                    <i class="fa-solid fa-arrows-spin text-pink-400 text-2xl"></i>
+                    <h2 class="text-xl font-bold text-white">Jalur Penularan (Hanya Melalui 4 Cairan Tubuh)</h2>
+                </div>
+                <p class="text-sm text-slate-300">HIV **TIDAK** menular lewat udara, bersentuhan, ataupun gigitan nyamuk. HIV hanya bisa bertahan hidup di dalam 4 cairan tubuh spesifik ini:</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div class="p-3 bg-slate-800 rounded-xl text-center font-semibold text-xs border border-slate-700 text-pink-400">Darah</div>
+                    <div class="p-3 bg-slate-800 rounded-xl text-center font-semibold text-xs border border-slate-700 text-indigo-400">Cairan Sperma</div>
+                    <div class="p-3 bg-slate-800 rounded-xl text-center font-semibold text-xs border border-slate-700 text-purple-400">Cairan Vagina</div>
+                    <div class="p-3 bg-slate-800 rounded-xl text-center font-semibold text-xs border border-slate-700 text-amber-400">Air Susu Ibu (ASI)</div>
+                </div>
+                <p class="text-xs text-slate-400 bg-slate-800 p-3 rounded-xl">⚠️ **Catatan Penting:** Penularan terjadi jika cairan tersebut masuk langsung ke aliran darah, misalnya lewat hubungan seksual berisiko tanpa pengaman, penggunaan jarum suntik secara bergantian (pada narkoba), atau dari ibu ke bayi saat hamil/menyusui.</p>
+            </div>
+
+            <div id="tab-pencegahan" class="tab-content hidden bg-slate-800/40 p-6 rounded-2xl border border-slate-700/60 space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-700 pb-3">
+                    <i class="fa-solid fa-hand-holding-hand text-cyan-400 text-2xl"></i>
+                    <h2 class="text-xl font-bold text-white">Metode Pencegahan Ilmiah (ABCDE)</h2>
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-slate-800 p-3.5 rounded-xl text-xs"><b class="text-cyan-400">A - Abstinence:</b> Absen seks, artinya tidak melakukan hubungan seksual sebelum resmi menikah. (Sangat relevan untuk remaja!)</div>
+                    <div class="bg-slate-800 p-3.5 rounded-xl text-xs"><b class="text-cyan-400">B - Be Faithful:</b> Saling setia pada satu pasangan resmi, tidak berganti-ganti pasangan.</div>
+                    <div class="bg-slate-800 p-3.5 rounded-xl text-xs"><b class="text-cyan-400">C - Condom:</b> Penggunaan pengaman saat berhubungan berisiko tinggi.</div>
+                    <div class="bg-slate-800 p-3.5 rounded-xl text-xs"><b class="text-cyan-400">D - Drug No:</b> Hindari narkoba, terutama jenis suntik yang dipakai bergantian.</div>
+                    <div class="bg-slate-800 p-3.5 rounded-xl text-xs"><b class="text-cyan-400">E - Education:</b> Aktif mencari edukasi yang benar dan meluruskan stigma negatif di masyarakat.</div>
                 </div>
             </div>
         </section>
 
-        <section id="pretest" class="tab-content space-y-6">
-            <div class="bg-white p-8 rounded-2xl shadow-md max-w-2xl mx-auto border border-slate-100">
-                <div id="test-intro" class="text-center space-y-4">
-                    <i class="fa-solid fa-clipboard-question text-5xl text-red-500"></i>
-                    <h2 class="text-2xl font-bold">Evaluasi Pemahaman (Pre & Post Test)</h2>
-                    <p class="text-slate-600">Uji dulu pengetahuan awalmu sebelum belajar (Pre-Test), dan ulangi kembali setelah membaca seluruh materi (Post-Test) untuk melihat peningkatan skormu!</p>
-                    <div class="flex justify-center space-x-4 pt-4">
-                        <button onclick="startTest('pre')" class="bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-700 transition">Mulai Pre-Test</button>
-                        <button onclick="startTest('post')" class="bg-purple-600 text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-purple-700 transition">Mulai Post-Test</button>
-                    </div>
+        <section id="fakta-section" class="hidden space-y-6 animate-fade-in">
+            <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 card-glow space-y-4">
+                <div class="flex justify-between items-center text-xs text-slate-400">
+                    <span>Aktivitas: <b class="text-amber-400">Fakta atau Mitos</b></span>
+                    <span id="fakta-progress">Soal 1 dari 10</span>
+                </div>
+                <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
+                    <div id="fakta-bar" class="bg-amber-500 h-full w-10% transition-all duration-300"></div>
                 </div>
 
-                <div id="test-area" class="hidden space-y-6">
-                    <div class="flex justify-between items-center bg-slate-100 p-3 rounded-xl text-sm font-semibold">
-                        <span id="test-title" class="text-red-600">Pre-Test</span>
-                        <span id="test-progress">Soal 1 dari 5</span>
+                <div class="py-4 space-y-3 text-center">
+                    <div id="fakta-bubble-avatar" class="w-16 h-16 bg-amber-500/10 border border-amber-500/30 rounded-full flex items-center justify-center mx-auto text-2xl text-amber-400 mb-2 anim-float">
+                        <i class="fa-solid fa-lightbulb"></i>
                     </div>
-                    <div id="test-question" class="text-lg font-bold text-slate-800 bg-slate-50 p-4 rounded-xl border-l-4 border-red-500">Pertanyaan akan muncul di sini...</div>
-                    <div id="test-options" class="grid grid-cols-1 gap-3">
-                        </div>
+                    <p id="fakta-question-text" class="text-lg font-bold text-white max-w-2xl mx-auto px-2">"Menyendok makanan bersilangan sendok atau piring dengan penderita HIV/AIDS dapat menularkan virus tersebut."</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <button onclick="checkFakta(true)" class="p-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold tracking-wide transition shadow-lg shadow-emerald-600/10">FAKTA</button>
+                    <button onclick="checkFakta(false)" class="p-4 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold tracking-wide transition shadow-lg shadow-pink-600/10">MITOS</button>
+                </div>
+
+                <div id="fakta-feedback" class="hidden p-5 rounded-xl space-y-3 border transition duration-300">
+                    <div class="flex items-center gap-2 font-bold text-base" id="fakta-status-title"></div>
+                    <p id="fakta-explanation" class="text-xs md:text-sm leading-relaxed text-slate-300"></p>
+                    <button onclick="nextFakta()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs px-4 py-2 rounded-lg font-bold transition ml-auto block">Lanjutkan <i class="fa-solid fa-arrow-right ml-1"></i></button>
                 </div>
             </div>
         </section>
 
-        <section id="belajar" class="tab-content space-y-8">
-            <div class="text-center space-y-2">
-                <h2 class="text-3xl font-bold text-slate-900">Pusat Informasi EduCare</h2>
-                <p class="text-slate-500">Materi sains valid yang dikemas ringan dan mudah dipahami.</p>
-            </div>
-
-            <div class="flex flex-wrap justify-center gap-2 bg-slate-200 p-1.5 rounded-2xl max-w-xl mx-auto text-sm font-semibold">
-                <button onclick="openSubMateri('materi-pengertian')" class="sub-materi-btn bg-white text-slate-800 shadow px-4 py-2 rounded-xl transition">Pengertian</button>
-                <button onclick="openSubMateri('materi-imun')" class="sub-materi-btn text-slate-600 px-4 py-2 rounded-xl transition">Sistem Imun</button>
-                <button onclick="openSubMateri('materi-penularan')" class="sub-materi-btn text-slate-600 px-4 py-2 rounded-xl transition">Cara Penularan</button>
-                <button onclick="openSubMateri('materi-pencegahan')" class="sub-materi-btn text-slate-600 px-4 py-2 rounded-xl transition">Pencegahan</button>
-            </div>
-
-            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100 max-w-4xl mx-auto">
-                
-                <div id="materi-pengertian" class="sub-materi-content space-y-4">
-                    <div class="flex items-center space-x-3 text-red-600"><i class="fa-solid fa-book-medical text-3xl"></i><h3 class="text-2xl font-bold">Apa itu HIV & AIDS?</h3></div>
-                    <p class="leading-relaxed text-slate-600"><strong>HIV (Human Immunodeficiency Virus)</strong> adalah virus yang menyerang sel darah putih (khususnya sel T atau CD4) di dalam tubuh manusia. Sel darah putih ini ibaratnya seperti "tentara" yang melindungi tubuh kita dari infeksi kuman penyakit.</p>
-                    <blockquote class="border-l-4 border-red-500 bg-red-50 p-4 rounded-r-xl my-4 text-slate-700">
-                        <strong>Perlu diingat:</strong> HIV adalah nama virusnya, sedangkan <strong>AIDS (Acquired Immunodeficiency Syndrome)</strong> adalah stadium akhir/kumpulan gejala penyakit yang muncul akibat rusaknya sistem kekebalan tubuh tersebut secara parah karena tidak ditangani dengan baik.
-                    </blockquote>
-                </div>
-
-                <div id="materi-imun" class="sub-materi-content hidden space-y-4">
-                    <div class="flex items-center space-x-3 text-blue-600"><i class="fa-solid fa-shield-halved text-3xl"></i><h3 class="text-2xl font-bold">Bagaimana HIV Merusak Sistem Imun?</h3></div>
-                    <p class="leading-relaxed text-slate-600">Bayangkan tubuh kita adalah sebuah kerajaan, dan sel <strong>CD4</strong> adalah jenderal perangnya. Ketika virus HIV masuk, mereka tidak sekadar merusak, tapi membajak jenderal CD4 untuk memproduksi lebih banyak virus baru, lalu menghancurkan jenderal tersebut dari dalam.</p>
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <h4 class="font-bold mb-2 text-slate-700"><i class="fa-solid fa-chart-line-down mr-2 text-blue-500"></i>Tahapan Infeksi:</h4>
-                        <ol class="list-decimal pl-5 space-y-1.5 text-sm text-slate-600">
-                            <li><strong>Masa Inkubasi (Jendela):</strong> Virus berlipat ganda, namun tes laboratorium biasa belum mendeteksinya (1-3 bulan).</li>
-                            <li><strong>Fase Asimtomatik:</strong> Terlihat sehat bugar luar tubuh, padahal pertempuran seluler terus terjadi di dalam tubuh (bisa bertahan 5-10 tahun).</li>
-                            <li><strong>Fase AIDS:</strong> Jumlah sel CD4 drop drastis di bawah 200 sel/mm³, menyebabkan infeksi oportunistik dengan mudah masuk (seperti TBC, diare kronis, jamur rongga mulut).</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div id="materi-penularan" class="sub-materi-content hidden space-y-4">
-                    <div class="flex items-center space-x-3 text-amber-600"><i class="fa-solid fa-arrows-spin text-3xl"></i><h3 class="text-2xl font-bold">Bagaimana Jalur Penularannya?</h3></div>
-                    <p class="text-slate-600">HIV hanya bisa menular melalui **4 cairan tubuh spesifik** yang mengandung konsentrasi virus cukup tinggi:</p>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-4">
-                        <div class="bg-red-50 p-3 rounded-xl text-center border border-red-100 font-semibold text-sm text-red-700"><i class="fa-solid fa-droplet block text-lg mb-1"></i>Darah</div>
-                        <div class="bg-amber-50 p-3 rounded-xl text-center border border-amber-100 font-semibold text-sm text-amber-700"><i class="fa-solid fa-mars block text-lg mb-1"></i>Cairan Sperma</div>
-                        <div class="bg-pink-50 p-3 rounded-xl text-center border border-pink-100 font-semibold text-sm text-pink-700"><i class="fa-solid fa-venus block text-lg mb-1"></i>Cairan Vagina</div>
-                        <div class="bg-yellow-50 p-3 rounded-xl text-center border border-yellow-100 font-semibold text-sm text-yellow-700"><i class="fa-solid fa-baby block text-lg mb-1"></i>Air Susu Ibu (ASI)</div>
-                    </div>
-                    <h4 class="font-bold text-slate-700">⚠️ Risiko Tertinggi Terjadi Melalui:</h4>
-                    <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
-                        <li>Hubungan seksual berisiko (berganti pasangan tanpa pengaman).</li>
-                        <li>Penggunaan jarum suntik bergantian atau bersamaan (terutama pada pengguna napza suntik).</li>
-                        <li>Penularan dari ibu yang positif HIV kepada bayinya saat hamil, melahirkan, atau menyusui jika tidak mendapat pengobatan ARV.</li>
-                    </ul>
-                </div>
-
-                <div id="materi-pencegahan" class="sub-materi-content hidden space-y-4">
-                    <div class="flex items-center space-x-3 text-emerald-600"><i class="fa-solid fa-hand-holding-heart text-3xl"></i><h3 class="text-2xl font-bold">Pencegahan Menggunakan Metode ABCDE</h3></div>
-                    <p class="text-slate-600 font-medium">Metode standar emas pencegahan HIV di dunia medis:</p>
-                    <div class="space-y-3 mt-3">
-                        <div class="bg-slate-50 p-3 rounded-xl border-l-4 border-emerald-500"><span class="font-bold text-emerald-600">A - Abstinence:</span> Tidak melakukan hubungan seksual bagi yang belum menikah (pilihan terbaik remaja!).</div>
-                        <div class="bg-slate-50 p-3 rounded-xl border-l-4 border-emerald-500"><span class="font-bold text-emerald-600">B - Be Faithful:</span> Saling setia pada satu pasangan resmi, tidak berganti-ganti.</div>
-                        <div class="bg-slate-50 p-3 rounded-xl border-l-4 border-emerald-500"><span class="font-bold text-emerald-600">C - Condom:</span> Menggunakan pengaman secara konsisten pada hubungan seksual berisiko tinggi.</div>
-                        <div class="bg-slate-50 p-3 rounded-xl border-l-4 border-emerald-500"><span class="font-bold text-emerald-600">D - Don't Use Drugs:</span> Menghindari penggunaan narkoba, terutama jenis suntik bersama.</div>
-                        <div class="bg-slate-50 p-3 rounded-xl border-l-4 border-emerald-500"><span class="font-bold text-emerald-600">E - Education:</span> Aktif mencari informasi yang benar dan mengedukasi sesama rekan sebaya.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="fakta-mitos" class="tab-content space-y-6">
-            <div class="text-center space-y-2">
-                <h2 class="text-3xl font-bold text-slate-900">🎯 Zona Edukasi: Fakta atau Mitos?</h2>
-                <p class="text-slate-500">Patahkan miskonsepsi dari tingkat dasar yang umum hingga tingkat medis tingkat lanjut!</p>
-            </div>
-
-            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border border-slate-100 max-w-3xl mx-auto space-y-6">
-                <div class="flex justify-between items-center text-sm font-bold bg-amber-50 text-amber-700 px-4 py-2 rounded-xl">
-                    <span>Tantangan Fakta vs Mitos</span>
-                    <span id="fm-progress">Pernyataan 1 dari 10</span>
-                </div>
-
-                <div id="fm-card" class="bg-gradient-to-br from-slate-50 to-slate-100 p-8 rounded-2xl border border-slate-200 text-center space-y-6 min-h-[150px] flex flex-col justify-center items-center">
-                    <p id="fm-statement" class="text-xl font-bold text-slate-800 leading-relaxed">Pernyataan akan dimuat...</p>
-                </div>
-
-                <div id="fm-actions" class="grid grid-cols-2 gap-4">
-                    <button onclick="checkFaktaMitos(true)" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-emerald-100 transition text-lg"><i class="fa-solid fa-check-circle mr-2"></i>FAKTA</button>
-                    <button onclick="checkFaktaMitos(false)" class="bg-rose-500 hover:bg-rose-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-rose-100 transition text-lg"><i class="fa-solid fa-times-circle mr-2"></i>MITOS</button>
-                </div>
-
-                <div id="fm-feedback" class="hidden p-5 rounded-2xl border space-y-3 transition duration-300">
-                    <div class="flex items-center space-x-2 font-bold text-lg">
-                        <span id="fm-status-icon"></span>
-                        <span id="fm-status-text">Jawaban Salah/Benar</span>
-                    </div>
-                    <p id="fm-explanation" class="text-sm leading-relaxed text-slate-700"></p>
-                    <div class="bg-white p-3 rounded-lg border border-slate-200 text-xs text-slate-600">
-                        <strong>Contoh Nyata:</strong> <span id="fm-example"></span>
-                    </div>
-                    <button onclick="nextFaktaMitos()" class="w-full mt-2 bg-slate-800 text-white py-2 rounded-lg font-semibold hover:bg-slate-900 text-sm">Pernyataan Selanjutnya <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                </div>
-            </div>
-        </section>
-
-        <section id="kuis" class="tab-content space-y-6">
-            <div class="text-center space-y-2">
-                <h2 class="text-3xl font-bold text-slate-900">🧠 Uji Wawasan Utama</h2>
-                <p class="text-slate-500">Kuis 10 nomor dengan tingkat kesulitan bervariasi untuk mengukur wawasan barumu.</p>
-            </div>
-
-            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border border-slate-100 max-w-2xl mx-auto space-y-6">
-                <div class="flex justify-between items-center bg-purple-50 text-purple-700 px-4 py-2 rounded-xl text-sm font-bold">
-                    <span>Kuis Evaluasi Terbuka</span>
+        <section id="quiz-section" class="hidden space-y-6 animate-fade-in">
+            <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 card-glow space-y-4">
+                <div class="flex justify-between items-center text-xs text-slate-400">
+                    <span id="quiz-badge-type">Aktivitas: <b class="text-pink-400">Kuis Evaluasi</b></span>
                     <span id="quiz-progress">Soal 1 dari 10</span>
                 </div>
+                <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
+                    <div id="quiz-bar" class="bg-pink-500 h-full w-10% transition-all duration-300"></div>
+                </div>
 
-                <div id="quiz-question" class="text-lg font-bold text-slate-800 bg-slate-50 p-5 rounded-2xl border-l-4 border-purple-500">Memuat soal...</div>
+                <div class="py-2">
+                    <p id="quiz-question-text" class="text-base md:text-lg font-bold text-white leading-snug">Apakah nama obat yang berfungsi menekan replikasi virus HIV di dalam tubuh sehingga jumlahnya menjadi sangat rendah?</p>
+                </div>
+
+                <div class="flex flex-col gap-3" id="quiz-options-container">
+                    </div>
+
+                <div id="quiz-feedback" class="hidden p-5 rounded-xl space-y-3 border transition duration-300">
+                    <div class="flex items-center gap-2 font-bold text-base" id="quiz-status-title"></div>
+                    <p id="quiz-explanation" class="text-xs md:text-sm leading-relaxed text-slate-300"></p>
+                    <button onclick="nextQuiz()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs px-4 py-2 rounded-lg font-bold transition ml-auto block">Soal Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <section id="result-section" class="hidden space-y-6 animate-fade-in text-center py-8">
+            <div class="bg-slate-800/80 p-8 rounded-3xl border border-slate-700 max-w-xl mx-auto card-glow space-y-6">
+                <div id="result-icon-container" class="w-24 h-24 rounded-full bg-indigo-500/10 flex items-center justify-center mx-auto text-4xl text-indigo-400 anim-float">
+                    <i class="fa-solid fa-square-poll-horizontal"></i>
+                </div>
+                <h2 class="text-3xl font-extrabold text-white" id="result-title">Hasil Tes Kamu</h2>
                 
-                <div id="quiz-options" class="grid grid-cols-1 gap-3">
-                    </div>
+                <div class="p-6 bg-slate-900/60 rounded-2xl border border-slate-700 max-w-xs mx-auto">
+                    <span class="text-xs text-slate-400 block mb-1 uppercase tracking-wider font-semibold">Skor Akhir</span>
+                    <span class="text-5xl font-black text-transparent bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text" id="result-score">0 / 100</span>
+                </div>
 
-                <div id="quiz-feedback" class="hidden p-5 rounded-2xl border space-y-2">
-                    <div id="quiz-status" class="font-bold text-lg"></div>
-                    <p id="quiz-explanation" class="text-sm text-slate-700"></p>
-                    <button onclick="nextQuiz()" class="w-full bg-purple-600 text-white py-2 rounded-xl font-semibold hover:bg-purple-700 text-sm">Soal Selanjutnya <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                <p id="result-message" class="text-sm text-slate-300 leading-relaxed px-4">Selamat! Kamu telah merampungkan tes. Pengetahuanmu sudah berada di jalur yang benar untuk memberantas stigma buruk di sekolah.</p>
+                
+                <div class="pt-2">
+                    <button onclick="showSection('home')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition shadow-md shadow-indigo-600/20"><i class="fa-solid fa-house mr-2"></i>Kembali ke Beranda</button>
                 </div>
             </div>
         </section>
 
-        <section id="peta" class="tab-content space-y-6">
-            <div class="text-center space-y-2">
-                <h2 class="text-3xl font-bold text-slate-900">📍 Peta Fasilitas Kesehatan & VCT</h2>
-                <p class="text-slate-500">Fasilitas Konseling Terbuka & Tes HIV Tanpa Stigma di wilayah Sulawesi Tenggara.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 max-h-[400px] overflow-y-auto space-y-2">
-                    <h3 class="font-bold text-sm text-slate-500 border-b pb-2 mb-2 uppercase">Daftar Faskes/VCT Utama</h3>
-                    <div onclick="showMarker('baubau')" class="p-3 bg-red-50 hover:bg-red-100 rounded-xl cursor-pointer border border-red-200 text-sm">
-                        <strong class="text-red-700 block"><i class="fa-solid fa-hospital mr-1"></i> RSUD Kota Baubau</strong>
-                        <span class="text-xs text-slate-600">Jl. Dr. Wahidin, Kota Baubau</span>
-                    </div>
-                    <div onclick="showMarker('kendarirs')" class="p-3 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer border border-slate-200 text-sm">
-                        <strong class="text-slate-800 block"><i class="fa-solid fa-hospital mr-1"></i> RSUD Bahteramas Kendari</strong>
-                        <span class="text-xs text-slate-600">Jl. Kapten Pierre Tendean, Kendari</span>
-                    </div>
-                    <div onclick="showMarker('buton')" class="p-3 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer border border-slate-200 text-sm">
-                        <strong class="text-slate-800 block"><i class="fa-solid fa-clinic-medical mr-1"></i> Puskesmas Pasarwajo</strong>
-                        <span class="text-xs text-slate-600">Kabupaten Buton</span>
-                    </div>
-                    <div onclick="showMarker('raha')" class="p-3 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer border border-slate-200 text-sm">
-                        <strong class="text-slate-800 block"><i class="fa-solid fa-hospital mr-1"></i> RSUD Kabupaten Muna</strong>
-                        <span class="text-xs text-slate-600">Kota Raha, Muna</span>
-                    </div>
+        <section id="vct-section" class="hidden space-y-6 animate-fade-in">
+            <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/80 space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-700 pb-3">
+                    <i class="fa-solid fa-hospital text-emerald-400 text-2xl"></i>
+                    <h2 class="text-xl font-bold text-white">Layanan Konseling & VCT di Sulawesi Tenggara</h2>
                 </div>
-                <div class="md:col-span-2 bg-slate-900 text-white p-6 rounded-2xl shadow-inner flex flex-col justify-between items-center relative min-h-[350px]">
-                    <div class="absolute top-4 left-4 text-xs font-mono text-emerald-400 bg-slate-800/80 px-2 py-1 rounded">Visualisasi Koordinat Provinsi Sultra</div>
-                    
-                    <svg class="w-full max-w-sm h-64" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M40,50 L90,40 L120,60 L110,110 L80,140 L95,170 L70,180 L50,130 Z" fill="#334155" stroke="#475569" stroke-width="2"/>
-                        <path d="M110,110 L140,120 L160,160 L140,190 L125,160 Z" fill="#334155" stroke="#475569" stroke-width="2"/>
-                        
-                        <circle id="pin-baubau" cx="95" cy="170" r="6" fill="#EF4444" class="animate-ping"/>
-                        <circle cx="95" cy="170" r="4" fill="#EF4444"/>
-                        <circle id="pin-kendarirs" cx="120" cy="90" r="4" fill="#3B82F6"/>
-                        <circle id="pin-buton" cx="110" cy="180" r="4" fill="#10B981"/>
-                        <circle id="pin-raha" cx="100" cy="140" r="4" fill="#F59E0B"/>
-                    </svg>
-
-                    <div id="info-peta-card" class="bg-slate-800 p-3 rounded-xl border border-slate-700 w-full text-center text-sm">
-                        <span class="text-yellow-400 font-bold">Terpilih: RSUD Kota Baubau</span> <br> Menyediakan Layanan Konseling & Tes Terintegrasi (KTS/VCT) yang terjamin kerahasiaannya.
+                <p class="text-xs md:text-sm text-slate-300">Berikut adalah daftar fasilitas kesehatan resmi dan rumah sakit rujukan yang menyediakan fasilitas **VCT (Voluntary Counseling and Testing)** untuk pemeriksaan HIV secara aman dan rahasia di wilayah Sulawesi Tenggara.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                    <div class="p-4 bg-slate-800 rounded-xl border border-slate-700 space-y-1">
+                        <span class="font-bold text-sm text-white block">RSUD Bahteramas Kendari</span>
+                        <p class="text-xs text-slate-400"><i class="fa-solid fa-map-pin text-pink-500 mr-1.5"></i>Jl. Kapten Pierre Tendean No.50, Kota Kendari</p>
+                        <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Layanan PDP Lengkap</span>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="dashboard" class="tab-content space-y-6">
-            <div class="text-center space-y-2">
-                <h2 class="text-3xl font-bold text-slate-900">📊 Pusat Kendali & Hasil Belajarmu</h2>
-                <p class="text-slate-500">Lihat grafik kenaikan pengetahuanmu serta raihan lencana digital.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center space-y-4">
-                    <h3 class="font-bold text-slate-700">Lencana Tertinggimu</h3>
-                    <div id="badge-container" class="w-32 h-32 bg-slate-100 rounded-full flex items-center justify-center text-6xl shadow-inner text-slate-300">
-                        <i class="fa-solid fa-lock"></i>
+                    <div class="p-4 bg-slate-800 rounded-xl border border-slate-700 space-y-1">
+                        <span class="font-bold text-sm text-white block">RSUD Kota Baubau</span>
+                        <p class="text-xs text-slate-400"><i class="fa-solid fa-map-pin text-pink-500 mr-1.5"></i>Jl. Sudirman No.20, Kota Baubau</p>
+                        <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Klinik VCT / Perawatan ARV</span>
                     </div>
-                    <div>
-                        <h4 id="badge-title" class="font-bold text-lg text-slate-800">Belum Ada Gelar</h4>
-                        <p id="badge-desc" class="text-xs text-slate-500 mt-1">Selesaikan kuis utama untuk membuka kunci lencana.</p>
+                    <div class="p-4 bg-slate-800 rounded-xl border border-slate-700 space-y-1">
+                        <span class="font-bold text-sm text-white block">Puskesmas Betoambari</span>
+                        <p class="text-xs text-slate-400"><i class="fa-solid fa-map-pin text-pink-500 mr-1.5"></i>Kec. Betoambari, Kota Baubau</p>
+                        <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Konseling & Skrining Awal</span>
                     </div>
-                </div>
-
-                <div class="md:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between">
-                    <h3 class="font-bold text-slate-700 mb-4"><i class="fa-solid fa-chart-line text-red-500 mr-2"></i>Grafik Perbandingan Evaluasi</h3>
-                    <div class="relative w-full h-64 flex items-center justify-center">
-                        <canvas id="chartEvaluasi"></canvas>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 mt-4 text-center border-t pt-4 text-sm">
-                        <div>
-                            <span class="text-xs text-slate-400 block">Skor Pre-Test</span>
-                            <strong id="dash-pre" class="text-lg text-blue-600">-</strong>
-                        </div>
-                        <div>
-                            <span class="text-xs text-slate-400 block">Skor Post-Test</span>
-                            <strong id="dash-post" class="text-lg text-purple-600">-</strong>
-                        </div>
+                    <div class="p-4 bg-slate-800 rounded-xl border border-slate-700 space-y-1">
+                        <span class="font-bold text-sm text-white block">RSUD Kabupaten Kolaka</span>
+                        <p class="text-xs text-slate-400"><i class="fa-solid fa-map-pin text-pink-500 mr-1.5"></i>Jl. Plamboyan No.5, Kabupaten Kolaka</p>
+                        <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Layanan PDP Aktif</span>
                     </div>
                 </div>
             </div>
@@ -325,393 +299,341 @@
 
     </main>
 
-    <footer class="bg-slate-900 text-slate-400 text-center py-6 text-xs mt-12 border-t border-slate-800">
-        <div class="container mx-auto px-4 space-y-2">
-            <p class="font-semibold text-slate-300">&copy; 2026 EduCare HIV Platform. Dibuat Eksklusif untuk Pengajuan LKTI Karya Kreatif Digital.</p>
-            <p>Data faskes diverifikasi berdasarkan standar Dinas Kesehatan Provinsi Sulawesi Tenggara.</p>
+    <footer class="bg-slate-900/90 backdrop-blur-lg border-t border-slate-800 fixed bottom-0 left-0 right-0 py-2.5 z-40">
+        <div class="max-w-xl mx-auto flex justify-around items-center px-4">
+            <button onclick="showSection('home')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition">
+                <i class="fa-solid fa-house text-lg"></i><span class="text-[10px] font-medium">Beranda</span>
+            </button>
+            <button onclick="showSection('belajar')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition">
+                <i class="fa-solid fa-book-open text-lg"></i><span class="text-[10px] font-medium">Belajar</span>
+            </button>
+            <button onclick="startFaktaMitos()" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition">
+                <i class="fa-solid fa-circle-question text-lg"></i><span class="text-[10px] font-medium">Fakta/Mitos</span>
+            </button>
+            <button onclick="startQuiz()" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition">
+                <i class="fa-solid fa-gamepad text-lg"></i><span class="text-[10px] font-medium">Kuis</span>
+            </button>
+            <button onclick="showSection('vct')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition">
+                <i class="fa-solid fa-map-location-dot text-lg"></i><span class="text-[10px] font-medium">VCT Sultra</span>
+            </button>
         </div>
     </footer>
 
     <script>
-        // Data Global State Aplikasi
-        let scores = { pre: null, post: null, quiz: 0 };
-        let activeTestType = 'pre';
-        let currentTestIdx = 0;
-        let currentFmIdx = 0;
-        let currentQuizIdx = 0;
-        let evalChartInstance = null;
-
-        // 1. DATABASE SOAL FAKTA VS MITOS (10 Soal Variatif)
+        // --- DATA BANK FAKTA VS MITOS (10 SOAL DEEP ANALYSIS) ---
         const faktaMitosData = [
             {
-                statement: "HIV dapat menular melalui gigitan nyamuk yang sebelumnya menggigit orang dengan HIV positif.",
+                q: "HIV bisa ditularkan melalui gigitan nyamuk atau serangga yang sebelumnya mengigit ODHIV.",
                 isFakta: false,
-                explanation: "Virus HIV tidak dapat bertahan hidup atau berkembang biak di dalam sel tubuh nyamuk. Selain itu, nyamuk tidak menyuntikkan darah korbannya terdahulu ke orang berikutnya.",
-                example: "Jika kamu tinggal di daerah banyak nyamuk, kamu tidak akan tertular HIV hanya karena gigitan serangga tersebut."
+                exp: "**Jawabannya: MITOS.** Virus HIV tidak dapat bereplikasi atau bertahan hidup di dalam kelenjar air liur nyamuk. Saat nyamuk menggigit orang lain, mereka tidak menyuntikkan darah korban sebelumnya melainkan air liur mereka sendiri."
             },
             {
-                statement: "Ibu hamil dengan status HIV positif tetap dapat melahirkan bayi yang sehat dan negatif HIV.",
+                q: "Ibu hamil yang positif HIV bisa melahirkan anak yang sehat dan bebas dari virus HIV.",
                 isFakta: true,
-                explanation: "Melalui terapi obat antiretroviral (ARV) yang teratur selama kehamilan, proses persalinan caesar, serta pemberian susu formula, risiko penularan ke bayi dapat ditekan hingga di bawah 1%.",
-                example: "Banyak program pencegahan penularan ibu ke anak (PPIA) di rumah sakit Sultra berhasil membantu ibu melahirkan bayi sehat."
+                exp: "**Jawabannya: FAKTA.** Berkat teknologi medis bernama *PMTCT*, dengan rajin meminum obat ARV secara teratur selama masa kehamilan, viral load ibu bisa ditekan ke tingkat tidak terdeteksi sehingga risiko penularan ke janin turun hingga di bawah 1%!"
             },
             {
-                statement: "Berbagi alat makan, kolam renang, atau jabat tangan dengan Orang Dengan HIV/AIDS (ODHIV) bisa menularkan virus.",
+                q: "Kolam renang umum berisiko menularkan HIV jika berenang bersama penderita.",
                 isFakta: false,
-                explanation: "Virus HIV sangat lemah dan cepat mati di luar tubuh manusia. Virus ini tidak menyebar lewat air liur murni (tanpa luka berdarah), keringat, atau sentuhan kulit luar.",
-                example: "Kamu aman berteman dekat, makan bersama satu meja, atau berpelukan dengan teman yang mengidap HIV."
+                exp: "**Jawabannya: MITOS.** Virus HIV adalah organisme yang sangat rapuh di luar tubuh manusia. Begitu terkena air kolam renang yang mengandung kaporit/klorin, virus akan rusak dan mati seketika."
             },
             {
-                statement: "Masa jendela (Window Period) HIV berarti seseorang bisa tes negatif padahal di dalam tubuhnya sudah ada virus.",
-                isFakta: true,
-                explanation: "Masa jendela berkisar antara 1-3 bulan setelah paparan terjadi. Tubuh belum memproduksi cukup antibodi untuk dideteksi alat tes konvensional, namun orang tersebut sudah bisa menularkan virus ke orang lain.",
-                example: "Seseorang yang baru melakukan perilaku berisiko seminggu lalu mungkin hasil tesnya non-reaktif, sehingga butuh tes ulang 3 bulan kemudian."
-            },
-            {
-                statement: "ODHIV yang memiliki viral load (jumlah virus) tidak terdeteksi di dalam darahnya tidak akan menularkan virus secara seksual.",
-                isFakta: true,
-                explanation: "Konsep medis internasional menyatakan U=U (Undetectable = Untransmittable). Ketika virus ditekan oleh obat ARV hingga tidak terdeteksi di laboratorium, risiko penularan seksual menjadi nol.",
-                example: "Ini adalah alasan utama mengapa akses obat ARV gratis dari pemerintah harus terus dijaga demi memutus mata rantai penularan."
-            },
-            {
-                statement: "AIDS adalah penyakit keturunan bawaan lahir.",
+                q: "Seseorang bisa terinfeksi HIV hanya karena berpelukan atau berjabat tangan erat.",
                 isFakta: false,
-                explanation: "AIDS bukan penyakit genetika/keturunan. AIDS disebabkan oleh virus (HIV) yang didapat dari luar tubuh karena paparan cairan tertentu, bukan mutasi gen orang tua.",
-                example: "Anak terinfeksi dari ibunya saat hamil karena pertukaran cairan di plasenta, bukan karena faktor genetik gen."
+                exp: "**Jawabannya: MITOS.** Kontak sosial kasual sehari-hari seperti berpelukan, berciuman pipi, ataupun keringat tidak mengandung konsentrasi virus yang cukup untuk menularkan infeksi."
             },
             {
-                statement: "Obat ARV (Antiretroviral) dapat menyembuhkan total penyakit HIV/AIDS hingga virus hilang sepenuhnya.",
-                isFakta: false,
-                explanation: "Hingga saat ini, belum ada obat yang membunuh virus HIV 100% dari tubuh. ARV berfungsi menekan laju replikasi virus agar sistem imun membaik, sehingga pasien memiliki angka harapan hidup normal.",
-                example: "Sama seperti obat darah tinggi, ARV harus diminum seumur hidup setiap hari secara disiplin."
-            },
-            {
-                statement: "Menggunakan dua kondom sekaligus saat berhubungan seksual memberikan perlindungan ganda dari HIV.",
-                isFakta: false,
-                explanation: "Penggunaan dua kondom sekaligus justru memicu gesekan antar bahan lateks yang menyebabkan kondom menjadi lebih mudah robek dan bocor.",
-                example: "Efektivitas pengaman bergantung pada pemakaian tunggal yang benar, bukan kuantitas lapisannya."
-            },
-            {
-                statement: "Orang yang terlihat sehat bugar dan tidak memiliki gejala fisik apa pun bisa jadi memiliki HIV dalam stadium aktif di tubuhnya.",
+                q: "ODHIV yang memiliki muatan virus (viral load) tidak terdeteksi di dalam darahnya tidak akan menularkan virus secara seksual.",
                 isFakta: true,
-                explanation: "Fase asimtomatik HIV berlangsung lama (5-10 tahun). Seseorang bisa aktif bekerja, berolahraga, dan merasa sehat tanpa tahu mereka terinfeksi sebelum masuk fase AIDS.",
-                example: "Kita tidak bisa menilai status HIV seseorang hanya dari penampilan fisiknya saja; satu-satunya pembuktian adalah tes darah."
+                exp: "**Jawabannya: FAKTA.** Konsep medis internasional menyatakan *Undetectable = Untransmittable (U=U)*. Jika kadar virus di dalam darah sangat rendah karena terapi ARV teratur, potensi penularan secara seksual terbukti nol."
             },
             {
-                statement: "Tindakan khitan (sirkumsisi) pada laki-laki dapat menurunkan risiko penularan infeksi HIV secara seksual.",
+                q: "HIV dan AIDS memiliki arti medis yang persis sama.",
+                isFakta: false,
+                exp: "**Jawabannya: MITOS.** HIV merujuk pada nama agen virusnya, sedangkan AIDS adalah stadium sindrom klinis tingkat lanjut ketika imunitas tubuh telah luluh lantak."
+            },
+            {
+                q: "Obat ARV (Antiretroviral) berfungsi untuk membunuh total seluruh virus HIV dari dalam tubuh.",
+                isFakta: false,
+                exp: "**Jawabannya: MITOS.** Obat ARV saat ini tidak membunuh/menghilangkan virus total, melainkan menahan laju perkembangbiakan virus secara masif agar sel imun (CD4) tetap lestari."
+            },
+            {
+                q: "Menggunakan peralatan makan bersama seperti sendok dan garpu tidak menularkan HIV.",
                 isFakta: true,
-                explanation: "Secara klinis, sirkumsisi menghilangkan kulup penis yang kaya akan sel target virus HIV (sel Langerhans), sehingga menurunkan risiko infeksi hingga 60%. Namun, ini bukan pelindung mutlak.",
-                example: "Khitan merupakan salah satu intervensi kesehatan masyarakat yang didukung oleh WHO untuk pencegahan infeksi."
+                exp: "**Jawabannya: FAKTA.** Virus HIV tidak ditularkan lewat air liur dalam aktivitas makan normal, sehingga berbagi alat makan 100% aman dari penularan."
+            },
+            {
+                q: "Tanda awal terinfeksi HIV selalu langsung ditandai dengan bercak hitam menyeramkan di kulit.",
+                isFakta: false,
+                exp: "**Jawabannya: MITOS.** Fase awal infeksi (masa jendela) seringkali asimtomatik (tanpa gejala) atau hanya seperti flu biasa, membuat banyak penderita tidak menyadarinya selama bertahun-tahun."
+            },
+            {
+                q: "Remaja dan anak sekolah memiliki risiko yang sama untuk tertular jika melakukan perilaku berisiko.",
+                isFakta: true,
+                exp: "**Jawabannya: FAKTA.** Virus tidak memandang usia. Perilaku menyimpang seperti pergaulan bebas tanpa pengaman dan penyalahgunaan jarum narkoba menjadi celah utama bagi siapa saja."
             }
         ];
 
-        // 2. DATABASE SOAL KUIS & EVALUASI PRE/POST TEST (10 Soal Utama Pilihan Ganda)
-        const quizQuestions = [
+        // --- DATA BANK KUIS / EVALUASI (10 SOAL HIGH INSIGHT) ---
+        const quizData = [
             {
-                q: "Sel spesifik dalam sistem kekebalan tubuh manusia yang menjadi target infeksi dan dihancurkan oleh HIV adalah...",
-                options: ["Sel Darah Merah (Eritrosit)", "Sel T-Helper (CD4+)", "Keping Darah (Trombosit)", "Sel Plasma Makrofag B"],
+                q: "Apa target sel imun spesifik yang diserang oleh virus HIV sehingga pertahanan tubuh manusia lumpuh?",
+                options: ["Sel Darah Merah (Eritrosit)", "Sel Limfosit T CD4+", "Keping Darah (Trombosit)", "Sel Makrofag Jaringan"],
                 correct: 1,
-                explanation: "HIV menyasar reseptor permukaan sel CD4+ (T-Helper) yang berfungsi sebagai pengatur utama respon imun tubuh. Jika hancur, pertahanan tubuh lumpuh."
+                exp: "HIV menargetkan reseptor spesifik bernama **Sel T CD4+**. Sel ini bertindak sebagai jenderal komando sistem imun kita. Jika sel ini dibajak dan dihancurkan, tubuh kehilangan komando pertahanan."
             },
             {
-                q: "Salah satu jenis infeksi oportunistik mematikan yang paling sering menyerang pasien fase AIDS di Indonesia akibat penurunan imun adalah...",
-                options: ["Tuberkulosis (TBC)", "Flu Burung", "Diabetes Melitus", "Hipertensi Akut"],
+                q: "Berapa lama rata-rata durasi 'Masa Jendela' (Window Period) standar pada infeksi HIV awal?",
+                options: ["1 - 2 Hari saja", "2 Minggu sampai 3 Bulan", "Tepat 5 Tahun", "10 Tahun lebih"],
+                correct: 1,
+                exp: "Masa jendela berkisar antara **2 minggu hingga 3 bulan**. Ini adalah rentang waktu sejak virus masuk hingga antibodi tubuh terbentuk cukup banyak untuk dapat terdeteksi oleh alat tes laboratorium."
+            },
+            {
+                q: "Istilah medis dunia internasional 'U=U' dalam penanganan HIV modern memiliki kepanjangan...",
+                options: ["Universal = United", "Undetectable = Untransmittable", "Unique = Universal", "Ultimate = Unstoppable"],
+                correct: 1,
+                exp: "**Undetectable = Untransmittable**. Artinya jika kadar virus di darah tidak terdeteksi oleh mesin lab akibat rajin minum ARV, maka ia tidak memiliki kapasitas menularkan pasangannya."
+            },
+            {
+                q: "Pemberian obat pencegahan darurat pasca paparan insidental yang harus diminum maksimal 72 jam setelah kejadian disebut...",
+                options: ["PrEP", "PEP", "ARV", "Vaksin Covid"],
+                correct: 1,
+                exp: "Disebut **PEP (Post-Exposure Prophylaxis)**. Obat darurat ini wajib dikonsumsi segera (maksimal batas aman 72 jam) setelah kecelakaan medis atau paparan berisiko tinggi untuk mencegah replikasi awal virus."
+            },
+            {
+                q: "Manakah cairan tubuh berikut yang sama sekali TIDAK bisa menularkan virus HIV?",
+                options: ["Darah segar", "Air Keringat dan Air Mata", "Cairan Vagina", "Cairan Sperma"],
+                correct: 1,
+                exp: "**Air keringat dan air mata** tidak mengandung kadar konsentrasi partikel virus HIV yang cukup untuk memicu infeksi pada tubuh orang lain."
+            },
+            {
+                q: "Jenis pengujian laboratorium awal yang paling jamak digunakan untuk mendeteksi antibodi HIV adalah...",
+                options: ["Rontgen Dada", "Tes Cepat Rapid / ELISA", "Biopsi Kulit", "Cek Urine Standar"],
+                correct: 2,
+                exp: "Pemeriksaan awal dilakukan dengan **Tes Rapid Antibodi/Antigen** atau metode **ELISA** menggunakan sampel darah perifer."
+            },
+            {
+                q: "Dalam kampanye pencegahan ABCDE, huruf 'A' merepresentasikan perilaku...",
+                options: ["Abstinence (Absen Seks Bebas)", "Alami pengobatan alternatif", "Aktivitas olahraga ketat", "Analisis genetik mandiri"],
                 correct: 0,
-                explanation: "TBC merupakan penyebab kematian tertinggi pada pasien AIDS karena bakteri Mycobacterium tuberculosis sangat mudah berkembang saat imun drop."
+                exp: "**Abstinence** yang berarti tidak melakukan hubungan seksual sama sekali sebelum ikatan pernikahan resmi, pondasi utama pelindung remaja."
             },
             {
-                q: "Prinsip pencegahan penularan seksual 'Be Faithful' berarti...",
-                options: ["Tidak berhubungan intim sama sekali", "Menggunakan kondom berlapis", "Saling setia pada satu pasangan yang sah", "Melakukan tes kesehatan setiap minggu"],
-                correct: 2,
-                explanation: "'Be Faithful' artinya menjaga komitmen hubungan monogami dengan pasangan yang diketahui status kesehatannya negatif."
-            },
-            {
-                q: "Cairan tubuh manakah yang TIDAK memiliki konsentrasi virus HIV cukup tinggi untuk menularkan infeksi?",
-                options: ["Cairan Vagina", "Air Susu Ibu", "Darah", "Air Liur & Keringat"],
-                correct: 3,
-                explanation: "Air liur, urin, dan air mata memiliki kadar virus yang sangat teramat kecil (hampir nol), sehingga tidak mencukupi untuk transmisi infeksi."
-            },
-            {
-                q: "Kombinasi obat yang diberikan kepada orang yang baru terpapar HIV (misal akibat kecelakaan kerja medis) dalam waktu kurang dari 72 jam disebut...",
-                options: ["PrEP (Pre-Exposure Prophylaxis)", "PEP (Post-Exposure Prophylaxis)", "ART (Antiretroviral Therapy)", "Vaksin Imunisasi HIV"],
+                q: "Infeksi penyerta yang muncul secara oportunis memanfaatkan rapuhnya imunitas tubuh penderita AIDS disebut...",
+                options: ["Infeksi Bawaan Lahir", "Infeksi Oportunistis", "Mutasi Super", "Sakit Kronis Luar"],
                 correct: 1,
-                explanation: "PEP adalah penanganan darurat pasca-paparan untuk mencegah virus menetap di tubuh, wajib dikonsumsi selama 28 hari penuh."
+                exp: "Disebut **Infeksi Oportunistis**. Contohnya adalah Tuberkulosis (TBC) parah, jamur kandidiasis di tenggorokan, atau toksoplasmosis otak."
             },
             {
-                q: "Layanan Faskes rahasia gratis tempat masyarakat melakukan konseling sukarela dan tes darah HIV dinamakan...",
-                options: ["Layanan IGD", "Klinik VCT / KTS", "Laboratorium Karantina", "Klinik Fisioterapi"],
-                correct: 1,
-                explanation: "VCT (Voluntary Counseling and Testing) menjamin kerahasiaan identitas pasien (anonim) agar masyarakat tidak takut memeriksakan diri."
-            },
-            {
-                q: "Berapa lamakah rentang waktu ideal masa jendela (window period) pemeriksaan HIV umumnya?",
-                options: ["1 - 2 Hari", "10 Tahun", "4 - 12 Minggu (1-3 Bulan)", "1 Hari penuh"],
-                correct: 2,
-                explanation: "Sebagian besar tes mendeteksi antibodi yang baru terbentuk sempurna dalam rentang waktu 1 hingga 3 bulan sejak infeksi terjadi."
-            },
-            {
-                q: "Ketika infeksi HIV sudah mencapai tahap AIDS, jumlah sel CD4 dalam darah pasien umumnya berada di bawah angka...",
-                options: ["1000 sel/mm³", "500 sel/mm³", "200 sel/mm³", "1500 sel/mm³"],
-                correct: 2,
-                explanation: "Secara medis klinis, batasan diagnosis AIDS ditegakkan apabila kadar CD4 merosot di bawah 200 sel/mm³."
-            },
-            {
-                q: "Bagaimanakah cara penularan HIV dari Ibu ke Anak yang paling umum dapat dicegah?",
-                options: ["Ibu mengonsumsi obat ARV teratur selama hamil", "Anak diisolasi di ruangan khusus", "Ibu tidak boleh memeluk bayinya", "Bayi diberikan antibiotik dosis tinggi"],
+                q: "Di bawah ini, manakah fasilitas gratis penanganan kesehatan konseling HIV secara sukarela di Indonesia?",
+                options: ["Klinik VCT", "Klinik Kecantikan Kulit", "IGD Bedah Tulang", "Laboratorium Fisika Nuklir"],
                 correct: 0,
-                explanation: "Konsumsi ARV teratur menurunkan viral load ibu hingga ke tingkat aman, memperkecil transmisi lewat plasenta."
+                exp: "**Klinik VCT (Voluntary Counseling and Testing)** adalah tempat resmi, aman, ramah, dan dijamin kerahasiaannya untuk konsultasi seputar HIV."
             },
             {
-                q: "Apakah singkatan resmi dari istilah AIDS?",
-                options: ["Alami Imun Defisiensi Sistem", "Acquired Immunodeficiency Syndrome", "Anti Imun Disease Symptoms", "Agent Immune Detection System"],
+                q: "Apakah HIV saat ini sudah memiliki varian vaksin komersial resmi yang bisa mencegah 100% infeksi layaknya vaksin BCG?",
+                options: ["Sudah ada banyak di apotek", "Belum ada vaksin yang 100% efektif secara komersial", "Sudah ditemukan sejak tahun 1980", "Hanya ada di benua Eropa"],
                 correct: 1,
-                explanation: "Acquired Immunodeficiency Syndrome mengindikasikan kumpulan gejala penurunan kekebalan yang didapat (bukan bawaan lahir)."
+                exp: "**Belum ada vaksin komersial yang 100% efektif**. Ini karena virus HIV sangat pintar bermutasi mengubah struktur mantel protein luarnya dalam waktu singkat."
             }
         ];
 
-        // 3. FITUR NAVIGASI TABS
+        // --- APP STATE VARIABLES ---
+        let currentXP = 0;
+        let userBadge = "Novice Fighter";
+        let testMode = "quiz"; // 'pre', 'post', 'quiz'
+        let currentIndex = 0;
+        let score = 0;
+
+        // --- NAVIGATION ENGINE ---
+        function showSection(sectionId) {
+            document.getElementById('home-section').classList.add('hidden');
+            document.getElementById('belajar-section').classList.add('hidden');
+            document.getElementById('fakta-section').classList.add('hidden');
+            document.getElementById('quiz-section').classList.add('hidden');
+            document.getElementById('result-section').classList.add('hidden');
+            document.getElementById('vct-section').classList.add('hidden');
+
+            document.getElementById(`${sectionId}-section`).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            
-            if (tabId === 'fakta-mitos') { initFaktaMitos(); }
-            if (tabId === 'kuis') { initQuiz(); }
-            if (tabId === 'dashboard') { updateDashboard(); }
-        }
-
-        function openSubMateri(subId) {
-            document.querySelectorAll('.sub-materi-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(subId).classList.remove('hidden');
-            
-            document.querySelectorAll('.sub-materi-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'text-slate-800', 'shadow');
-                btn.classList.add('text-slate-600');
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('text-slate-400');
             });
-            event.target.classList.add('bg-white', 'text-slate-800', 'shadow');
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            event.target.classList.add('bg-indigo-600', 'text-white');
+            event.target.classList.remove('text-slate-400');
+            
+            gainXP(15); // Hadiah membaca materi
         }
 
-        // 4. LOGIKA PRE-TEST & POST-TEST
+        // --- GAMIFICATION LOGIC ---
+        function gainXP(amount) {
+            currentXP += amount;
+            document.getElementById('user-xp').innerText = `${currentXP} XP`;
+            
+            // Evaluasi Lencana (Badges)
+            if (currentXP >= 300) userBadge = "Immune Overlord 👑";
+            else if (currentXP >= 180) userBadge = "Virus Crusher ⚡";
+            else if (currentXP >= 80) userBadge = "Immune Guardian 🛡️";
+            
+            document.getElementById('user-badge').innerText = userBadge;
+        }
+
+        // --- FAKTA ATAU MITOS ENGINE ---
+        function startFaktaMitos() {
+            testMode = "fakta";
+            currentIndex = 0;
+            score = 0;
+            showSection('fakta');
+            renderFaktaQuestion();
+        }
+
+        function renderFaktaQuestion() {
+            document.getElementById('fakta-feedback').classList.add('hidden');
+            const currentQ = faktaMitosData[currentIndex];
+            document.getElementById('fakta-progress').innerText = `Soal ${currentIndex + 1} dari 10`;
+            document.getElementById('fakta-bar').style.width = `${(currentIndex + 1) * 10}%`;
+            document.getElementById('fakta-question-text').innerHTML = `"${currentQ.q}"`;
+        }
+
+        function checkFakta(userAnswer) {
+            const currentQ = faktaMitosData[currentIndex];
+            const isCorrect = (userAnswer === currentQ.isFakta);
+            const feedbackEl = document.getElementById('fakta-feedback');
+            const statusTitleEl = document.getElementById('fakta-status-title');
+            
+            feedbackEl.classList.remove('hidden', 'bg-emerald-500/10', 'border-emerald-500/30', 'bg-pink-500/10', 'border-pink-500/30');
+            
+            if (isCorrect) {
+                score++;
+                gainXP(20);
+                statusTitleEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> <span class="text-emerald-400">Jawaban Kamu BENAR! (+20 XP)</span>`;
+                feedbackEl.classList.add('bg-emerald-500/10', 'border-emerald-500/30');
+            } else {
+                statusTitleEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-pink-400"></i> <span class="text-pink-400">Kurang Tepat, Nih Penjelasan yang Benar:</span>`;
+                feedbackEl.classList.add('bg-pink-500/10', 'border-pink-500/30');
+            }
+            
+            document.getElementById('fakta-explanation').innerHTML = currentQ.exp;
+        }
+
+        function nextFakta() {
+            currentIndex++;
+            if (currentIndex < faktaMitosData.length) {
+                renderFaktaQuestion();
+            } else {
+                finishAssessment("Fakta vs Mitos");
+            }
+        }
+
+        // --- KUIS & PRE/POST TEST ENGINE ---
+        function startQuiz() {
+            testMode = "quiz";
+            document.getElementById('quiz-badge-type').innerHTML = `Aktivitas: <b class="text-pink-400">Kuis Evaluasi</b>`;
+            initQuizBuild();
+        }
+
         function startTest(type) {
-            activeTestType = type;
-            currentTestIdx = 0;
-            scores[type] = 0;
-            document.getElementById('test-intro').classList.add('hidden');
-            document.getElementById('test-area').classList.remove('hidden');
-            document.getElementById('test-title').innerText = type === 'pre' ? '✨ Evaluasi Pre-Test' : '🔥 Evaluasi Post-Test';
-            loadTestQuestion();
+            testMode = type;
+            document.getElementById('quiz-badge-type').innerHTML = `Aktivitas: <b class="text-indigo-400">${type === 'pre' ? 'Pre-Test' : 'Post-Test'}</b>`;
+            initQuizBuild();
         }
 
-        function loadTestQuestion() {
-            if (currentTestIdx >= 5) { // Kita ambil sampel 5 soal acak untuk efisiensi test
-                endTest();
-                return;
-            }
-            document.getElementById('test-progress').innerText = `Soal ${currentTestIdx + 1} dari 5`;
-            let qData = quizQuestions[currentTestIdx];
-            document.getElementById('test-question').innerText = qData.q;
+        function initQuizBuild() {
+            currentIndex = 0;
+            score = 0;
+            showSection('quiz');
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            const currentQ = quizData[currentIndex];
             
-            let optionsDiv = document.getElementById('test-options');
-            optionsDiv.innerHTML = '';
-            qData.options.forEach((opt, idx) => {
-                optionsDiv.innerHTML += `
-                    <button onclick="submitTestAnswer(${idx})" class="w-full bg-white text-left p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 font-medium transition text-sm">
-                        ${opt}
-                    </button>
-                `;
+            document.getElementById('quiz-progress').innerText = `Soal ${currentIndex + 1} dari 10`;
+            document.getElementById('quiz-bar').style.width = `${(currentIndex + 1) * 10}%`;
+            document.getElementById('quiz-question-text').innerText = currentQ.q;
+            
+            const container = document.getElementById('quiz-options-container');
+            container.innerHTML = "";
+            
+            currentQ.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-3.5 rounded-xl bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-xs md:text-sm text-slate-200 transition font-medium";
+                btn.innerText = `${String.fromCharCode(65 + idx)}. ${opt}`;
+                btn.onclick = () => checkQuiz(idx);
+                container.appendChild(btn);
             });
         }
 
-        function submitTestAnswer(chosenIdx) {
-            if (chosenIdx === quizQuestions[currentTestIdx].correct) {
-                scores[activeTestType] += 20; // 5 soal x 20 = 100 poin maks
-            }
-            currentTestIdx++;
-            loadTestQuestion();
-        }
-
-        function endTest() {
-            document.getElementById('test-area').classList.add('hidden');
-            document.getElementById('test-intro').classList.remove('hidden');
-            alert(`Selamat! Anda telah menyelesaikan ${activeTestType.toUpperCase()}-TEST. Nilai anda tercatat di Dashboard.`);
-            switchTab('dashboard');
-        }
-
-        // 5. LOGIKA FAKTA VS MITOS INTERAKTIF
-        function initFaktaMitos() {
-            currentFmIdx = 0;
-            document.getElementById('fm-feedback').classList.add('hidden');
-            document.getElementById('fm-actions').classList.remove('hidden');
-            showFaktaMitosQuestion();
-        }
-
-        function showFaktaMitosQuestion() {
-            if (currentFmIdx >= faktaMitosData.length) {
-                alert("Hebat! Kamu telah menuntaskan seluruh 10 tantangan Fakta atau Mitos!");
-                switchTab('belajar');
-                return;
-            }
-            document.getElementById('fm-progress').innerText = `Pernyataan ${currentFmIdx + 1} dari 10`;
-            document.getElementById('fm-statement').innerText = `"${faktaMitosData[currentFmIdx].statement}"`;
-            document.getElementById('fm-feedback').classList.add('hidden');
-            document.getElementById('fm-actions').classList.remove('hidden');
-        }
-
-        function checkFaktaMitos(userPickedFakta) {
-            let item = faktaMitosData[currentFmIdx];
-            let isCorrect = (userPickedFakta === item.isFakta);
+        function checkQuiz(userAnswerIdx) {
+            const currentQ = quizData[currentIndex];
+            const isCorrect = (userAnswerIdx === currentQ.correct);
+            const feedbackEl = document.getElementById('quiz-feedback');
+            const statusTitleEl = document.getElementById('quiz-status-title');
             
-            document.getElementById('fm-actions').classList.add('hidden');
-            let feedbackBox = document.getElementById('fm-feedback');
-            feedbackBox.classList.remove('hidden');
-            
-            let iconEl = document.getElementById('fm-status-icon');
-            let textEl = document.getElementById('fm-status-text');
+            // Disable opsi jawaban setelah diklik
+            const optionBtns = document.getElementById('quiz-options-container').getElementsByTagName('button');
+            for(let btn of optionBtns) { btn.disabled = true; btn.classList.opacity = 50; }
+
+            feedbackEl.classList.remove('hidden', 'bg-emerald-500/10', 'border-emerald-500/30', 'bg-pink-500/10', 'border-pink-500/30');
 
             if (isCorrect) {
-                feedbackBox.className = "p-5 rounded-2xl border bg-emerald-50 border-emerald-200 text-emerald-900";
-                iconEl.innerHTML = "<i class='fa-solid fa-circle-check text-emerald-600'></i>";
-                textEl.innerText = "Jawabanmu BENAR!";
+                score++;
+                gainXP(25);
+                statusTitleEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> <span class="text-emerald-400">Mantap! Jawabanmu Tepat (+25 XP)</span>`;
+                feedbackEl.classList.add('bg-emerald-500/10', 'border-emerald-500/30');
             } else {
-                feedbackBox.className = "p-5 rounded-2xl border bg-rose-50 border-rose-200 text-rose-900";
-                iconEl.innerHTML = "<i class='fa-solid fa-circle-xmark text-rose-600'></i>";
-                textEl.innerText = `Jawabanmu SALAH! (Jawaban Benar: ${item.isFakta ? 'FAKTA' : 'MITOS'})`;
+                statusTitleEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-pink-400"></i> <span class="text-pink-400">Jawaban Salah. Jawaban Benar: Opsi ${String.fromCharCode(65 + currentQ.correct)}</span>`;
+                feedbackEl.classList.add('bg-pink-500/10', 'border-pink-500/30');
             }
 
-            document.getElementById('fm-explanation').innerHTML = `<strong>Penjelasan Ilmiah:</strong> ${item.explanation}`;
-            document.getElementById('fm-example').innerText = item.example;
-        }
-
-        function nextFaktaMitos() {
-            currentFmIdx++;
-            showFaktaMitosQuestion();
-        }
-
-        // 6. LOGIKA KUIS 10 NOMOR
-        function initQuiz() {
-            currentQuizIdx = 0;
-            scores.quiz = 0;
-            document.getElementById('quiz-feedback').classList.add('hidden');
-            showQuizQuestion();
-        }
-
-        function showQuizQuestion() {
-            if (currentQuizIdx >= quizQuestions.length) {
-                showQuizResult();
-                return;
-            }
-            document.getElementById('quiz-progress').innerText = `Soal ${currentQuizIdx + 1} dari 10`;
-            let qData = quizQuestions[currentQuizIdx];
-            document.getElementById('quiz-question').innerText = qData.q;
-            document.getElementById('quiz-feedback').classList.add('hidden');
-
-            let optionsDiv = document.getElementById('quiz-options');
-            optionsDiv.innerHTML = '';
-            qData.options.forEach((opt, idx) => {
-                optionsDiv.innerHTML += `
-                    <button onclick="selectQuizOption(${idx})" class="quiz-opt-btn w-full bg-white text-left p-3.5 rounded-xl border border-slate-200 hover:bg-purple-50 hover:border-purple-300 font-medium transition text-sm flex justify-between items-center">
-                        <span>${opt}</span>
-                    </button>
-                `;
-            });
-        }
-
-        function selectQuizOption(chosenIdx) {
-            let qData = quizQuestions[currentQuizIdx];
-            let isCorrect = (chosenIdx === qData.correct);
-            
-            // Nonaktifkan semua pilihan
-            document.querySelectorAll('.quiz-opt-btn').forEach(btn => btn.disabled = true);
-
-            if (isCorrect) {
-                scores.quiz += 10;
-                document.getElementById('quiz-status').innerHTML = "<span class='text-emerald-600'><i class='fa-solid fa-circle-check'></i> Tepat Sekali!</span>";
-            } else {
-                document.getElementById('quiz-status').innerHTML = `<span class='text-rose-600'><i class='fa-solid fa-circle-xmark'></i> Kurang Tepat!</span> <span class='text-xs block text-slate-500 font-normal mt-1'>Jawaban benar: <strong>${qData.options[qData.correct]}</strong></span>`;
-            }
-
-            document.getElementById('quiz-explanation').innerHTML = `<strong>Ulasan Kunci:</strong> ${qData.explanation}`;
-            document.getElementById('quiz-feedback').classList.remove('hidden');
+            document.getElementById('quiz-explanation').innerHTML = currentQ.exp;
         }
 
         function nextQuiz() {
-            currentQuizIdx++;
-            showQuizQuestion();
-        }
-
-        function showQuizResult() {
-            let msg = "";
-            if (scores.quiz >= 80) msg = "Luar biasa! Kamu memiliki wawasan tajam bagai spesialis kesehatan remaja.";
-            else if (scores.quiz >= 50) msg = "Bagus! Pengetahuanmu cukup oke, yuk tingkatkan membaca sub-materi lagi.";
-            else msg = "Jangan berkecil hati, jadikan kesalahan ini sebagai peta belajarmu.";
-
-            alert(`Kuis selesai!\nSkor Akhir Anda: ${scores.quiz} / 100\n\n${msg}`);
-            switchTab('dashboard');
-        }
-
-        // 7. INTERAKSI MOCKUP PETA
-        function showMarker(lokasi) {
-            const infoText = {
-                baubau: "<strong>RSUD Kota Baubau</strong><br>Jl. Dr. Wahidin, Baubau. Menyediakan KTS/VCT terintegrasi gratis & terjamin kerahasiaannya.",
-                kendarirs: "<strong>RSUD Bahteramas Kendari</strong><br>Pusat Rujukan Utama Provinsi Sultra dengan logistik ARV terlengkap.",
-                buton: "<strong>Puskesmas Pasarwajo</strong><br>Menyediakan penanganan konseling tingkat pertama dan rujukan berkala wilayah Buton.",
-                raha: "<strong>RSUD Kabupaten Muna</strong><br>Melayani pemeriksaan darah berkala dan dukungan konseling bagi wilayah kepulauan Muna."
-            };
-            
-            // Ubah pin warna
-            document.querySelectorAll('circle[id^="pin-"]').forEach(c => c.setAttribute('fill', '#3B82F6'));
-            let activeCircle = document.getElementById(`pin-${lokasi}`);
-            if(activeCircle) activeCircle.setAttribute('fill', '#EF4444');
-
-            document.getElementById('info-peta-card').innerHTML = infoText[lokasi];
-        }
-
-        // 8. LOGIKA UPDATE DASHBOARD & GAMIFIKASI
-        function updateDashboard() {
-            document.getElementById('dash-pre').innerText = scores.pre !== null ? `${scores.pre} Poin` : 'Belum Tes';
-            document.getElementById('dash-post').innerText = scores.post !== null ? `${scores.post} Poin` : 'Belum Tes';
-
-            // Logika Gamifikasi Badge System
-            let badgeBox = document.getElementById('badge-container');
-            let badgeTitle = document.getElementById('badge-title');
-            let badgeDesc = document.getElementById('badge-desc');
-
-            if (scores.quiz >= 80) {
-                badgeBox.className = "w-32 h-32 bg-amber-100 rounded-full flex items-center justify-center text-6xl shadow-md text-amber-500 border-4 border-amber-300 animate-bounce";
-                badgeBox.innerHTML = "<i class='fa-solid fa-award'></i>";
-                badgeTitle.innerText = "Duta EduCare Emas";
-                badgeDesc.innerText = "Selamat! Kamu menguasai pengetahuan HIV dari taraf mendasar hingga analisis rumit.";
-            } else if (scores.quiz > 0) {
-                badgeBox.className = "w-32 h-32 bg-slate-200 rounded-full flex items-center justify-center text-6xl shadow-md text-indigo-500 border-4 border-indigo-300";
-                badgeBox.innerHTML = "<i class='fa-solid fa-medal'></i>";
-                badgeTitle.innerText = "Ksatria EduCare";
-                badgeDesc.innerText = "Bagus! Kamu sudah berani mengambil langkah memutus rantai stigma negatif.";
+            currentIndex++;
+            if (currentIndex < quizData.length) {
+                renderQuizQuestion();
+            } else {
+                finishAssessment(testMode === 'pre' ? 'Pre-Test' : (testMode === 'post' ? 'Post-Test' : 'Kuis Kognitif'));
             }
+        }
 
-            // Rendering / Update Chart.js
-            let ctx = document.getElementById('chartEvaluasi').getContext('2d');
+        // --- REKAPITULASI AKHIR & LKTI CALCULATOR ---
+        function finishAssessment(title) {
+            const finalScore = score * 10;
+            showSection('result');
             
-            if (evalChartInstance) { evalChartInstance.destroy(); }
-            
-            evalChartInstance = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Pre-Test', 'Kuis Utama', 'Post-Test'],
-                    datasets: [{
-                        label: 'Skor Capaian Pemahaman (%)',
-                        data: [scores.pre || 0, scores.quiz, scores.post || 0],
-                        backgroundColor: ['rgba(59, 130, 246, 0.7)', 'rgba(147, 51, 234, 0.7)', 'rgba(16, 185, 129, 0.7)'],
-                        borderColor: ['#3b82f6', '#9333ea', '#10b981'],
-                        borderWidth: 2,
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: { y: { min: 0, max: 100 } }
-                }
-            });
+            document.getElementById('result-title').innerText = `Hasil ${title}`;
+            document.getElementById('result-score').innerText = `${finalScore} / 100`;
+
+            // LKTI Logika Penyimpanan Parameter
+            if (testMode === 'pre') {
+                document.getElementById('dash-pre').innerText = finalScore;
+                document.getElementById('btn-pretest').classList.add('hidden');
+                document.getElementById('btn-posttest').classList.remove('opacity-50', 'cursor-not-allowed');
+                document.getElementById('btn-posttest').disabled = false;
+                document.getElementById('result-message').innerText = "Pre-Test selesai! Yuk lanjut baca modul materi edukasi di Menu Belajar, lalu uji dengan Post-Test di akhir ya.";
+            } else if (testMode === 'post') {
+                document.getElementById('dash-post').innerText = finalScore;
+                document.getElementById('btn-posttest').classList.add('hidden');
+                
+                // Hitung N-Gain / Kenaikan Efektivitas Belajar
+                const preScore = parseInt(document.getElementById('dash-pre').innerText) || 0;
+                const gain = finalScore - preScore;
+                document.getElementById('dash-gain').innerText = gain >= 0 ? `+${gain} Poin` : `${gain} Poin`;
+                document.getElementById('result-message').innerText = `Luar biasa! Post-test berhasil direkam. Grafik peningkatan nilai belajar kamu tercatat dengan baik di LKTI Dashboard.`;
+            } else {
+                document.getElementById('result-message').innerText = "Kuis mandiri selesai! Kamu hebat sudah menyelesaikan tantangan wawasan tingkat lanjut ini. Pertahankan prestasimu!";
+            }
         }
     </script>
 </body>
-</html>
+    </html>
