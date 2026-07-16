@@ -3,647 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HIV Smart Education - Media Pembelajaran Inovatif</title>
-    <!-- Google Fonts & Font Awesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>HIV Smart Edu - Next Gen</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        /* --- CSS STYLING & GLOBAL VARIABLES --- */
         :root {
-            --primary: #0284c7;
-            --primary-dark: #0369a1;
-            --secondary: #0d9488;
-            --bg-light: #f8fafc;
-            --text-dark: #1e293b;
-            --card-bg: #ffffff;
-            --transition: all 0.3s ease;
+            --primary: #6366f1; --secondary: #10b981; --bg: #f8fafc; --text: #1e293b;
+            --glass: rgba(255, 255, 255, 0.7);
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: linear-gradient(135deg, #e0e7ff, #ccfbf1); min-height: 100vh; color: var(--text); }
 
-        /* Dark Mode Variables */
-        [data-theme="dark"] {
-            --bg-light: #0f172a;
-            --text-dark: #f1f5f9;
-            --card-bg: #1e293b;
-        }
+        /* Header & Nav */
+        nav { padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--primary); }
+        
+        /* Hero */
+        .hero { text-align: center; padding: 4rem 5%; }
+        h1 { font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .pulse-btn { padding: 1rem 2rem; background: var(--primary); color: white; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(99, 102, 241, 0); } }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        /* Card Section */
+        .section { padding: 4rem 5%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: var(--glass); backdrop-filter: blur(10px); padding: 2rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.3); transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); }
 
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            transition: var(--transition);
-            line-height: 1.6;
-        }
-
-        /* Navigation */
-        nav {
-            background-color: var(--card-bg);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--secondary);
-        }
-
-        .theme-toggle {
-            cursor: pointer;
-            font-size: 1.2rem;
-            background: none;
-            border: none;
-            color: var(--text-dark);
-        }
-
-        /* Container & Pages */
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 20px;
-        }
-
-        .page {
-            display: none;
-            animation: fadeIn 0.5s ease-in-out forwards;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Button Global */
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
-            transition: var(--transition);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.5);
-        }
-
-        /* --- 1. BERANDA --- */
-        #beranda {
-            text-align: center;
-            padding: 4rem 1rem;
-        }
-
-        .hero-logo {
-            font-size: 5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        #beranda h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-        }
-
-        #beranda p {
-            font-size: 1.1rem;
-            color: #64748b;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* --- 2. MENU BELAJAR --- */
-        .grid-materi {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: var(--transition);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card i {
-            font-size: 2rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
-        }
-
-        .card h3 {
-            margin-bottom: 10px;
-        }
-
-        /* --- 3. FAKTA ATAU MITOS --- */
-        .fm-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .fm-item {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .fm-buttons {
-            margin-top: 10px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-check {
-            padding: 8px 20px;
-            border: 2px solid #cbd5e1;
-            background: transparent;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--text-dark);
-            transition: var(--transition);
-        }
-
-        .btn-check.correct-btn {
-            background-color: #22c55e;
-            color: white;
-            border-color: #22c55e;
-        }
-
-        .btn-check.wrong-btn {
-            background-color: #ef4444;
-            color: white;
-            border-color: #ef4444;
-        }
-
-        .explanation {
-            margin-top: 12px;
-            padding: 10px;
-            background-color: rgba(2, 132, 199, 0.1);
-            border-left: 4px solid var(--primary);
-            border-radius: 4px;
-            display: none;
-        }
-
-        /* --- 4. QUIZ INTERAKTIF --- */
-        .quiz-box {
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .option-btn {
-            padding: 12px 20px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            background: transparent;
-            text-align: left;
-            font-size: 1rem;
-            cursor: pointer;
-            color: var(--text-dark);
-            transition: var(--transition);
-        }
-
-        .option-btn:hover:not([disabled]) {
-            background-color: rgba(13, 148, 136, 0.1);
-            border-color: var(--secondary);
-        }
-
-        .option-btn.selected {
-            background-color: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        /* Hasil Quiz & Statistik */
-        .result-box {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .score-display {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--secondary);
-            margin: 15px 0;
-        }
-
-        .stars {
-            font-size: 2rem;
-            color: #fbbf24;
-            margin-bottom: 15px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .stat-card {
-            background: rgba(0,0,0,0.02);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
-        }
-
-        /* --- 5. SERTIFIKAT --- */
-        .certificate-box {
-            display: none;
-            margin-top: 30px;
-            padding: 30px;
-            border: 10px double var(--primary);
-            background: #fff;
-            color: #1e293b;
-            border-radius: 8px;
-            position: relative;
-            text-align: center;
-        }
-
-        .certificate-box h2 {
-            font-family: 'Georgia', serif;
-            color: var(--primary-dark);
-        }
-
-        .cert-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            text-decoration: underline;
-            margin: 20px 0;
-            color: #0f172a;
-        }
-
-        /* Responsive Mobile */
-        @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 10px; }
-            .nav-links { gap: 10px; font-size: 0.9rem; }
-            #beranda h1 { font-size: 1.8rem; }
-        }
+        /* Quiz & FM */
+        .interactive-box { max-width: 700px; margin: auto; background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .option-btn { width: 100%; padding: 1rem; margin: 0.5rem 0; border: 2px solid #e2e8f0; border-radius: 10px; cursor: pointer; text-align: left; background: white; transition: 0.3s; }
+        .option-btn:hover { border-color: var(--primary); background: #f5f3ff; }
+        .correct { background: #d1fae5 !important; border-color: #059669 !important; }
+        .wrong { background: #fee2e2 !important; border-color: #dc2626 !important; }
+        .explanation { margin-top: 1rem; padding: 1rem; border-radius: 10px; background: #f1f5f9; display: none; }
+        
+        .hidden { display: none; }
+        .visible { display: block; }
     </style>
 </head>
 <body>
 
-    <!-- Audio Effects (Menggunakan API Audio internal browser) -->
-    <script>
-        const soundCorrect = new Audio('https://assets.mixkit.co/active_storage/sfx/2000/2000-84.wav');
-        const soundWrong = new Audio('https://assets.mixkit.co/active_storage/sfx/2003/2003-84.wav');
-        soundCorrect.volume = 0.3;
-        soundWrong.volume = 0.3;
-    </script>
-
-    <!-- NAVIGATION BAR -->
     <nav>
-        <div class="logo">
-            <i class="fa-solid fa-heart-pulse"></i> HIV Smart Edu
-        </div>
-        <ul class="nav-links">
-            <li><a onclick="switchPage('beranda')" id="nav-beranda" class="active">Beranda</a></li>
-            <li><a onclick="switchPage('belajar')" id="nav-belajar">Belajar</a></li>
-            <li><a onclick="switchPage('fakta-mitos')" id="nav-fakta-mitos">Fakta/Mitos</a></li>
-            <li><a onclick="switchPage('quiz')" id="nav-quiz">Quiz</a></li>
-        </ul>
-        <button class="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+        <div class="logo">HIV Smart Edu</div>
+        <div><button onclick="showPage('home')" class="pulse-btn" style="padding: 0.5rem 1rem; animation: none;">Menu</button></div>
     </nav>
 
-    <!-- MAIN CONTAINER -->
-    <div class="container">
-
-        <!-- 1. HALAMAN BERANDA -->
-        <section id="beranda" class="page active">
-            <i class="fa-solid fa-shield-virus hero-logo"></i>
-            <h1>HIV Smart Education</h1>
-            <p>Aplikasi Edukasi Interaktif Generasi Muda untuk Mengenal, Memahami, dan Mencegah Penularan HIV/AIDS secara Akurat dan Ilmiah.</p>
-            <button class="btn" onclick="switchPage('belajar')">Mulai Belajar <i class="fa-solid fa-arrow-right"></i></button>
+    <div id="pages">
+        <!-- Home -->
+        <section id="home" class="hero">
+            <h1>Edukasi HIV Generasi Baru</h1>
+            <p>Paham HIV, Putus Stigma. Belajar lebih seru dengan tantangan interaktif.</p><br>
+            <button class="pulse-btn" onclick="showPage('quiz')">Mulai Misi Belajar</button>
         </section>
 
-        <!-- 2. HALAMAN BELAJAR -->
-        <section id="belajar" class="page">
-            <h2 style="margin-bottom: 20px;"><i class="fa-solid fa-book-open"></i> Menu Belajar</h2>
-            <div class="grid-materi">
-                <div class="card">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <h3>Pengertian HIV/AIDS</h3>
-                    <p><b>HIV</b> adalah virus yang merusak sistem kekebalan tubuh manusia. Sedangkan <b>AIDS</b> adalah stadium akhir dari infeksi virus HIV ketika kemampuan tubuh melawannya sudah hilang sepenuhnya.</p>
-                </div>
-                <div class="card">
-                    <i class="fa-solid fa-dna"></i>
-                    <h3>Sistem Imun & HIV</h3>
-                    <p>HIV secara khusus menyerang <b>sel CD4</b> (sel pembantu sel T), bagian krusial dari sistem imun. Ketika sel CD4 hancur, tubuh menjadi rentan terhadap berbagai penyakit infeksi mikroba berbahaya.</p>
-                </div>
-                <div class="card">
-                    <i class="fa-solid fa-kit-medical"></i>
-                    <h3>Cara Penularan</h3>
-                    <p>Menular melalui pertukaran cairan tubuh tertentu: darah, cairan vagina, cairan sperma, dan Air Susu Ibu (ASI). Tidak menular via keringat, air liur, atau sentuhan biasa.</p>
-                </div>
-                <div class="card">
-                    <i class="fa-solid fa-hand-holding-hand"></i>
-                    <h3>Cara Pencegahan</h3>
-                    <p>Menggunakan konsep ABCDE: <i>Abstinence</i> (absen seks), <i>Be Faithful</i> (setia), <i>Condom</i> (gunakan kondom), <i>Don't Drugs</i> (hindari narkoba jarum suntik), dan <i>Education</i> (edukasi aktif).</p>
-                </div>
+        <!-- Quiz & Fakta/Mitos Digabung -->
+        <section id="quiz" class="section">
+            <h2 style="text-align:center; margin-bottom: 2rem;">Tantangan Pengetahuan</h2>
+            <div id="game-container" class="interactive-box">
+                <!-- Content injected by JS -->
             </div>
         </section>
-
-        <!-- 3. HALAMAN FAKTA ATAU MITOS -->
-        <section id="fakta-mitos" class="page">
-            <h2 style="margin-bottom: 20px;"><i class="fa-solid fa-circle-question"></i> Fakta atau Mitos</h2>
-            <div class="fm-container">
-                
-                <div class="fm-item">
-                    <p><b>Pernyataan 1:</b> HIV menular melalui berjabat tangan atau berpelukan.</p>
-                    <div class="fm-buttons">
-                        <button class="btn-check" onclick="checkFM(this, 'mitos', 'Salah! HIV tidak menyebar melalui sentuhan kulit, jabat tangan, keringat, atau berbagi peralatan makan.')">Fakta</button>
-                        <button class="btn-check" onclick="checkFM(this, 'fakta', 'Benar! HIV tidak dapat menular lewat kontak sosial biasa karena virus tidak hidup dalam keringat/kulit.')">Mitos</button>
-                    </div>
-                    <div class="explanation"></div>
-                </div>
-
-                <div class="fm-item">
-                    <p><b>Pernyataan 2:</b> Infeksi dan penularan virus HIV dapat dicegah secara medis.</p>
-                    <div class="fm-buttons">
-                        <button class="btn-check" onclick="checkFM(this, 'fakta', 'Benar! Penularan bisa dicegah dengan penggunaan PrEP/PEP, alat kontrasepsi, pengaman jarum, serta terapi ARV.')">Fakta</button>
-                        <button class="btn-check" onclick="checkFM(this, 'mitos', 'Salah! Penularan HIV sangat bisa dicegah melalui metode medis modern dan gaya hidup sehat.')">Mitos</button>
-                    </div>
-                    <div class="explanation"></div>
-                </div>
-
-                <div class="fm-item">
-                    <p><b>Pernyataan 3:</b> Ibu hamil yang positif HIV bisa menularkan virus ke bayinya melalui ASI.</p>
-                    <div class="fm-buttons">
-                        <button class="btn-check" onclick="checkFM(this, 'fakta', 'Benar! Tanpa penanganan medis atau konsumsi ARV teratur, HIV bisa menular lewat ASI, proses persalinan, dan plasenta.')">Fakta</button>
-                        <button class="btn-check" onclick="checkFM(this, 'mitos', 'Salah! ASI dari ibu positif HIV mengandung virus dan berisiko menularkan kecuali di bawah pengawasan ketat terapi ARV.')">Mitos</button>
-                    </div>
-                    <div class="explanation"></div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 4. HALAMAN QUIZ INTERAKTIF -->
-        <section id="quiz" class="page">
-            <h2 style="margin-bottom: 20px;"><i class="fa-solid fa-graduation-cap"></i> Evaluasi Quiz</h2>
-            
-            <div id="quiz-container" class="quiz-box">
-                <!-- Konten Soal akan di-render dinamis oleh JavaScript -->
-                <div id="question-box">
-                    <h3 id="question-text">Memuat Soal...</h3>
-                    <div class="options-container" id="options-box"></div>
-                    <button class="btn" id="next-btn" onclick="nextQuestion()" style="display:none;">Soal Berikutnya</button>
-                </div>
-
-                <!-- Konten Hasil Skor & Statistik -->
-                <div id="result-box" class="result-box" style="display: none;">
-                    <h2>========================<br>HASIL QUIZ<br>========================</h2>
-                    <div class="score-display" id="final-score">0 / 100</div>
-                    <div class="stars" id="star-rating">⭐⭐⭐⭐⭐</div>
-                    <h3 id="result-message">Luar biasa!</h3>
-                    
-                    <!-- Fitur Statistik Tambahan -->
-                    <div class="stats-grid">
-                        <div class="stat-card"><b>Benar:</b> <span id="stat-correct">0</span></div>
-                        <div class="stat-card"><b>Salah:</b> <span id="stat-wrong">0</span></div>
-                        <div class="stat-card"><b>Persentase:</b> <span id="stat-percent">0%</span></div>
-                        <div class="stat-card"><b>Badge:</b> <br><span id="stat-badge" style="font-weight:bold; color:var(--secondary);">HIV Smart Learner</span></div>
-                    </div>
-
-                    <button class="btn" onclick="restartQuiz()" style="margin-top:10px;">Ulangi Quiz</button>
-                    <button class="btn" onclick="switchPage('beranda')" style="margin-top:10px; background:#64748b;">Kembali ke Beranda</button>
-                    
-                    <!-- 5. UNDUH SERTIFIKAT -->
-                    <div class="certificate-box" id="cert-box">
-                        <h2>SERTIFIKAT KELULUSAN</h2>
-                        <p style="font-style: italic;">Diberikan atas prestasi gemilang pada platform HIV Smart Edu kepada:</p>
-                        <div class="cert-name">Hajratul Wahdah</div>
-                        <p>Telah menyelesaikan evaluasi pembelajaran komprehensif mengenai pencegahan HIV/AIDS dengan hasil sangat baik.</p>
-                        <div style="margin-top: 20px; font-weight: bold; color: var(--secondary);">BADGE DIANGKAT: HIV SMART LEARNER</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </div>
 
-    <!-- --- JAVASCRIPT LOGIC --- -->
     <script>
-        // Data Soal Kuis
         const quizData = [
-            { question: "1. HIV menyerang sel tubuh bagian mana?", a: "Paru-paru", b: "Sel CD4", c: "Ginjal", d: "Hati", correct: "b" },
-            { question: "2. Apa kepanjangan dari singkatan HIV?", a: "Human Immunodeficiency Virus", b: "Human Immunity Virus", c: "Helper Immune Viral", d: "Healthy Immunization Virus", correct: "a" },
-            { question: "3. Manakah cairan tubuh berikut yang TIDAK menularkan HIV?", a: "Darah", b: "Air Susu Ibu (ASI)", c: "Air Liur dan Keringat", d: "Cairan Sperma", correct: "c" },
-            { question: "4. Cairan apa yang membantu mendeteksi tingkat kekuatan imun pasien HIV?", a: "Kadar Sel CD4", b: "Kadar Oksigen", c: "Sel Darah Merah", d: "Kadar Trombosit", correct: "a" },
-            { question: "5. Singkatan AIDS memiliki kepanjangan yaitu...", a: "Auto Immune Deficiency System", b: "Acquired Immunodeficiency Syndrome", c: "Active Immune Disease System", d: "Acquired Immunity Data Scheme", correct: "b" }
+            { q: "HIV menular lewat jabat tangan atau gigitan nyamuk?", a: "Mitos", exp: "HIV tidak hidup di air liur nyamuk. Penularan hanya via cairan tubuh (darah, sperma, ASI, cairan vagina)." },
+            { q: "Apakah HIV bisa dideteksi langsung setelah terpapar?", a: "Mitos", exp: "Ada 'Window Period' (1-3 bulan) di mana virus belum terdeteksi tes meski sudah ada di tubuh." },
+            { q: "Konsep U=U (Undetectable = Untransmittable) itu nyata?", a: "Fakta", exp: "Jika pengguna ARV rutin hingga virus tidak terdeteksi di darah, HIV TIDAK menular ke pasangan seks." },
+            { q: "HIV menyerang sel apa dalam tubuh?", a: "Sel CD4 (Sistem Imun)", exp: "HIV adalah virus yang secara khusus membajak 'tentara' tubuh kita sendiri yaitu sel CD4." },
+            { q: "Bisakah ibu dengan HIV melahirkan bayi sehat?", a: "Fakta", exp: "Bisa! Dengan terapi ARV, risiko penularan ke bayi bisa ditekan hingga mendekati 0%." }
         ];
 
-        let currentQuestionIdx = 0;
-        let score = 0;
-        let correctAnswersCount = 0;
-        let wrongAnswersCount = 0;
+        let currentIdx = 0;
 
-        // Pindah Halaman Dinamis
-        function switchPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
-            
-            document.getElementById(pageId).classList.add('active');
-            document.getElementById('nav-' + pageId).classList.add('active');
-
-            if(pageId === 'quiz' && currentQuestionIdx === 0) {
-                loadQuestion();
-            }
+        function showPage(id) {
+            document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
         }
 
-        // Fitur Ganti Tema (Dark/Light Mode)
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            const icon = document.querySelector('.theme-toggle i');
-            icon.className = newTheme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-        }
-
-        // Logika Fitur Fakta atau Mitos
-        function checkFM(button, type, explanationText) {
-            const parent = button.parentElement;
-            const allButtons = parent.querySelectorAll('.btn-check');
-            const expDiv = parent.nextElementSibling;
-
-            allButtons.forEach(btn => btn.disabled = true);
-
-            if (type === 'fakta') {
-                button.classList.add('correct-btn');
-                try { soundCorrect.play(); } catch(e){}
-            } else {
-                button.classList.add('wrong-btn');
-                try { soundWrong.play(); } catch(e){}
-            }
-
-            expDiv.innerText = explanationText;
-            expDiv.style.display = 'block';
-        }
-
-        // Memuat Soal Kuis
-        function loadQuestion() {
-            const currentQuestion = quizData[currentQuestionIdx];
-            document.getElementById('question-text').innerText = currentQuestion.question;
-            
-            const optionsBox = document.getElementById('options-box');
-            optionsBox.innerHTML = `
-                <button class="option-btn" onclick="selectOption(this, 'a')"><b>A.</b> ${currentQuestion.a}</button>
-                <button class="option-btn" onclick="selectOption(this, 'b')"><b>B.</b> ${currentQuestion.b}</button>
-                <button class="option-btn" onclick="selectOption(this, 'c')"><b>C.</b> ${currentQuestion.c}</button>
-                <button class="option-btn" onclick="selectOption(this, 'd')"><b>D.</b> ${currentQuestion.d}</button>
+        function loadGame() {
+            const box = document.getElementById('game-container');
+            const data = quizData[currentIdx];
+            box.innerHTML = `
+                <h3>${currentIdx + 1}. ${data.q}</h3>
+                <div id="opts">
+                    <button class="option-btn" onclick="checkAnswer('Fakta')">Fakta</button>
+                    <button class="option-btn" onclick="checkAnswer('Mitos')">Mitos</button>
+                </div>
+                <div id="exp" class="explanation"></div>
+                <button id="next-btn" class="hidden" style="margin-top:1rem;" onclick="next()">Soal Berikutnya</button>
             `;
-            document.getElementById('next-btn').style.display = 'none';
         }
 
-        // Memilih Opsi Jawaban Kuis
-        function selectOption(button, choice) {
-            const options = document.querySelectorAll('.option-btn');
-            options.forEach(opt => opt.disabled = true);
+        function checkAnswer(choice) {
+            const data = quizData[currentIdx];
+            const expDiv = document.getElementById('exp');
+            const btns = document.querySelectorAll('.option-btn');
             
-            const currentQuestion = quizData[currentQuestionIdx];
+            btns.forEach(b => b.disabled = true);
             
-            if (choice === currentQuestion.correct) {
-                button.style.backgroundColor = '#22c55e';
-                button.style.color = 'white';
-                score += 20;
-                correctAnswersCount++;
-                try { soundCorrect.play(); } catch(e){}
+            if(choice === data.a) {
+                event.target.classList.add('correct');
+                expDiv.innerHTML = "<strong>Benar!</strong> " + data.exp;
             } else {
-                button.style.backgroundColor = '#ef4444';
-                button.style.color = 'white';
-                wrongAnswersCount++;
-                try { soundWrong.play(); } catch(e){}
-                
-                // Beri tanda jawaban yang benar
-                options.forEach(opt => {
-                    if(opt.getAttribute('onclick').includes(`'${currentQuestion.correct}'`)) {
-                        opt.style.borderColor = '#22c55e';
-                        opt.style.borderWidth = '3px';
-                    }
-                });
+                event.target.classList.add('wrong');
+                expDiv.innerHTML = "<strong>Kurang tepat.</strong> " + data.exp;
             }
-            
-            document.getElementById('next-btn').style.display = 'inline-block';
+            expDiv.classList.add('visible');
+            document.getElementById('next-btn').classList.remove('hidden');
         }
 
-        // Pindah Soal / Selesai Kuis
-        function nextQuestion() {
-            currentQuestionIdx++;
-            if (currentQuestionIdx < quizData.length) {
-                loadQuestion();
-            } else {
-                showResults();
-            }
+        function next() {
+            currentIdx++;
+            if(currentIdx < quizData.length) loadGame();
+            else document.getElementById('game-container').innerHTML = "<h2>Misi Selesai! Kamu hebat!</h2><button class='pulse-btn' onclick='location.reload()'>Ulangi</button>";
         }
 
-        // Tampilkan Hasil Evaluasi Kuis & Statistik Lengkap
-        function showResults() {
-            document.getElementById('question-box').style.display = 'none';
-            document.getElementById('result-box').style.display = 'block';
-            
-            document.getElementById('final-score').innerText = `${score} / 100`;
-            document.getElementById('stat-correct').innerText = correctAnswersCount;
-            document.getElementById('stat-wrong').innerText = wrongAnswersCount;
-            document.getElementById('stat-percent').innerText = `${(score)}%`;
-
-            const starRating = document.getElementById('star-rating');
-            const msg = document.getElementById('result-message');
-            const cert = document.getElementById('cert-box');
-
-            if(score >= 80) {
-                starRating.innerText = "⭐⭐⭐⭐⭐";
-                msg.innerText = "Luar biasa! Anda memiliki pemahaman yang sangat baik mengenai HIV/AIDS.";
-                cert.style.display = "block"; // Sertifikat muncul jika nilai baik
-            } else if(score >= 60) {
-                starRating.innerText = "⭐⭐⭐";
-                msg.innerText = "Bagus! Kamu sudah memahami dasar-dasar pertahanan imun dan pencegahan.";
-                cert.style.display = "none";
-            } else {
-                starRating.innerText = "⭐";
-                msg.innerText = "Jangan berkecil hati, mari baca kembali menu materi belajar!";
-                cert.style.display = "none";
-            }
-        }
-
-        // Reset Kuis dari Awal
-        function restartQuiz() {
-            currentQuestionIdx = 0;
-            score = 0;
-            correctAnswersCount = 0;
-            wrongAnswersCount = 0;
-            document.getElementById('question-box').style.display = 'block';
-            document.getElementById('result-box').style.display = 'none';
-            loadQuestion();
-        }
+        loadGame();
     </script>
 </body>
-    </html>
+</html>
+                                        
