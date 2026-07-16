@@ -152,6 +152,7 @@
         }
 
         .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5); }
+        .btn:disabled { background: #cbd5e1; color: #94a3b8; cursor: not-allowed; box-shadow: none; }
         .btn-secondary { background: var(--dark); }
 
         /* Grid Menu Modul */
@@ -190,7 +191,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        .opt-card:hover { border-color: var(--primary); background: #f8fafc; }
+        .opt-card:hover:not(:disabled) { border-color: var(--primary); background: #f8fafc; }
 
         .correct { background: #d1fae5 !important; border-color: #10b981 !important; color: #065f46; font-weight: 600; }
         .wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b; font-weight: 600; }
@@ -302,7 +303,7 @@
                 <p id="pre-progress">Soal 1 dari 3</p>
                 <div class="card" style="background: rgba(0,0,0,0.02); box-shadow: none;" id="pre-question">Memuat soal...</div>
                 <div class="options-list" id="pre-options"></div>
-                <button class="btn btn-secondary" id="pre-next-btn" style="display:none;" onclick="nextPreTest()">Soal Selanjutnya</button>
+                <button class="btn btn-secondary" id="pre-next-btn" style="display:none; margin-top: 1rem;" onclick="nextPreTest()">Soal Selanjutnya</button>
             </div>
         </section>
 
@@ -360,7 +361,7 @@
             </div>
             <div class="card">
                 <h2>💊 4. Metode Pencegahan</h2>
-                <p>Menggunakan alat pelindung steril medis, menghindari penggunaan jarum suntik bersama, serta konsumsi rutin obat **Antiretroviral (ARV)** bagi penderita aktif hingga mencapai status *Undetectable* (U=U).</p>
+                <p>Menggunakan alat pelindung steril medis, avoiding jarum suntik bergantian, serta konsumsi rutin obat **Antiretroviral (ARV)** bagi penderita aktif hingga mencapai status *Undetectable* (U=U).</p>
             </div>
             <button class="btn" onclick="changeView('dashboard')">Kembali ke Dashboard</button>
         </section>
@@ -391,7 +392,7 @@
                 <div class="options-list" id="post-options"></div>
                 
                 <div class="panel-explanation" id="post-explain"></div>
-                <button class="btn btn-secondary" id="post-next-btn" style="display:none;" onclick="nextPostTest()">Soal Selanjutnya</button>
+                <button class="btn btn-secondary" id="post-next-btn" style="display:none; margin-top: 1rem;" onclick="nextPostTest()">Soal Selanjutnya</button>
             </div>
         </section>
 
@@ -480,7 +481,9 @@
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             
-            document.getElementById(`view-${viewId}`).classList.add('active');
+            const targetPage = document.getElementById(`view-${viewId}`);
+            if(targetPage) targetPage.classList.add('active');
+            
             const navBtn = document.getElementById(`nav-${viewId}`);
             if(navBtn) navBtn.classList.add('active');
             window.scrollTo(0, 0);
@@ -524,8 +527,8 @@
                 });
             } else {
                 isPreTestDone = true;
-                preScore = Math.round((preScore / preTestData.length) * 100);
-                document.getElementById('dash-pre').innerText = preScore;
+                let calculatedScore = Math.round((preScore / preTestData.length) * 100);
+                document.getElementById('dash-pre').innerText = calculatedScore;
                 
                 // Unlock Dashboard
                 const dashNav = document.getElementById('nav-dashboard');
@@ -544,6 +547,9 @@
                 preScore++;
             } else {
                 btn.classList.add('wrong');
+                document.querySelectorAll('#pre-options .opt-card').forEach(b => {
+                    if(b.innerText === actual) b.classList.add('correct');
+                });
             }
             document.getElementById('pre-next-btn').style.display = 'block';
         }
@@ -618,10 +624,10 @@
                     optCont.appendChild(b);
                 });
             } else {
-                postScore = Math.round((postScore / postTestData.length) * 100);
-                document.getElementById('dash-post').innerText = postScore;
+                let calculatedPostScore = Math.round((postScore / postTestData.length) * 100);
+                document.getElementById('dash-post').innerText = calculatedPostScore;
                 
-                if(postScore >= 60) {
+                if(calculatedPostScore >= 60) {
                     addPoints(100);
                     document.getElementById('lock-cert-panel').innerHTML = `<button class="btn" style="background:var(--success);" onclick="changeView('sertifikat')">🎉 Buka & Klaim Sertifikat Kamu</button>`;
                 } else {
@@ -659,6 +665,12 @@
         function restartAll() {
             points = 0;
             isPreTestDone = false;
+            preScore = 0;
+            postScore = 0;
+            currentIdx = 0;
+            currentFMIdx = 0;
+            currentPostIdx = 0;
+            
             document.getElementById('user-points').innerText = "0";
             document.getElementById('user-level').innerText = "Lvl 1";
             document.getElementById('dash-pre').innerText = "0";
