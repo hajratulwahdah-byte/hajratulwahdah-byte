@@ -3,835 +3,466 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HIV Smart Education - Platform Edukasi Digital Sultra</title>
+    <title>HIV Smart Education - Platform Edukasi</title>
     <!-- Font & Ikon Modern -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --primary: #4f46e5;
-            --primary-light: #818cf8;
             --secondary: #06b6d4;
             --success: #10b981;
-            --warning: #f59e0b;
             --danger: #ef4444;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --glass: rgba(255, 255, 255, 0.9);
-            --border: rgba(255, 255, 255, 0.6);
+            --warning: #f59e0b;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #f1f5f9 0%, #e0e7ff 50%, #cffafe 100%);
-            background-attachment: fixed;
-            color: var(--dark);
-            padding-bottom: 6rem;
-            min-height: 100vh;
+            background-color: var(--background);
+            color: var(--text-main);
+            padding-bottom: 80px;
         }
 
-        /* Top Header */
-        header {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            position: sticky;
-            top: 0;
-            z-index: 90;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+        /* Top Bar */
+        .top-bar {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
         }
 
-        .brand {
-            font-weight: 800;
-            font-size: 1.25rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .top-bar h1 { font-size: 1.5rem; font-weight: 700; }
+        .top-bar p { font-size: 0.85rem; opacity: 0.9; margin-top: 4px; }
 
-        /* Gamifikasi Header Info */
-        .gamify-bar {
-            display: flex;
-            gap: 10px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        .stat-badge {
-            background: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 50px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            border: 1px solid var(--border);
-        }
-
-        .stat-badge.pts { color: var(--warning); }
-        .stat-badge.lvl { color: var(--primary); }
-
-        /* Container Pages */
+        /* Container & Halaman */
         .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 1rem;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .page {
             display: none;
-            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeIn 0.4s ease-in-out;
         }
 
-        .page.active { display: block; }
+        .page.active {
+            display: block;
+        }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* UI Card */
+        /* Card Style */
         .card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-            padding: 1.8rem;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-            margin-bottom: 1.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Hero Animation */
-        .floating-icon {
-            font-size: 4.5rem;
-            color: var(--danger);
-            animation: float 3s ease-in-out infinite;
-            margin: 1.5rem 0;
-            display: inline-block;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(4deg); }
-        }
-
-        h1 { font-size: 1.8rem; font-weight: 800; line-height: 1.3; margin-bottom: 1rem; }
-        h2 { font-size: 1.35rem; font-weight: 700; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 10px; color: var(--dark); }
-        h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-        p { color: #475569; line-height: 1.7; font-size: 0.95rem; margin-bottom: 1rem; }
-
-        /* Buttons */
-        .btn {
-            background: linear-gradient(135deg, var(--primary), #4338ca);
-            color: white;
-            border: none;
-            padding: 1rem 1.8rem;
+            background: var(--surface);
             border-radius: 16px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: 0.3s;
-            display: inline-flex;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            display: flex;
             align-items: center;
             gap: 10px;
-            width: 100%;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.25);
+            color: var(--primary);
         }
 
-        .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4); }
-        .btn:disabled { background: #cbd5e1; color: #94a3b8; cursor: not-allowed; box-shadow: none; }
-        .btn-secondary { background: var(--dark); box-shadow: none; }
-        .btn-success { background: linear-gradient(135deg, var(--success), #059669); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25); }
+        /* Status Grid di Dashboard */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
 
-        /* Grid Menu Modul */
-        .modul-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 1rem; }
-        @media(min-width: 500px) { .modul-grid { grid-template-columns: repeat(2, 1fr); } }
+        .status-item {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border-left: 4px solid var(--primary);
+        }
 
-        .modul-item {
-            background: white;
-            padding: 1.2rem;
-            border-radius: 18px;
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-            transition: 0.3s;
+        .status-item.post { border-left-color: var(--secondary); }
+        .status-item.points { border-left-color: var(--warning); grid-column: span 2; }
+
+        .status-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+        .status-value { font-size: 1.4rem; font-weight: 700; margin-top: 4px; }
+
+        /* Kuis & Soal */
+        .quiz-progress {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+        .question-box {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .options-list {
             display: flex;
-            align-items: center;
-            gap: 15px;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .modul-item:hover { transform: translateY(-3px); border-color: var(--primary); box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
-        .modul-item i { font-size: 1.8rem; color: var(--primary); background: #eef2f6; padding: 10px; border-radius: 12px; }
-
-        /* Kuis & Test UI */
-        .options-list { margin: 1.5rem 0; }
-        .opt-card {
-            width: 100%;
-            padding: 1rem 1.2rem;
-            margin-bottom: 0.75rem;
+        .option-btn {
+            background: var(--surface);
             border: 2px solid #e2e8f0;
-            border-radius: 14px;
-            background: white;
+            padding: 14px;
+            border-radius: 10px;
             text-align: left;
             font-size: 0.95rem;
             cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .opt-card:hover:not(:disabled) { border-color: var(--primary); background: #f8fafc; }
-
-        .correct { background: #d1fae5 !important; border-color: #10b981 !important; color: #065f46; font-weight: 700; }
-        .wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b; font-weight: 700; }
-
-        .panel-explanation {
-            background: #f1f5f9;
-            border-left: 5px solid var(--secondary);
-            padding: 1.2rem;
-            border-radius: 14px;
-            margin-top: 1rem;
-            display: none;
-            font-size: 0.9rem;
-            text-align: left;
-            line-height: 1.6;
+            transition: all 0.2s;
+            width: 100%;
         }
 
-        /* Video Responsive Wrapper */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 16px;
-            background: #000;
-            margin-bottom: 1rem;
+        .option-btn:hover {
+            border-color: var(--primary);
+            background: #f5f3ff;
         }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-        /* Direktori Faskes Sultra */
-        .filter-container { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 1rem; }
-        .filter-btn {
-            background: white;
-            border: 1px solid #e2e8f0;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
+        /* Tombol Umum */
+        .btn-main {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            width: 100%;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            white-space: nowrap;
-            transition: 0.2s;
-        }
-        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-
-        .faskes-item {
-            background: white;
-            padding: 1.2rem;
-            border-radius: 16px;
-            margin-bottom: 0.75rem;
-            border-left: 5px solid var(--secondary);
-            transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-        }
-        .faskes-item:hover { transform: translateX(4px); }
-
-        /* Certificate Area */
-        .cert-view {
-            border: 8px double var(--primary);
-            background: #fff;
-            padding: 2.5rem 1.5rem;
-            text-align: center;
-            border-radius: 12px;
-            margin: 1.5rem 0;
-            font-family: 'Georgia', serif;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* Sticky Bottom Navigation */
-        .nav-bottom {
+        .btn-main:disabled {
+            background: #cbd5e1;
+            color: #94a3b8;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* List Menu Layanan VCT */
+        .vct-item {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .vct-item:last-child { border-bottom: none; }
+        .vct-name { font-weight: 600; font-size: 0.95rem; }
+        .vct-loc { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+        /* Bottom Nav Bar */
+        .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid var(--border);
+            background: var(--surface);
             display: flex;
             justify-content: space-around;
-            padding: 0.7rem 0;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
+            padding: 10px 0;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
             z-index: 100;
         }
 
-        .nav-btn {
-            background: none;
-            border: none;
+        .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-size: 0.72rem;
-            color: #64748b;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            font-size: 0.75rem;
             cursor: pointer;
-            font-weight: 700;
-            transition: 0.2s;
+            width: 20%;
         }
 
-        .nav-btn i { font-size: 1.3rem; margin-bottom: 3px; }
-        .nav-btn.active { color: var(--primary); transform: scale(1.05); }
-
-        .locked { opacity: 0.4; cursor: not-allowed; }
-        
-        /* Input Form */
-        .input-group {
-            margin: 1rem 0;
-            text-align: left;
-        }
-        .input-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: var(--dark);
-        }
-        .input-group input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border-radius: 12px;
-            border: 2px solid #e2e8f0;
-            font-size: 0.95rem;
-            outline: none;
-            transition: 0.2s;
-        }
-        .input-group input:focus {
-            border-color: var(--primary);
-        }
+        .nav-item i { font-size: 1.25rem; margin-bottom: 4px; }
+        .nav-item.active { color: var(--primary); font-weight: 600; }
     </style>
 </head>
 <body>
 
-    <!-- Header Atas & Status Gamifikasi -->
-    <header>
-        <div class="brand"><i class="fa-solid fa-shield-virus"></i> Smart Edu Sultra</div>
-        <div class="gamify-bar">
-            <div class="stat-badge pts"><i class="fa-solid fa-star"></i> <span id="user-points">0</span> Pts</div>
-            <div class="stat-badge lvl"><i class="fa-solid fa-award"></i> <span id="user-level">Lvl 1</span></div>
-        </div>
-    </header>
+    <!-- Top Info Bar -->
+    <div class="top-bar">
+        <h1 id="app-title">HIV Smart Education</h1>
+        <p id="app-subtitle">Evaluasi & Literasi Digital Remaja</p>
+    </div>
 
     <div class="container">
 
-        <!-- ================= BERANDA ================= -->
-        <section id="view-beranda" class="page active">
-            <div class="card" style="text-align: center;">
-                <span class="floating-icon"><i class="fa-solid fa-ribbon"></i></span>
-                <h1>Edukasi Bebas Stigma, Selamatkan Generasi</h1>
-                <p>Platform riset dan aksi edukasi digital interaktif terintegrasi untuk akselerasi pemahaman HIV/AIDS bagi remaja di Provinsi Sulawesi Tenggara.</p>
-                <button class="btn" onclick="startPreTest()">Mulai Pre-Test Kemampuan <i class="fa-solid fa-play"></i></button>
-            </div>
-        </section>
-
-        <!-- ================= PRE TEST ================= -->
-        <section id="view-pretest" class="page">
+        <!-- 1. HALAMAN PRE-TEST -->
+        <div id="page-pretest" class="page active">
             <div class="card">
-                <h2><i class="fa-solid fa-file-invoice"></i> Evaluasi Awal (Pre-Test)</h2>
-                <p id="pre-progress">Soal 1 dari 5</p>
-                <div class="card" style="background: rgba(0,0,0,0.02); box-shadow: none; font-weight: 600;" id="pre-question">Memuat soal...</div>
+                <h2><i class="fas fa-file-alt"></i> Pre-Test Evaluasi</h2>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
+                    Silakan isi tes awal ini terlebih dahulu untuk mengukur pemahaman dasarmu sebelum masuk ke modul belajar.
+                </p>
+                <div class="quiz-progress" id="pre-progress">Soal 1 dari 3</div>
+                <div class="question-box" id="pre-question">Memuat soal...</div>
                 <div class="options-list" id="pre-options"></div>
-                <button class="btn btn-secondary" id="pre-next-btn" style="display:none; margin-top: 1rem;" onclick="nextPreTest()">Soal Selanjutnya</button>
             </div>
-        </section>
+        </div>
 
-        <!-- ================= DASHBOARD UTAMA ================= -->
-        <section id="view-dashboard" class="page">
-            <div class="card" style="background: linear-gradient(135deg, #4f46e5, #06b6d4); color: white;">
-                <h2>👑 Ruang Kemajuan Belajar</h2>
-                <p style="color: rgba(255,255,255,0.85);">Selesaikan seluruh modul, kuis, dan direktori pemetaan wilayah Sultra untuk mencetak sertifikat digital nasional kamu.</p>
-                <div style="display: flex; gap: 15px; margin-top: 1.5rem;">
-                    <div style="flex:1; background: rgba(255,255,255,0.2); padding: 0.8rem; border-radius: 16px; text-align: center; border: 1px solid rgba(255,255,255,0.3);">
-                        <h4 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Pre-Test</h4>
-                        <p style="font-size: 1.6rem; font-weight: 800; margin:0;" id="dash-pre">0%</p>
+        <!-- 2. HALAMAN DASHBOARD -->
+        <div id="page-dashboard" class="page">
+            <div class="card">
+                <h2><i class="fas fa-chart-line"></i> Dashboard Pencapaian</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Pantau perkembangan hasil belajarmu di sini secara real-time:</p>
+                
+                <div class="status-grid">
+                    <div class="status-item">
+                        <div class="status-label">SKOR PRE-TEST</div>
+                        <div class="status-value" id="score-pre">-</div>
                     </div>
-                    <div style="flex:1; background: rgba(255,255,255,0.2); padding: 0.8rem; border-radius: 16px; text-align: center; border: 1px solid rgba(255,255,255,0.3);">
-                        <h4 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Post-Test</h4>
-                        <p style="font-size: 1.6rem; font-weight: 800; margin:0;" id="dash-post">-</p>
+                    <div class="status-item post">
+                        <div class="status-label">SKOR POST-TEST</div>
+                        <div class="status-value" id="score-post">-</div>
+                    </div>
+                    <div class="status-item points">
+                        <div class="status-label">GAMIFIKASI LEVEL & XP</div>
+                        <div class="status-value" id="user-xp" style="font-size: 1.1rem; color: var(--warning);">
+                            <i class="fas fa-star"></i> Level 1 (0 XP)
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <h2><i class="fa-solid fa-folder-open"></i> Pilihan Jalur Edukasi</h2>
-            <div class="modul-grid">
-                <div class="modul-item" onclick="changeView('modul')"><i class="fa-solid fa-book-bookmark"></i><div><h4>Modul Saintifik</h4><p style="font-size:0.75rem; color:#64748b;">Materi & Video</p></div></div>
-                <div class="modul-item" onclick="startFaktaMitos()"><i class="fa-solid fa-shuffle"></i><div><h4>Fakta vs Mitos</h4><p style="font-size:0.75rem; color:#64748b;">Game Pengayaan</p></div></div>
-                <div class="modul-item" onclick="startPostTest()"><i class="fa-solid fa-graduation-cap"></i><div><h4>Ujian Kuis Akhir</h4><p style="font-size:0.75rem; color:#64748b;">Skor Otomatis</p></div></div>
-                <div class="modul-item" onclick="changeView('maps')"><i class="fa-solid fa-map-location-dot"></i><div><h4>Layanan Faskes</h4><p style="font-size:0.75rem; color:#64748b;">Direktori Sultra</p></div></div>
-            </div>
-            
-            <div id="lock-cert-panel" style="margin-top: 1.5rem;">
-                <button class="btn btn-secondary locked" disabled><i class="fa-solid fa-lock"></i> Sertifikat Terkunci (Selesaikan Kuis)</button>
-            </div>
-        </section>
-
-        <!-- ================= MODUL LITERASI ================= -->
-        <section id="view-modul" class="page">
             <div class="card">
-                <h2><i class="fa-solid fa-film"></i> Multimedia Edukasi</h2>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/ZjWTo8tPZMM" title="Edukasi HIV" allowfullscreen></iframe>
+                <h2><i class="fas fa-graduation-cap"></i> Klaim Sertifikat Digital</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+                    Selesaikan Post-Test dengan nilai minimal 60 untuk membuka sertifikat kelulusan edukasi.
+                </p>
+                <input type="text" id="cert-name" placeholder="Masukkan nama lengkapmu..." style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; margin-bottom: 10px; font-size: 0.9rem;">
+                <button class="btn-main" id="btn-cert" disabled onclick="claimCertificate()">
+                    <i class="fas fa-certificate"></i> Unduh Sertifikat
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. HALAMAN MODUL -->
+        <div id="page-modul" class="page">
+            <div class="card">
+                <h2><i class="fas fa-book-open"></i> Materi Edukasi HIV</h2>
+                <div style="font-size: 0.9rem; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
+                    <p><strong>Apa itu HIV?</strong><br>HIV (Human Immunodeficiency Virus) adalah virus yang menyerang sistem kekebalan tubuh manusia, khususnya sel CD4.</p>
+                    <p><strong>Bagaimana Cara Penularannya?</strong><br>HIV menular melalui kontak cairan tubuh tertentu seperti darah, ASI, semen, dan cairan vagina. HIV <strong>TIDAK</strong> menular lewat gigitan nyamuk, jabat tangan, atau berbagi alat makan.</p>
                 </div>
-                <p style="font-size:0.8rem; color:#64748b; text-align:center;">Video rekomendasi pengenalan infeksi virus pertahanan tubuh.</p>
+                <button class="btn-main" style="margin-top: 20px;" onclick="addXP(50)">
+                    <i class="fas fa-check-circle"></i> Selesai Membaca (+50 XP)
+                </button>
             </div>
+        </div>
 
+        <!-- 4. HALAMAN LAYANAN VCT -->
+        <div id="page-layanan" class="page">
             <div class="card">
-                <h2>🧬 1. Pengertian Kedokteran</h2>
-                <p><strong>HIV (Human Immunodeficiency Virus)</strong> adalah virus yang secara spesifik menyerang sel darah putih pertahanan tubuh manusia. Sedangkan <strong>AIDS (Acquired Immunodeficiency Syndrome)</strong> adalah stadium klinis lanjut di mana berbagai komplikasi penyakit sekunder muncul akibat hilangnya sistem perlindungan tubuh tersebut.</p>
-            </div>
-            <div class="card">
-                <h2>🛡️ 2. Sistem Imun & Sel CD4</h2>
-                <p>Di dalam tubuh, terdapat sel T-Helper yang biasa ditandai dengan reseptor **CD4**. Sel ini bertindak bagaikan jenderal pengatur sistem kekebalan. HIV menyerang dan membajak sel CD4 untuk memperbanyak diri, menyebabkannya hancur dan melemahkan seluruh sistem imun secara drastis.</p>
-            </div>
-            <div class="card">
-                <h2>🩸 3. Rute Penularan</h2>
-                <p>Transmisi hanya bisa terjadi jika ada kontak cairan tubuh berkonsentrasi virus tinggi: **Darah segar, Cairan Vagina, Semen (Sperma), dan Air Susu Ibu (ASI)**. Kontak sosial biasa seperti jabatan tangan, berbagi alat makan, kolam renang umum, keringat, dan air liur sangat aman dan **tidak menularkan virus**.</p>
-            </div>
-            <div class="card">
-                <h2>💊 4. Metode Pencegahan</h2>
-                <p>Rantai penularan diputus dengan metode **Abstinence** (absen berhubungan berisiko), **Be faithful** (setia pada pasangan), **Condom** (pelindung medis), dan sterilisasi jarum tajam. Bagi ODHIV (Orang dengan HIV), konsumsi obat **Antiretroviral (ARV)** teratur menekan jumlah virus hingga level *Undetectable* (Tidak terdeteksi) sehingga tidak menular lagi secara seksual (U=U).</p>
-            </div>
-            <button class="btn" onclick="changeView('dashboard')">Kembali ke Dashboard</button>
-        </section>
-
-        <!-- ================= GAME FAKTA / MITOS ================= -->
-        <section id="view-faktamitos" class="page">
-            <div class="card" style="text-align: center;">
-                <h2><i class="fa-solid fa-shuffle"></i> Eksplorasi Fakta & Mitos</h2>
-                <p id="fm-progress">Soal 1</p>
-                <div class="card" style="background:white; font-weight:600; text-align: left;" id="fm-question">Pertanyaan memuat...</div>
-                
-                <div style="display:flex; gap:10px;">
-                    <button class="btn btn-success" id="fm-true-btn" onclick="verifyFM(true)">👍 FAKTA</button>
-                    <button class="btn" style="background:var(--danger);" id="fm-false-btn" onclick="verifyFM(false)">👎 MITOS</button>
+                <h2><i class="fas fa-hospital-user"></i> Rujukan VCT Sulawesi Tenggara</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Daftar faskes resmi penyedia layanan konseling dan tes HIV gratis & rahasia:</p>
+                <div class="vct-item">
+                    <div class="vct-name">RSUD Kota Baubau</div>
+                    <div class="vct-loc"><i class="fas fa-map-marker-alt"></i> Kota Baubau, Sulawesi Tenggara</div>
                 </div>
-
-                <div class="panel-explanation" id="fm-explain"></div>
-                <button class="btn btn-secondary" id="fm-next-btn" style="display:none; margin-top:1rem;" onclick="nextFaktaMitos()">Lanjut</button>
+                <div class="vct-item">
+                    <div class="vct-name">Puskesmas Wolio</div>
+                    <div class="vct-loc"><i class="fas fa-map-marker-alt"></i> Kec. Wolio, Kota Baubau</div>
+                </div>
+                <div class="vct-item">
+                    <div class="vct-name">RSUD Provinsi Sultra</div>
+                    <div class="vct-loc"><i class="fas fa-map-marker-alt"></i> Kota Kendari, Sulawesi Tenggara</div>
+                </div>
             </div>
-        </section>
+        </div>
 
-        <!-- ================= POST TEST / KUIS ================= -->
-        <section id="view-posttest" class="page">
+        <!-- 5. HALAMAN POST-TEST -->
+        <div id="page-posttest" class="page">
             <div class="card">
-                <h2><i class="fa-solid fa-graduation-cap"></i> Ujian Akhir (Post-Test)</h2>
-                <p id="post-progress">Soal 1</p>
-                <div class="card" style="background: rgba(0,0,0,0.02); box-shadow: none; font-weight: 600;" id="post-question">Memuat pertanyaan...</div>
-                <div class="options-list" id="post-options"></div>
-                
-                <div class="panel-explanation" id="post-explain"></div>
-                <button class="btn btn-secondary" id="post-next-btn" style="display:none; margin-top: 1rem;" onclick="nextPostTest()">Soal Selanjutnya</button>
+                <h2><i class="fas fa-user-check"></i> Post-Test Akhir</h2>
+                <div id="post-intro">
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
+                        Uji kembali pemahamanmu setelah membaca modul materi untuk membandingkan peningkatan skormu.
+                    </p>
+                    <button class="btn-main" onclick="startPostTest()">Mulai Post-Test</button>
+                </div>
+                <div id="post-quiz-area" style="display: none;">
+                    <div class="quiz-progress" id="post-progress">Soal 1 dari 3</div>
+                    <div class="question-box" id="post-question">Memuat soal...</div>
+                    <div class="options-list" id="post-options"></div>
+                </div>
             </div>
-        </section>
-
-        <!-- ================= DIREKTORI MAPS FASKES SULTRA ================= -->
-        <section id="view-maps" class="page">
-            <div class="card">
-                <h2><i class="fa-solid fa-map-location-dot"></i> Faskes & Konseling VCT Sultra</h2>
-                <p>Filter direktori dan daftar resmi fasilitas pemeriksaan VCT/perawatan HIV yang aman dan rahasia di Sulawesi Tenggara:</p>
-                
-                <div class="filter-container">
-                    <button class="filter-btn active" onclick="filterFaskes('all')">Semua Wilayah</button>
-                    <button class="filter-btn" onclick="filterFaskes('baubau')">Kota Baubau & Buton</button>
-                    <button class="filter-btn" onclick="filterFaskes('kendari')">Kota Kendari</button>
-                    <button class="filter-btn" onclick="filterFaskes('kolaka')">Kab. Kolaka</button>
-                </div>
-
-                <div id="faskes-list">
-                    <!-- Iterasi data faskes oleh JS -->
-                </div>
-                
-                <button class="btn" onclick="changeView('dashboard')" style="margin-top:1rem;">Kembali ke Dashboard</button>
-            </div>
-        </section>
-
-        <!-- ================= HASIL & SERTIFIKAT ================= -->
-        <section id="view-sertifikat" class="page">
-            <div class="card" style="text-align: center;">
-                <h2>🎉 Selamat, Pemahaman Kamu Sangat Baik!</h2>
-                <p>Tingkatkan terus literasi kesehatan reproduksi dan jadilah agen perubahan anti-stigma di sekolahmu.</p>
-                
-                <div class="input-group">
-                    <label for="user-cert-name">Tulis Nama Lengkap Kamu Untuk Sertifikat:</label>
-                    <input type="text" id="user-cert-name" value="Peserta Cerdas Smart Edu" oninput="updateCertName()">
-                </div>
-
-                <div class="cert-view">
-                    <h2 style="justify-content: center; font-family:serif; font-size: 1.8rem; margin-bottom: 0.5rem;">SERTIFIKAT KELULUSAN</h2>
-                    <p style="margin: 1rem 0 0.5rem 0; font-family: 'Georgia', serif;">Diberikan Kepada Agen Pendidik Sebaya:</p>
-                    <h3 style="text-decoration: underline; font-size: 1.5rem; font-family: 'Georgia', serif; font-weight: bold;" id="cert-name">Peserta Cerdas Smart Edu</h3>
-                    <p style="margin-top: 1rem; font-size:0.85rem; font-family: 'Georgia', serif; line-height: 1.5;">Telah Menyelesaikan Seluruh Rangkaian Instrumen Evaluasi Pembelajaran Digital Interaktif Berbasis Remaja pada Platform <strong>HIV Smart Education Sultra</strong></p>
-                    <p style="font-size:0.75rem; font-weight:bold; color:var(--success); margin-top: 1.5rem;">STATUS VERIFIKASI: VALID ONLINE</p>
-                </div>
-                
-                <button class="btn btn-success" onclick="window.print()"><i class="fa-solid fa-print"></i> Cetak / Simpan Halaman</button>
-                <button class="btn btn-secondary" onclick="restartAll()" style="margin-top:0.5rem;">Ulangi Dari Awal</button>
-            </div>
-        </section>
+        </div>
 
     </div>
 
-    <!-- Sticky Navigation Menu Bawah -->
-    <div class="nav-bottom">
-        <button class="nav-btn active" id="nav-beranda" onclick="changeView('beranda')"><i class="fa-solid fa-house"></i>Beranda</button>
-        <button class="nav-btn locked" id="nav-dashboard" onclick="tryNavigateToDashboard()" disabled><i class="fa-solid fa-chart-pie"></i>Dashboard</button>
-        <button class="nav-btn" id="nav-maps" onclick="changeView('maps')"><i class="fa-solid fa-map-location-dot"></i>Faskes</button>
+    <!-- Bottom Navigation Bar (Muncul setelah Pre-Test Selesai) -->
+    <div class="bottom-nav" id="main-nav" style="display: none;">
+        <button class="nav-item active" onclick="switchPage('dashboard', this)"><i class="fas fa-th-large"></i>Utama</button>
+        <button class="nav-item" onclick="switchPage('modul', this)"><i class="fas fa-book"></i>Modul</button>
+        <button class="nav-item" onclick="switchPage('layanan', this)"><i class="fas fa-heartbeat"></i>VCT Sultra</button>
+        <button class="nav-item" onclick="switchPage('posttest', this)"><i class="fas fa-edit"></i>Post-Test</button>
     </div>
 
     <script>
-        // DATA INSTRUMEN PENGUJIAN & PERMAINAN
-        const preTestData = [
-            { q: "Apakah HIV dan AIDS merupakan dua kondisi medis yang berbeda?", opts: ["Sama saja", "Berbeda, HIV nama virusnya dan AIDS stadium lanjutnya", "AIDS dialami lebih dulu sebelum HIV"], a: "Berbeda, HIV nama virusnya dan AIDS stadium lanjutnya" },
-            { q: "Cairan tubuh di bawah ini yang dapat menularkan HIV adalah...", opts: ["Air Liur", "Keringat", "Air Susu Ibu (ASI)"], a: "Air Susu Ibu (ASI)" },
-            { q: "ODHIV yang rutin minum ARV hingga jumlah virus tidak terdeteksi (Undetectable), apakah masih bisa menularkan virus secara seksual?", opts: ["Ya, masih menularkan", "Tidak bisa menularkan lagi (U=U)", "Menularkan hanya lewat jabatan tangan"], a: "Tidak bisa menularkan lagi (U=U)" },
-            { q: "Alat pertahanan tubuh yang dibajak dan dihancurkan oleh HIV adalah...", opts: ["Sel Eritrosit", "Sel CD4 (T-Helper)", "Trombosit"], a: "Sel CD4 (T-Helper)" },
-            { q: "Apakah ibu hamil dengan status HIV positif pasti akan melahirkan anak dengan HIV positif juga?", opts: ["Pasti positif", "Pasti negatif tanpa obat", "Bisa melahirkan bayi sehat negatif jika menjalani terapi ARV rutin"], a: "Bisa melahirkan bayi sehat negatif jika menjalani terapi ARV rutin" }
+        // Data Soal Evaluasi
+        const questions = [
+            { q: "Manakah cairan tubuh berikut yang TIDAK dapat menularkan HIV?", o: ["Darah", "Air Liur / Keringat", "ASI", "Cairan Vagina"], a: 1 },
+            { q: "Tahapan akhir dari infeksi infeksi virus HIV di dalam tubuh disebut dengan istilah?", o: ["ODHA", "VCT", "AIDS", "Fase Laten"], a: 2 },
+            { q: "Fasilitas medis terintegrasi untuk melakukan konseling klinis dan tes HIV secara sukarela disebut?", o: ["Layanan VCT", "IGD Darurat", "Laboratorium Utama", "Apotek Kimia"], a: 0 }
         ];
 
-        const fmData = [
-            { 
-                q: "Nyamuk atau serangga penghisap darah dapat menularkan HIV ke tubuh manusia.", 
-                a: false, 
-                exp: "<strong>Jawaban: MITOS.</strong><br><strong>Penjelasan:</strong> Serangga tidak memiliki sel dengan reseptor CD4 sehingga virus HIV hancur di perut nyamuk. Selain itu, nyamuk hanya menyuntikkan air liurnya saat menggigit, bukan darah korban sebelumnya.<br><strong>Contoh Nyata:</strong> Tidak pernah ada kasus penularan HIV yang disebabkan oleh gigitan nyamuk di belahan dunia mana pun." 
-            },
-            { 
-                q: "Ibu menyusui yang berstatus HIV positif yang patuh mengonsumsi ARV memiliki peluang besar melahirkan dan merawat bayi sehat bebas HIV.", 
-                a: true, 
-                exp: "<strong>Jawaban: FAKTA.</strong><br><strong>Penjelasan:</strong> Melalui program pencegahan PMTCT, konsumsi obat ARV secara rutin menekan muatan virus hingga di bawah batas deteksi sehingga transmisi vertikal dari ibu ke anak berkurang drastis di bawah 1%.<br><strong>Contoh Nyata:</strong> Program ini sukses membantu ribuan pasangan penyandang HIV memiliki keturunan yang sehat dan bebas dari infeksi virus." 
-            },
-            { 
-                q: "Berbagi penggunaan toilet umum, kolam renang, atau peralatan makan bersama ODHIV dapat menularkan virus.", 
-                a: false, 
-                exp: "<strong>Jawaban: MITOS.</strong><br><strong>Penjelasan:</strong> HIV adalah virus yang sangat rapuh dan sensitif terhadap suhu luar, oksigen, dan klorin kolam renang. Virus tidak bisa bertahan hidup di luar sirkulasi darah atau cairan tubuh pekat manusia.<br><strong>Contoh Nyata:</strong> Menggunakan sendok, garpu, atau berenang bersama penderita HIV 100% aman dan bebas dari risiko penularan." 
-            },
-            { 
-                q: "Seseorang yang memiliki muatan virus 'Undetectable' (tidak terdeteksi) dalam darah berkat obat ARV, tidak lagi menularkan HIV ke pasangannya.", 
-                a: true, 
-                exp: "<strong>Jawaban: FAKTA.</strong><br><strong>Penjelasan:</strong> Konsep medis global ini dikenal sebagai U=U (Undetectable = Untransmittable). Pengobatan ARV modern sukses mengontrol replikasi virus hingga level nol risiko penularan seksual.<br><strong>Contoh Nyata:</strong> Berbagai studi klinis internasional menunjukkan pasangan diskordan (salah satu positif, salah satu negatif) tetap aman tanpa penularan jika pengobatan ARV terjaga konsisten." 
-            },
-            { 
-                q: "Penggunaan jarum tindik, tato, atau alat pemotong kuku yang tidak steril secara bergantian berpotensi menularkan HIV.", 
-                a: true, 
-                exp: "<strong>Jawaban: FAKTA.</strong><br><strong>Penjelasan:</strong> Darah segar yang tersisa di alat tajam tersebut bisa membawa sel virus aktif langsung masuk ke aliran sirkulasi darah orang baru dalam waktu berdekatan.<br><strong>Contoh Nyata:</strong> Studio tato yang profesional selalu menggunakan jarum baru yang masih disegel untuk mencegah risiko infeksi menular darah." 
-            }
-        ];
-
-        const postTestData = [
-            { 
-                q: "Rentang waktu di mana virus HIV sudah masuk ke dalam tubuh namun tes darah masih menunjukkan hasil negatif disebut...", 
-                opts: ["Golden Period", "Window Period (Masa Jendela)", "Incubation Period"], 
-                a: "Window Period (Masa Jendela)", 
-                exp: "<strong>Jawaban Benar: Window Period.</strong><br><strong>Penjelasan:</strong> Masa ini berkisar antara 1 hingga 3 bulan sejak awal infeksi. Walaupun antibodi belum terdeteksi cukup banyak di alat lab, penderita sudah memiliki virus aktif di tubuhnya dan bisa menularkannya." 
-            },
-            { 
-                q: "Sel darah putih spesifik apakah yang bertugas memimpin pertahanan imun dan dihancurkan secara sistematis oleh HIV?", 
-                opts: ["Sel CD4 (T-Helper)", "Leukosit Basofil", "Eritrosit"], 
-                a: "Sel CD4 (T-Helper)", 
-                exp: "<strong>Jawaban Benar: Sel CD4.</strong><br><strong>Penjelasan:</strong> CD4 merupakan konduktor atau jenderal taktis sistem kekebalan tubuh. Ketika jumlah CD4 turun drastis di bawah 200 sel/μL, tubuh tidak memiliki perlindungan dari infeksi minor sekalipun." 
-            },
-            { 
-                q: "Metode darurat medis berupa konsumsi obat pencegah khusus maksimal 72 jam setelah insiden paparan berisiko disebut...", 
-                opts: ["PrEP (Pre-Exposure Prophylaxis)", "PEP (Post-Exposure Prophylaxis)", "Vaksin Imunisasi"], 
-                a: "PEP (Post-Exposure Prophylaxis)", 
-                exp: "<strong>Jawaban Benar: PEP.</strong><br><strong>Penjelasan:</strong> PEP (Post-Exposure Prophylaxis) adalah pengobatan darurat konsumsi obat pencegah selama 28 hari berturut-turut untuk menghalangi virus menetap di sel imun setelah kontak kecelakaan kerja atau seksual." 
-            },
-            { 
-                q: "Apakah fungsi utama dari obat Antiretroviral (ARV) dalam konteks manajemen klinis HIV?", 
-                opts: ["Membunuh virus hingga bersih total", "Menghambat replikasi (perbanyakan) virus dalam tubuh", "Mencegah penularan flu biasa"], 
-                a: "Menghambat replikasi (perbanyakan) virus dalam tubuh", 
-                exp: "<strong>Jawaban Benar: Menghambat replikasi virus.</strong><br><strong>Penjelasan:</strong> ARV bekerja bagaikan 'rem' yang menahan laju perkembangbiakan virus di sirkulasi darah sehingga sel CD4 dapat beregenerasi kembali dan memperpanjang harapan hidup penderita." 
-            },
-            { 
-                q: "Stadium klinis akhir yang ditandai dengan kumpulan gejala infeksi oportunistik akibat kerusakan parah sistem imun disebut...", 
-                opts: ["Sindrom Imunodefisiensi Akut", "AIDS", "Autoimun Kronis"], 
-                a: "AIDS", 
-                exp: "<strong>Jawaban Benar: AIDS.</strong><br><strong>Penjelasan:</strong> AIDS bukan nama virus melainkan fase akhir kerusakan imun akibat HIV di mana tubuh mulai terserang infeksi sekunder berat seperti Tuberkulosis, meningitis jamur, atau diare kronis." 
-            }
-        ];
-
-        const faskesData = [
-            { nama: "RSUD Kota Baubau / Kab. Buton", wilayah: "baubau", desc: "Jl. Dr. Wahidin No.1 Baubau. Pusat layanan VCT mandiri, konseling bebas biaya, tes skrining darah terjamin kerahasiaannya, dan pendampingan ARV." },
-            { nama: "Puskesmas Betoambari", wilayah: "baubau", desc: "Pusat pelayanan kesehatan primer di Baubau dengan program skrining awal sukarela dan konsultasi kesehatan reproduksi remaja." },
-            { nama: "RSUD Provinsi Bahteramas Sultra", wilayah: "kendari", desc: "Pusat rujukan klinis utama tingkat provinsi di Kota Kendari. Menyediakan fasilitas pengobatan komprehensif, ruang konseling khusus, dan apotek ARV terpadu." },
-            { nama: "RSUD Kota Kendari", wilayah: "kendari", desc: "Jl. Jend. Ahmad Yani No.3, Kendari. Unit Pelayanan VCT terintegrasi dengan penanganan rawat jalan ramah remaja." },
-            { nama: "RSUD Kabupaten Kolaka", wilayah: "kolaka", desc: "Jl. Pemuda No.1 Kolaka. Menyediakan klinik VCT mandiri terpercaya dengan tenaga medis konselor yang suportif dan terjaga kerahasiaannya." }
-        ];
-
-        // LOGIKA STATE UTAMA
-        let points = 0;
-        let isPreTestDone = false;
+        let currentPreIndex = 0;
         let preScore = 0;
-        let currentIdx = 0;
-        let currentFMIdx = 0;
-        let currentPostIdx = 0;
+        let currentPostIndex = 0;
         let postScore = 0;
+        let totalXP = 0;
+        let preTestDone = false;
 
-        function changeView(viewId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            
-            const targetPage = document.getElementById(`view-${viewId}`);
-            if(targetPage) targetPage.classList.add('active');
-            
-            const navBtn = document.getElementById(`nav-${viewId}`);
-            if(navBtn) navBtn.classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        function addPoints(amount) {
-            points += amount;
-            document.getElementById('user-points').innerText = points;
-            
-            const lvlBadge = document.getElementById('user-level');
-            if(points >= 200) lvlBadge.innerText = "Lvl 3 (Pakar)";
-            else if(points >= 100) lvlBadge.innerText = "Lvl 2 (Edukator)";
-            else lvlBadge.innerText = "Lvl 1";
-        }
-
-        function tryNavigateToDashboard() {
-            if(isPreTestDone) changeView('dashboard');
-        }
-
-        // CONTROLLER PRE-TEST
-        function startPreTest() {
-            currentIdx = 0;
-            preScore = 0;
-            changeView('pretest');
-            loadPreQuestion();
-        }
-
+        // Inisialisasi Soal Pertama Pre-Test
         function loadPreQuestion() {
-            document.getElementById('pre-next-btn').style.display = 'none';
-            if(currentIdx < preTestData.length) {
-                const q = preTestData[currentIdx];
-                document.getElementById('pre-progress').innerText = `Soal ${currentIdx + 1} dari ${preTestData.length}`;
-                document.getElementById('pre-question').innerText = q.q;
+            if(currentPreIndex < questions.length) {
+                document.getElementById('pre-progress').innerText = `Soal ${currentPreIndex + 1} dari ${questions.length}`;
+                document.getElementById('pre-question').innerText = questions[currentPreIndex].q;
                 
-                const optCont = document.getElementById('pre-options');
-                optCont.innerHTML = "";
-                q.opts.forEach(o => {
-                    const b = document.createElement('button');
-                    b.className = "opt-card";
-                    b.innerText = o;
-                    b.onclick = () => selectPreAnswer(b, o, q.a);
-                    optCont.appendChild(b);
+                let htmlOptions = "";
+                questions[currentPreIndex].o.forEach((opt, idx) => {
+                    htmlOptions += `<button class="option-btn" onclick="handlePreAnswer(${idx})">${opt}</button>`;
                 });
+                document.getElementById('pre-options').innerHTML = htmlOptions;
             } else {
-                isPreTestDone = true;
-                let calculatedPre = Math.round((preScore / preTestData.length) * 100);
-                document.getElementById('dash-pre').innerText = `${calculatedPre}%`;
-                
-                // Unlock Dashboard Navigation
-                const dashNav = document.getElementById('nav-dashboard');
-                dashNav.classList.remove('locked');
-                dashNav.disabled = false;
-                
-                addPoints(50); // Poin awal penyelesaian pre-test
-                changeView('dashboard');
+                finishPreTest();
             }
         }
 
-        function selectPreAnswer(btn, chosen, actual) {
-            document.querySelectorAll('#pre-options .opt-card').forEach(b => b.disabled = true);
-            if(chosen === actual) {
-                btn.classList.add('correct');
-                preScore++;
-            } else {
-                btn.classList.add('wrong');
-                document.querySelectorAll('#pre-options .opt-card').forEach(b => {
-                    if(b.innerText === actual) b.classList.add('correct');
-                });
+        function handlePreAnswer(selectedIndex) {
+            if(selectedIndex === questions[currentPreIndex].a) {
+                preScore += 100 / questions.length;
             }
-            document.getElementById('pre-next-btn').style.display = 'block';
-        }
-
-        function nextPreTest() {
-            currentIdx++;
+            currentPreIndex++;
             loadPreQuestion();
         }
 
-        // CONTROLLER FAKTA / MITOS (GAME)
-        function startFaktaMitos() {
-            currentFMIdx = 0;
-            changeView('faktamitos');
-            loadFMQuestion();
+        function finishPreTest() {
+            preTestDone = true;
+            document.getElementById('score-pre').innerText = Math.round(preScore);
+            alert(`Pre-Test selesai! Skor awal kamu: ${Math.round(preScore)}. Sekarang kamu bisa membuka Dashboard dan Menu Belajar.`);
+            
+            // Tampilkan navigasi utama bawah
+            document.getElementById('main-nav').style.display = 'flex';
+            // Pindahkan langsung ke halaman dashboard utama
+            switchPage('dashboard', document.querySelector('.nav-item'));
         }
 
-        function loadFMQuestion() {
-            document.getElementById('fm-next-btn').style.display = 'none';
-            document.getElementById('fm-explain').style.display = 'none';
-            document.getElementById('fm-true-btn').disabled = false;
-            document.getElementById('fm-false-btn').disabled = false;
-            
-            if(currentFMIdx < fmData.length) {
-                document.getElementById('fm-progress').innerText = `Tantangan ${currentFMIdx + 1} dari ${fmData.length}`;
-                document.getElementById('fm-question').innerText = fmData[currentFMIdx].q;
-            } else {
-                changeView('dashboard');
+        // Navigasi Halaman
+        function switchPage(pageId, element) {
+            if(!preTestDone) {
+                alert("Kamu harus menyelesaikan Pre-Test terlebih dahulu!");
+                return;
             }
-        }
-
-        function verifyFM(userAns) {
-            document.getElementById('fm-true-btn').disabled = true;
-            document.getElementById('fm-false-btn').disabled = true;
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             
-            const cur = fmData[currentFMIdx];
-            const exp = document.getElementById('fm-explain');
-            exp.innerHTML = cur.exp;
-            exp.style.display = 'block';
-            
-            if(userAns === cur.a) {
-                exp.style.borderLeftColor = "var(--success)";
-                addPoints(20); // Tambahan poin tiap jawaban benar
-            } else {
-                exp.style.borderLeftColor = "var(--danger)";
-            }
-            document.getElementById('fm-next-btn').style.display = 'block';
+            document.getElementById(`page-${pageId}`).classList.add('active');
+            if(element) element.classList.add('active');
         }
 
-        function nextFaktaMitos() {
-            currentFMIdx++;
-            loadFMQuestion();
-        }
-
-        // CONTROLLER POST-TEST / KUIS AKHIR
+        // Kontrol Post Test
         function startPostTest() {
-            currentPostIdx = 0;
-            postScore = 0;
-            changeView('posttest');
+            document.getElementById('post-intro').style.display = 'none';
+            document.getElementById('post-quiz-area').style.display = 'block';
             loadPostQuestion();
         }
 
         function loadPostQuestion() {
-            document.getElementById('post-next-btn').style.display = 'none';
-            document.getElementById('post-explain').style.display = 'none';
-            if(currentPostIdx < postTestData.length) {
-                const q = postTestData[currentPostIdx];
-                document.getElementById('post-progress').innerText = `Soal ${currentPostIdx + 1} dari ${postTestData.length}`;
-                document.getElementById('post-question').innerText = q.q;
+            if(currentPostIndex < questions.length) {
+                document.getElementById('post-progress').innerText = `Soal ${currentPostIndex + 1} dari ${questions.length}`;
+                document.getElementById('post-question').innerText = questions[currentPostIndex].q;
                 
-                const optCont = document.getElementById('post-options');
-                optCont.innerHTML = "";
-                q.opts.forEach(o => {
-                    const b = document.createElement('button');
-                    b.className = "opt-card";
-                    b.innerText = o;
-                    b.onclick = () => selectPostAnswer(b, o, q.a, q.exp);
-                    optCont.appendChild(b);
+                let htmlOptions = "";
+                questions[currentPostIndex].o.forEach((opt, idx) => {
+                    htmlOptions += `<button class="option-btn" onclick="handlePostAnswer(${idx})">${opt}</button>`;
                 });
+                document.getElementById('post-options').innerHTML = htmlOptions;
             } else {
-                let calculatedPost = Math.round((postScore / postTestData.length) * 100);
-                document.getElementById('dash-post').innerText = `${calculatedPost}%`;
-                
-                if(calculatedPost >= 60) {
-                    addPoints(100); // Bonus besar penyelesaian kuis kelulusan
-                    document.getElementById('lock-cert-panel').innerHTML = `<button class="btn btn-success" onclick="changeView('sertifikat')">🎉 Klaim & Cetak Sertifikat Digital</button>`;
-                } else {
-                    alert(`Skor Kuis Akhir kamu: ${calculatedPost}%. Kurang dari batas syarat kelulusan (60%). Silakan pelajari kembali modul untuk klaim sertifikat.`);
-                }
-                changeView('dashboard');
+                finishPostTest();
             }
         }
 
-        function selectPostAnswer(btn, chosen, actual, explanation) {
-            const options = document.querySelectorAll('#post-options .opt-card');
-            options.forEach(b => b.disabled = true);
-            
-            const expPanel = document.getElementById('post-explain');
-            expPanel.innerHTML = explanation;
-            expPanel.style.display = 'block';
-
-            if(chosen === actual) {
-                btn.classList.add('correct');
-                postScore++;
-            } else {
-                btn.classList.add('wrong');
-                options.forEach(b => {
-                    if(b.innerText === actual) b.classList.add('correct');
-                });
+        function handlePostAnswer(selectedIndex) {
+            if(selectedIndex === questions[currentPostIndex].a) {
+                postScore += 100 / questions.length;
             }
-            document.getElementById('post-next-btn').style.display = 'block';
-        }
-
-        function nextPostTest() {
-            currentPostIdx++;
+            currentPostIndex++;
             loadPostQuestion();
         }
 
-        // DIREKTORI FASKES FILTER LOGIC
-        function filterFaskes(region) {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+        function finishPostTest() {
+            let finalPost = Math.round(postScore);
+            document.getElementById('score-post').innerText = finalPost;
+            document.getElementById('post-quiz-area').innerHTML = `<div style="text-align:center; padding: 20px;"><i class="fas fa-check-circle" style="font-size:3rem; color:var(--success); margin-bottom:10px;"></i><p>Post-Test Selesai! Skor akhir kamu berhasil disimpan di Dashboard utama.</p></div>`;
             
-            const listContainer = document.getElementById('faskes-list');
-            listContainer.innerHTML = "";
+            addXP(100);
             
-            const filtered = region === 'all' ? faskesData : faskesData.filter(f => f.wilayah === region);
-            
-            filtered.forEach(item => {
-                const fCard = document.createElement('div');
-                fCard.className = "faskes-item";
-                fCard.innerHTML = `<h4>${item.nama}</h4><p style="font-size:0.85rem; color:#475569; margin:0; line-height:1.5;">${item.desc}</p>`;
-                listContainer.appendChild(fCard);
-            });
+            // Cek kelulusan sertifikat (minimal skor 60)
+            if(finalPost >= 60) {
+                document.getElementById('btn-cert').removeAttribute('disabled');
+            }
+            alert(`Post-Test Berhasil! Skor Evaluasi Akhirmu: ${finalPost}`);
         }
 
-        // SERTIFIKAT KUSTOM NAMA
-        function updateCertName() {
-            const name = document.getElementById('user-cert-name').value;
-            document.getElementById('cert-name').innerText = name || "Peserta Cerdas Smart Edu";
+        // Logika Gamifikasi XP
+        function addXP(amount) {
+            totalXP += amount;
+            let level = Math.floor(totalXP / 100) + 1;
+            document.getElementById('user-xp').innerHTML = `<i class="fas fa-star"></i> Level ${level} (${totalXP} XP)`;
         }
 
-        // RESTART SYSTEM
-        function restartAll() {
-            points = 0;
-            isPreTestDone = false;
-            preScore = 0;
-            postScore = 0;
-            currentIdx = 0;
-            currentFMIdx = 0;
-            currentPostIdx = 0;
-            
-            document.getElementById('user-points').innerText = "0";
-            document.getElementById('user-level').innerText = "Lvl 1";
-            document.getElementById('dash-pre').innerText = "0%";
-            document.getElementById('dash-post').innerText = "-";
-            document.getElementById('lock-cert-panel').innerHTML = `<button class="btn btn-secondary locked" disabled><i class="fa-solid fa-lock"></i> Sertifikat Terkunci (Selesaikan Kuis)</button>`;
-            
-            const dashNav = document.getElementById('nav-dashboard');
-            dashNav.classList.add('locked');
-            dashNav.disabled = true;
-            
-            changeView('beranda');
+        // Simulasi Cetak Sertifikat
+        function claimCertificate() {
+            let nama = document.getElementById('cert-name').value.trim();
+            if(!nama) {
+                alert("Silakan masukkan nama lengkapmu terlebih dahulu untuk dicetak di sertifikat!");
+                return;
+            }
+            alert(`Selamat ${nama}! Sertifikat digital "Edukator Remaja HIV Smart" kamu berhasil diterbitkan dengan skor Post-Test: ${Math.round(postScore)}.`);
         }
 
-        // INITIAL LOAD
-        window.onload = () => {
-            filterFaskes('all');
+        // Jalankan Pre-Test pertama kali saat web dibuka
+        window.onload = function() {
+            loadPreQuestion();
         };
     </script>
 </body>
 </html>
-
