@@ -79,7 +79,7 @@
                 <p class="text-slate-400 max-w-xl mx-auto text-sm md:text-base">Aplikasi belajar interaktif yang dikembangkan khusus remaja untuk memahami HIV/AIDS secara objektif, ilmiah, dan seru.</p>
             </div>
 
-            <!-- FITUR BARU 3: MITOS HARI INI (RANDOM POPUP CARD) -->
+            <!-- MITOS HARI INI (RANDOM POPUP CARD) -->
             <div class="bg-slate-800/90 border border-amber-500/30 p-5 rounded-2xl card-glow relative overflow-hidden">
                 <div class="absolute top-0 right-0 p-3 opacity-10 text-6xl text-amber-400"><i class="fa-solid fa-dice"></i></div>
                 <div class="flex items-center gap-2 text-amber-400 font-bold text-sm mb-2">
@@ -523,7 +523,7 @@
 
     </main>
 
-    <!-- FITUR BARU 4: CHATBOT EDUKASI (FLOATING CHAT OVERLAY) -->
+    <!-- CHATBOT EDUKASI (FLOATING CHAT OVERLAY) -->
     <div class="fixed bottom-24 right-4 z-50 flex flex-col items-end gap-2 max-w-[320px] w-full px-2">
         <div id="chat-window" class="hidden bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden w-full flex flex-col h-[360px] card-glow animate-fade-in">
             <div class="bg-indigo-600 p-3 flex justify-between items-center text-white">
@@ -829,8 +829,10 @@
             });
 
             document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-            event.target.classList.add('bg-indigo-600', 'text-white');
-            event.target.classList.remove('text-slate-400');
+            if (event && event.target) {
+                event.target.classList.add('bg-indigo-600', 'text-white');
+                event.target.classList.remove('text-slate-400');
+            }
             
             gainXP(15); 
         }
@@ -964,7 +966,6 @@
             }
         }
 
-        // --- INTEGRASI PENGIRIMAN DATA GOOGLE APPS SCRIPT ---
         function sendDataToSpreadsheet(typeTest, finalScore) {
             const webAppUrl = "https://script.google.com/macros/s/AKfycbyY3tcU-ckmLNbA6bbdaZ_zcM6qU_1pWvo3bNeMS6O8QEIVOZpA4fpKSxiGaEZG3tZ-/exec";
             const statusMsg = document.getElementById('db-status-message');
@@ -974,7 +975,6 @@
                 statusMsg.classList.remove('hidden');
             }
 
-            // Struktur data menggunakan FormData agar mudah di-parse oleh doGet/doPost standar Google Apps Script
             const formData = new FormData();
             formData.append('jenisTes', typeTest);
             formData.append('skor', finalScore);
@@ -984,7 +984,7 @@
             fetch(webAppUrl, {
                 method: 'POST',
                 body: formData,
-                mode: 'no-cors' // Digunakan untuk menghindari masalah CORS di Google Apps Script redirect
+                mode: 'no-cors' 
             })
             .then(() => {
                 if (statusMsg) {
@@ -1016,7 +1016,6 @@
                 document.getElementById('btn-posttest').disabled = false;
                 document.getElementById('result-message').innerText = "Pre-Test selesai! Yuk lanjut baca modul materi edukasi di Menu Belajar, lalu uji dengan Post-Test di akhir ya.";
                 
-                // Pemicu Pengiriman Data
                 sendDataToSpreadsheet('Pre-Test', finalScore);
             } else if (testMode === 'post') {
                 document.getElementById('dash-post').innerText = finalScore;
@@ -1027,12 +1026,10 @@
                 document.getElementById('dash-gain').innerText = gain >= 0 ? `+${gain} Poin` : `${gain} Poin`;
                 document.getElementById('result-message').innerText = `Luar biasa! Post-test berhasil direkam. Grafik peningkatan nilai belajar kamu tercatat dengan baik di LKTI Dashboard.`;
                 
-                // Pemicu Pengiriman Data
                 sendDataToSpreadsheet('Post-Test', finalScore);
             } else {
                 document.getElementById('result-message').innerText = "Kuis mandiri selesai! Kamu hebat sudah menyelesaikan tantangan wawasan tingkat lanjut ini. Pertahankan prestasimu!";
                 
-                // Opsional: Rekam juga hasil kuis bebas jika diperlukan
                 sendDataToSpreadsheet(title, finalScore);
             }
         }
