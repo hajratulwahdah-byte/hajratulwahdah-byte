@@ -147,7 +147,6 @@
                     <h4 class="font-bold text-white mb-1">Kuis Interaktif</h4>
                     <p class="text-xs text-slate-400">Tantang wawasanmu dengan 10 kuis ber-skor otomatis & naikkan XP-mu.</p>
                 </button>
-                <!-- NAVIGATION BUTTONS FOR NEW FEATURES -->
                 <button onclick="showSection('simulasi')" class="p-5 text-left bg-slate-800 hover:bg-slate-700/80 rounded-2xl border border-slate-700 transition duration-300 group">
                     <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 text-xl mb-4 group-hover:scale-110 transition"><i class="fa-solid fa-virus-covid"></i></div>
                     <h4 class="font-bold text-white mb-1">Simulasi Risiko</h4>
@@ -307,11 +306,9 @@
                     </div>
                 </div>
 
-                <!-- CSS BAR CHART (TANPA LIBRARY EKSTERNAL AGAR PERFORMA RINGAN) -->
                 <div class="space-y-3 pt-2">
                     <h3 class="text-sm font-bold text-white flex items-center gap-2"><i class="fa-solid fa-map-location text-xs text-blue-400"></i> Estimasi Distribusi Akumulasi Kasus Tertinggi per Wilayah (Sultra)</h3>
                     <div class="space-y-3 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-                        <!-- BAR 1 -->
                         <div class="space-y-1">
                             <div class="flex justify-between text-xs font-semibold">
                                 <span class="text-slate-200">Kota Kendari</span>
@@ -321,7 +318,6 @@
                                 <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full" style="width: 95%;"></div>
                             </div>
                         </div>
-                        <!-- BAR 2 -->
                         <div class="space-y-1">
                             <div class="flex justify-between text-xs font-semibold">
                                 <span class="text-slate-200">Kota Baubau</span>
@@ -331,7 +327,6 @@
                                 <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full" style="width: 55%;"></div>
                             </div>
                         </div>
-                        <!-- BAR 3 -->
                         <div class="space-y-1">
                             <div class="flex justify-between text-xs font-semibold">
                                 <span class="text-slate-200">Kabupaten Kolaka</span>
@@ -341,7 +336,6 @@
                                 <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full" style="width: 38%;"></div>
                             </div>
                         </div>
-                        <!-- BAR 4 -->
                         <div class="space-y-1">
                             <div class="flex justify-between text-xs font-semibold">
                                 <span class="text-slate-200">Kabupaten Muna</span>
@@ -354,7 +348,6 @@
                     </div>
                 </div>
 
-                <!-- CHART 2: KELOMPOK USIA -->
                 <div class="space-y-3">
                     <h3 class="text-sm font-bold text-white flex items-center gap-2"><i class="fa-solid fa-users text-xs text-purple-400"></i> Persentase Kerentanan Berdasarkan Kelompok Umur Produktif</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
@@ -450,6 +443,7 @@
                 </div>
 
                 <p id="result-message" class="text-sm text-slate-300 leading-relaxed px-4 font-medium"></p>
+                <p id="db-status-message" class="text-xs text-indigo-400 font-semibold italic animate-pulse hidden">Mengirim data hasil tes ke database...</p>
                 
                 <div class="pt-2">
                     <button onclick="showSection('home')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition shadow-md shadow-indigo-600/20"><i class="fa-solid fa-house mr-2"></i>Kembali ke Beranda</button>
@@ -491,7 +485,7 @@
             </div>
         </section>
 
-        <!-- SECTION 7: TENTANG WEBSITE (NEW ABOUT PAGE) -->
+        <!-- SECTION 7: TENTANG WEBSITE -->
         <section id="about-section" class="hidden space-y-6 animate-fade-in">
             <div class="bg-slate-800/80 p-6 md:p-8 rounded-3xl border border-slate-700 card-glow space-y-6">
                 <div class="flex items-center gap-3 border-b border-slate-700 pb-3">
@@ -531,9 +525,7 @@
 
     <!-- FITUR BARU 4: CHATBOT EDUKASI (FLOATING CHAT OVERLAY) -->
     <div class="fixed bottom-24 right-4 z-50 flex flex-col items-end gap-2 max-w-[320px] w-full px-2">
-        <!-- CHAT WINDOW (COLLAPSED BY DEFAULT) -->
         <div id="chat-window" class="hidden bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden w-full flex flex-col h-[360px] card-glow animate-fade-in">
-            <!-- CHAT HEADER -->
             <div class="bg-indigo-600 p-3 flex justify-between items-center text-white">
                 <div class="flex items-center gap-2">
                     <i class="fa-solid fa-robot text-sm text-amber-300"></i>
@@ -541,19 +533,16 @@
                 </div>
                 <button onclick="toggleChat()" class="text-white hover:text-slate-200 text-xs"><i class="fa-solid fa-minus"></i></button>
             </div>
-            <!-- CHAT BOX MESSAGES -->
             <div id="chat-messages-container" class="flex-1 p-3 overflow-y-auto space-y-2 text-xs">
                 <div class="bg-slate-900/85 p-2.5 rounded-xl border border-slate-700 text-slate-300">
                     Halo! Saya asisten pintar EduYouth. Tanyakan apa saja seputar HIV/AIDS (misal: <i>Apa itu ARV?</i>, <i>Apa beda HIV AIDS?</i>, atau <i>Gejala awal</i>).
                 </div>
             </div>
-            <!-- CHAT INPUT -->
             <div class="p-2 bg-slate-900 border-t border-slate-700 flex gap-1">
                 <input type="text" id="chat-input-field" placeholder="Ketik pertanyaan..." class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-indigo-500">
                 <button onclick="sendChatMessage()" class="bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg px-3 py-1 text-xs transition"><i class="fa-solid fa-paper-plane"></i></button>
             </div>
         </div>
-        <!-- FLOATING ACTION TOGGLE BUTTON -->
         <button onclick="toggleChat()" class="w-12 h-12 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-indigo-600/40 transition hover:scale-105 border border-indigo-400/20">
             <i class="fa-solid fa-comments text-lg"></i>
         </button>
@@ -590,7 +579,6 @@
     </footer>
 
     <script>
-        // --- DATA BANK FAKTA VS MITOS (10 SOAL DEEP ANALYSIS) ---
         const faktaMitosData = [
             {
                 q: "HIV bisa ditularkan melalui gigitan nyamuk atau serangga yang sebelumnya mengigit ODHIV.",
@@ -644,7 +632,6 @@
             }
         ];
 
-        // --- DATA BANK KUIS / EVALUASI (10 SOAL HIGH INSIGHT) ---
         const quizData = [
             {
                 q: "Apa target sel imun spesifik yang diserang oleh virus HIV sehingga pertahanan tubuh manusia lumpuh?",
@@ -708,7 +695,6 @@
             }
         ];
 
-        // --- DATA BACKEND CHATBOT KNOWLEDGE BASE ---
         const chatbotKnowledge = {
             "arv": "Obat ARV (Antiretroviral) berfungsi menghentikan replikasi virus HIV di tubuh agar jumlah sel kekebalan (CD4) tetap terjaga.",
             "beda": "HIV adalah nama virus agen penyebab melemahnya sistem imun, sementara AIDS adalah kumpulan gejala kompleks (stadium akhir) ketika imunitas tubuh lumpuh.",
@@ -721,20 +707,17 @@
             "thanks": "Sama-sama! Selalu semangat belajar memutus stigma buruk di lingkungan kita."
         };
 
-        // --- APP STATE VARIABLES ---
         let currentXP = 0;
         let userBadge = "Novice Fighter";
-        let testMode = "quiz"; // 'pre', 'post', 'quiz', 'fakta'
+        let testMode = "quiz"; 
         let currentIndex = 0;
         let score = 0;
         let randomMhiIndex = 0;
 
-        // --- ONLOAD INITIALIZATION ---
         window.onload = function() {
             initMitosHariIni();
         };
 
-        // --- FITUR BARU 3 LOGIC: MITOS HARI INI ---
         function initMitosHariIni() {
             randomMhiIndex = Math.floor(Math.random() * faktaMitosData.length);
             document.getElementById('mhi-question').innerText = `"${faktaMitosData[randomMhiIndex].q}"`;
@@ -752,7 +735,6 @@
             gainXP(10);
         }
 
-        // --- FITUR BARU 2 LOGIC: SIMULASI RISIKO PENULARAN ---
         function runSimulasi(type) {
             const card = document.getElementById('simulasi-result-card');
             const badge = document.getElementById('sim-badge-status');
@@ -788,7 +770,6 @@
             gainXP(10);
         }
 
-        // --- FITUR BARU 4 LOGIC: CHATBOT EDUKASI INTERACTIVE ---
         function toggleChat() {
             const chatWin = document.getElementById('chat-window');
             chatWin.classList.toggle('hidden');
@@ -801,7 +782,6 @@
             
             if (!text) return;
 
-            // Render User Message
             const userMsg = document.createElement('div');
             userMsg.className = "bg-indigo-600/30 p-2 rounded-xl text-right ml-auto border border-indigo-500/20 max-w-[85%] text-white text-[11px]";
             userMsg.innerText = inputEl.value;
@@ -809,7 +789,6 @@
             
             inputEl.value = "";
 
-            // Bot Logic Parser
             setTimeout(() => {
                 let reply = "Maaf, kata kunci tidak dikenali. Coba ketik kata kunci ringkas seperti: 'ARV', 'Beda', 'Gejala', atau 'Obat'.";
                 for (let key in chatbotKnowledge) {
@@ -827,7 +806,6 @@
             }, 400);
         }
 
-        // --- NAVIGATION ENGINE ---
         function showSection(sectionId) {
             document.getElementById('home-section').classList.add('hidden');
             document.getElementById('belajar-section').classList.add('hidden');
@@ -854,15 +832,13 @@
             event.target.classList.add('bg-indigo-600', 'text-white');
             event.target.classList.remove('text-slate-400');
             
-            gainXP(15); // Hadiah membaca materi
+            gainXP(15); 
         }
 
-        // --- GAMIFICATION LOGIC ---
         function gainXP(amount) {
             currentXP += amount;
             document.getElementById('user-xp').innerText = `${currentXP} XP`;
             
-            // Evaluasi Lencana (Badges)
             if (currentXP >= 300) userBadge = "Immune Overlord 👑";
             else if (currentXP >= 180) userBadge = "Virus Crusher ⚡";
             else if (currentXP >= 80) userBadge = "Immune Guardian 🛡️";
@@ -870,7 +846,6 @@
             document.getElementById('user-badge').innerText = userBadge;
         }
 
-        // --- FAKTA ATAU MITOS ENGINE ---
         function startFaktaMitos() {
             testMode = "fakta";
             currentIndex = 0;
@@ -917,7 +892,6 @@
             }
         }
 
-        // --- KUIS & PRE/POST TEST ENGINE ---
         function startQuiz() {
             testMode = "quiz";
             document.getElementById('quiz-badge-type').innerHTML = `Aktivitas: <b class="text-pink-400">Kuis Evaluasi</b>`;
@@ -963,7 +937,6 @@
             const feedbackEl = document.getElementById('quiz-feedback');
             const statusTitleEl = document.getElementById('quiz-status-title');
             
-            // Disable opsi jawaban setelah diklik
             const optionBtns = document.getElementById('quiz-options-container').getElementsByTagName('button');
             for(let btn of optionBtns) { btn.disabled = true; }
 
@@ -991,7 +964,44 @@
             }
         }
 
-        // --- REKAPITULASI AKHIR & LKTI CALCULATOR ---
+        // --- INTEGRASI PENGIRIMAN DATA GOOGLE APPS SCRIPT ---
+        function sendDataToSpreadsheet(typeTest, finalScore) {
+            const webAppUrl = "https://script.google.com/macros/s/AKfycbyY3tcU-ckmLNbA6bbdaZ_zcM6qU_1pWvo3bNeMS6O8QEIVOZpA4fpKSxiGaEZG3tZ-/exec";
+            const statusMsg = document.getElementById('db-status-message');
+            
+            if (statusMsg) {
+                statusMsg.innerText = "Mengirim data hasil tes ke database...";
+                statusMsg.classList.remove('hidden');
+            }
+
+            // Struktur data menggunakan FormData agar mudah di-parse oleh doGet/doPost standar Google Apps Script
+            const formData = new FormData();
+            formData.append('jenisTes', typeTest);
+            formData.append('skor', finalScore);
+            formData.append('xp', currentXP);
+            formData.append('badge', userBadge);
+
+            fetch(webAppUrl, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // Digunakan untuk menghindari masalah CORS di Google Apps Script redirect
+            })
+            .then(() => {
+                if (statusMsg) {
+                    statusMsg.innerText = "Data berhasil disimpan ke Cloud Spreadsheet! ✓";
+                    statusMsg.classList.replace('text-indigo-400', 'text-emerald-400');
+                    setTimeout(() => statusMsg.classList.add('hidden'), 4000);
+                }
+            })
+            .catch(error => {
+                console.error('Error saat mengirim data:', error);
+                if (statusMsg) {
+                    statusMsg.innerText = "Gagal mengirim data. Coba periksa koneksi internet.";
+                    statusMsg.classList.replace('text-indigo-400', 'text-pink-400');
+                }
+            });
+        }
+
         function finishAssessment(title) {
             const finalScore = score * 10;
             showSection('result');
@@ -999,24 +1009,31 @@
             document.getElementById('result-title').innerText = `Hasil ${title}`;
             document.getElementById('result-score').innerText = `${finalScore} / 100`;
 
-            // LKTI Logika Penyimpanan Parameter
             if (testMode === 'pre') {
                 document.getElementById('dash-pre').innerText = finalScore;
                 document.getElementById('btn-pretest').classList.add('hidden');
                 document.getElementById('btn-posttest').classList.remove('opacity-50', 'cursor-not-allowed');
                 document.getElementById('btn-posttest').disabled = false;
                 document.getElementById('result-message').innerText = "Pre-Test selesai! Yuk lanjut baca modul materi edukasi di Menu Belajar, lalu uji dengan Post-Test di akhir ya.";
+                
+                // Pemicu Pengiriman Data
+                sendDataToSpreadsheet('Pre-Test', finalScore);
             } else if (testMode === 'post') {
                 document.getElementById('dash-post').innerText = finalScore;
                 document.getElementById('btn-posttest').classList.add('hidden');
                 
-                // Hitung N-Gain / Kenaikan Efektivitas Belajar
                 const preScore = parseInt(document.getElementById('dash-pre').innerText) || 0;
                 const gain = finalScore - preScore;
                 document.getElementById('dash-gain').innerText = gain >= 0 ? `+${gain} Poin` : `${gain} Poin`;
                 document.getElementById('result-message').innerText = `Luar biasa! Post-test berhasil direkam. Grafik peningkatan nilai belajar kamu tercatat dengan baik di LKTI Dashboard.`;
+                
+                // Pemicu Pengiriman Data
+                sendDataToSpreadsheet('Post-Test', finalScore);
             } else {
                 document.getElementById('result-message').innerText = "Kuis mandiri selesai! Kamu hebat sudah menyelesaikan tantangan wawasan tingkat lanjut ini. Pertahankan prestasimu!";
+                
+                // Opsional: Rekam juga hasil kuis bebas jika diperlukan
+                sendDataToSpreadsheet(title, finalScore);
             }
         }
     </script>
