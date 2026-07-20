@@ -164,7 +164,7 @@
                     </div>
                 </button>
 
-                <!-- GAME FAKTA VS MITOS (MENGGANTIKAN KUIS INTERAKTIF) -->
+                <!-- GAME FAKTA VS MITOS -->
                 <button onclick="startFaktaMitos()" class="p-5 text-left bg-slate-800/90 hover:bg-slate-700/80 rounded-2xl border border-slate-700 transition duration-300 flex flex-col justify-between">
                     <div>
                         <div class="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center text-pink-400 text-lg mb-3">
@@ -184,6 +184,20 @@
                         <p class="text-xs text-slate-400 leading-relaxed">Pilih tindakan simulasi untuk melihat kerentanan paparan virus.</p>
                     </div>
                 </button>
+            </div>
+
+            <!-- PENAMBAHAN 1: BOARD / KARTU LEADERBOARD DI HOME -->
+            <div class="bg-slate-800/90 border border-amber-500/30 p-5 rounded-2xl card-glow space-y-3">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-bold text-base text-white flex items-center gap-2">
+                        <i class="fa-solid fa-trophy text-amber-400"></i> Papan Peringkat Responden
+                    </h3>
+                    <button onclick="showSection('leaderboard')" class="text-xs text-amber-400 hover:underline font-semibold">Lihat Semua <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                </div>
+                <p class="text-xs text-slate-400">Peringkat teratas berdasarkan pengumpulan XP dan hasil Post-Test terbaik.</p>
+                <div id="home-leaderboard-list" class="space-y-2 pt-1 text-xs">
+                    <div class="text-center text-slate-500 py-2">Memuat data peringkat...</div>
+                </div>
             </div>
         </section>
 
@@ -387,6 +401,22 @@
             </div>
         </section>
 
+        <!-- PENAMBAHAN 2: SECTION HALAMAN PENUH LEADERBOARD -->
+        <section id="leaderboard-section" class="hidden space-y-6">
+            <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 card-glow space-y-5">
+                <div class="space-y-1">
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-trophy text-amber-400"></i> Papan Peringkat Responden (Leaderboard)
+                    </h2>
+                    <p class="text-xs text-slate-300">Daftar peringkat peserta dengan raihan poin XP dan performa belajar terbaik secara live.</p>
+                </div>
+
+                <div class="space-y-2" id="full-leaderboard-list">
+                    <div class="text-center text-slate-500 py-4 text-xs">Memuat peringkat dari database...</div>
+                </div>
+            </div>
+        </section>
+
         <!-- SECTION VCT: PETA LAYANAN HIV SULAWESI TENGGARA -->
         <section id="vct-section" class="hidden space-y-6">
             <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 card-glow space-y-5">
@@ -539,6 +569,10 @@
             <button onclick="startFaktaMitos()" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition">
                 <i class="fa-solid fa-gamepad text-base"></i><span class="text-[10px] font-medium">Fakta/Mitos</span>
             </button>
+            <!-- PENAMBAHAN 3: TOMBOL PENGESER TAB LEADERBOARD DI NAVBAR -->
+            <button onclick="showSection('leaderboard')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition">
+                <i class="fa-solid fa-trophy text-base"></i><span class="text-[10px] font-medium">Peringkat</span>
+            </button>
             <button onclick="showSection('about')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition">
                 <i class="fa-solid fa-circle-info text-base"></i><span class="text-[10px] font-medium">Tentang</span>
             </button>
@@ -548,7 +582,8 @@
     <!-- SCRIPT FIREBASE & GAMEPLAY LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        // PENAMBAHAN: Impor fungsi query & limit untuk mengambil data Leaderboard
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCZw8NZkgoGF_IQMGZSumIwVdtMR_s7r_8",
@@ -595,9 +630,58 @@
                     pretest: finalScorePre,
                     posttest: finalScorePost,
                     efektivitas_gain: finalScorePost - finalScorePre,
+                    xp: currentXP,
                     tanggal: new Date()
                 });
+                loadLeaderboardData(); // Muat ulang peringkat setelah data tersimpan
             } catch (e) { console.error(e); }
+        }
+
+        // PENAMBAHAN: FUNGSI MEMUAT DATA PAPAN PERINGKAT DARI FIREBASE
+        async function loadLeaderboardData() {
+            try {
+                const q = query(collection(db, "peserta"), orderBy("posttest", "desc"), limit(10));
+                const querySnapshot = await getDocs(q);
+                
+                let leaderboardHTML = "";
+                let rank = 1;
+
+                if (querySnapshot.empty) {
+                    leaderboardHTML = `<div class="text-center text-slate-500 py-3 text-xs">Belum ada data responden. Mulai tes untuk menjadi yang pertama!</div>`;
+                } else {
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        let badgeColor = "bg-slate-700 text-slate-300";
+                        if (rank === 1) badgeColor = "bg-amber-500 text-slate-900 font-bold";
+                        else if (rank === 2) badgeColor = "bg-slate-300 text-slate-900 font-bold";
+                        else if (rank === 3) badgeColor = "bg-amber-700 text-white font-bold";
+
+                        leaderboardHTML += `
+                            <div class="flex items-center justify-between p-3 bg-slate-900/80 rounded-xl border border-slate-700/80">
+                                <div class="flex items-center gap-3">
+                                    <span class="w-6 h-6 rounded-full ${badgeColor} flex items-center justify-center text-xs shrink-0">${rank}</span>
+                                    <div>
+                                        <div class="font-bold text-white text-xs">${data.nama || "Responden Anonim"}</div>
+                                        <div class="text-[10px] text-slate-400">${data.sekolah || "SMA Negeri 1 Baubau"}</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xs font-bold text-emerald-400">${data.posttest || 0} PTS</div>
+                                    <div class="text-[10px] text-amber-400">${data.xp || 0} XP</div>
+                                </div>
+                            </div>
+                        `;
+                        rank++;
+                    });
+                }
+
+                const homeList = document.getElementById('home-leaderboard-list');
+                const fullList = document.getElementById('full-leaderboard-list');
+                if (homeList) homeList.innerHTML = leaderboardHTML;
+                if (fullList) fullList.innerHTML = leaderboardHTML;
+            } catch (e) {
+                console.error("Gagal memuat leaderboard:", e);
+            }
         }
 
         const faktaMitosData = [
@@ -635,6 +719,7 @@
             randomMitosIndex = Math.floor(Math.random() * faktaMitosData.length);
             document.getElementById('mhi-question').innerText = `"${faktaMitosData[randomMitosIndex].q}"`;
             document.getElementById('mhi-explanation').classList.add('hidden');
+            loadLeaderboardData(); // Jalankan pembacaan data leaderboard saat pertama kali dimuat
         };
 
         window.revealMitosHariIni = function() {
@@ -729,7 +814,8 @@
         }
 
         window.showSection = function(id) {
-            ['auth', 'home', 'belajar', 'simulasi', 'fakta', 'quiz', 'result', 'vct', 'about'].forEach(s => {
+            // DITAMBAHKAN 'leaderboard' DI PENGECEKAN KELAS HIDDEN
+            ['auth', 'home', 'belajar', 'simulasi', 'fakta', 'quiz', 'result', 'vct', 'about', 'leaderboard'].forEach(s => {
                 const el = document.getElementById(`${s}-section`);
                 if (el) el.classList.add('hidden');
             });
