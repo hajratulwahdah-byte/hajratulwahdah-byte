@@ -657,7 +657,7 @@
 
             if (type === 'peluk') {
                 badge.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> <span class="text-emerald-400">TIDAK MENULARKAN</span>`;
-                exp.innerText = "Sifat virus sangat rapuh and mati seketika di permukaan kulit luar. Tidak ada pertukaran cairan esensial.";
+                exp.innerText = "Sifat virus sangat rapuh dan mati seketika di permukaan kulit luar. Tidak ada pertukaran cairan esensial.";
                 card.classList.add('bg-emerald-500/10', 'border-emerald-500/30');
             } else if (type === 'cium') {
                 badge.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> <span class="text-emerald-400">TIDAK MENULARKAN</span>`;
@@ -861,7 +861,7 @@
                 document.getElementById('btn-posttest').disabled = false;
                 document.getElementById('result-message').innerText = "Pre-Test selesai! Data identitas & nilai tersimpan. Yuk pelajari modul edukasi di Menu Belajar sebelum menguji kemampuanmu di Post-Test.";
             } else if (testMode === 'post') {
-                dataResponden.skorPretest = finalScore;
+                dataResponden.skorPosttest = finalScore;
                 document.getElementById('dash-post').innerText = finalScore;
                 document.getElementById('btn-posttest').classList.add('hidden');
                 
