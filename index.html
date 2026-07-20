@@ -507,7 +507,7 @@
 
         window.toggleChat = function() { document.getElementById('chat-window').classList.toggle('hidden'); }
 
-        // CHATBOT AI DAPAT MENJAWAB SEMUA PERTANYAAN UMUM
+        // CHATBOT AI DAPAT MENJAWAB PERTANYAAN FLEKSIBEL & SPESIFIK
         window.sendChatMessage = function() {
             const input = document.getElementById('chat-input-field');
             const container = document.getElementById('chat-messages-container');
@@ -531,25 +531,52 @@
             }, 400);
         }
 
-        // KECERDASAN AI DENGAN RESPON GENERAL & MULTI-TOPIK
+        // PERBAIKAN LOGIKA PENCORAN KATA KUNCI AI BOT
         function generateGeneralAIResponse(query) {
             const q = query.toLowerCase();
             
-            if (q.includes("hiv") || q.includes("aids") || q.includes("virus")) {
-                return "HIV adalah virus yang menyerang sistem kekebalan tubuh, khususnya sel CD4. Jika tidak ditangani, HIV dapat berkembang menjadi AIDS. Pengobatan ARV dapat membantu menekan jumlah virus agar penderita tetap sehat.";
-            } else if (q.includes("halo") || q.includes("hai") || q.includes("pagi") || q.includes("siang") || q.includes("malam")) {
-                return "Halo! Ada yang bisa saya bantu hari ini? Kamu bisa bertanya tentang kesehatan, sains, ilmu pengetahuan umum, atau hal lainnya!";
-            } else if (q.includes("siapa") || q.includes("kamu")) {
-                return "Saya adalah EduYouth AI Bot, asisten virtual interaktif yang siap membantu menjawab pertanyaanmu mengenai materi kesehatan maupun topik umum lainnya!";
-            } else if (q.includes("terima kasih") || q.includes("makasih") || q.includes("thanks")) {
-                return "Sama-sama! Senang bisa membantumu. Jika ada pertanyaan lain, jangan ragu untuk bertanya ya!";
-            } else if (q.includes("gejala") || q.includes("tanda")) {
-                return "Gejala awal HIV sering kali menyerupai flu biasa seperti demam, ruam, atau nyeri tenggorokan. Namun, satu-satunya cara pasti mengetahui status HIV adalah melalui tes darah di fasilitas kesehatan.";
-            } else if (q.includes("obat") || q.includes("sembuh")) {
-                return "Saat ini belum ada obat yang menyembuhkan HIV secara total, tetapi terapi Antiretroviral (ARV) sangat efektif menekan jumlah virus sehingga penderita dapat hidup normal dan sehat.";
-            } else {
-                return `Mengenai <b>"${query}"</b>: Pertanyaan yang sangat menarik! Sebagai AI Assistant, saya dapat membantu memberikan informasi umum seputar topik sains, edukasi kesehatan, teknologi, maupun pengetahuan umum lainnya. Silakan tanyakan hal lebih detail yang ingin kamu ketahui!`;
+            // 1. Pertanyaan Spesifik: Sejarah / Pertama Kali / Kasus Pertama
+            if (q.includes("pertama") || q.includes("sejarah") || q.includes("asal") || q.includes("ditemukan")) {
+                if (q.includes("hiv") || q.includes("aids") || q.includes("penyakit") || q.includes("kena")) {
+                    return "HIV diperkirakan berasal dari simpanse di Afrika Tengah (simian immunodeficiency virus atau SIV) yang melompati spesies ke manusia pada awal abad ke-20. Kasus terkonfirmasi pertama pada manusia terdeteksi dari sampel darah seorang pria di Kinshasa, Republik Demokratik Kongo pada tahun 1959.";
+                }
             }
+            
+            // 2. Pertanyaan Spesifik: Gejala / Tanda
+            if (q.includes("gejala") || q.includes("tanda") || q.includes("ciri")) {
+                return "Gejala awal HIV sering kali menyerupai flu (seperti demam, ruam, atau pembengkakan kelenjar getah bening) dalam 2-4 minggu pertama. Satu-satunya cara pasti mengetahui status HIV adalah melalui tes darah di fasilitas kesehatan.";
+            }
+
+            // 3. Pertanyaan Spesifik: Obat / Kesembuhan / ARV
+            if (q.includes("obat") || q.includes("sembuh") || q.includes("arv") || q.includes("terapi")) {
+                return "Saat ini belum ada obat yang menyembuhkan HIV secara total. Namun, Terapi Antiretroviral (ARV) sangat efektif menekan jumlah virus hingga tidak terdeteksi (Undetectable), sehingga ODHIV dapat hidup sehat dan tidak menularkan virus.";
+            }
+
+            // 4. Pertanyaan Spesifik: Penularan / Berisiko
+            if (q.includes("tular") || q.includes("penularan") || q.includes("seks") || q.includes("jarum") || q.includes("nyamuk")) {
+                return "HIV ditularkan melalui 4 cairan tubuh: darah, cairan sperma, cairan vagina, dan ASI. HIV TIDAK menular melalui udara, gigitan nyamuk, sentuhan, pelukan, atau berbagi alat makan.";
+            }
+
+            // 5. Pertanyaan Umum: Pengertian Dasar HIV / AIDS
+            if (q.includes("apa itu hiv") || q.includes("pengertian hiv") || q.includes("definisi hiv")) {
+                return "HIV (Human Immunodeficiency Virus) adalah virus yang menyerang sistem kekebalan tubuh, khususnya sel CD4. Jika tidak ditangani, dapat berkembang menjadi kondisi AIDS.";
+            }
+
+            // 6. Sapaan / Basa-basi
+            if (q.includes("halo") || q.includes("hai") || q.includes("pagi") || q.includes("siang") || q.includes("malam")) {
+                return "Halo! Ada yang bisa saya bantu hari ini? Kamu bisa bertanya tentang sejarah HIV, penularan, pencegahan, atau topik edukasi lainnya!";
+            }
+            
+            if (q.includes("siapa kamu") || q.includes("bot apa")) {
+                return "Saya adalah EduYouth AI Bot, asisten virtual interaktif yang siap membantu menjawab pertanyaanmu seputar edukasi kesehatan HIV/AIDS dan pengetahuan umum.";
+            }
+
+            if (q.includes("terima kasih") || q.includes("makasih") || q.includes("thanks")) {
+                return "Sama-sama! Senang bisa membantumu. Jika ada pertanyaan lain, silakan tanyakan ya!";
+            }
+
+            // 7. Fallback Response (Jika pertanyaan tidak cocok dengan pola di atas)
+            return `Mengenai pertanyaanmu tentang <b>"${query}"</b>: Kamu dapat menanyakan lebih spesifik seputar sejarah HIV, gejala, cara penularan, pencegahan, obat ARV, atau layanan VCT!`;
         }
 
         window.showSection = function(id) {
