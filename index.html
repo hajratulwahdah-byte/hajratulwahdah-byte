@@ -318,48 +318,6 @@
                     </div>
                 </div>
 
-                <div class="space-y-3 pt-2">
-                    <h3 class="text-sm font-bold text-white flex items-center gap-2"><i class="fa-solid fa-map-location text-xs text-blue-400"></i> Estimasi Distribusi Akumulasi Kasus Tertinggi per Wilayah (Sultra)</h3>
-                    <div class="space-y-3 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-                        <div class="space-y-1">
-                            <div class="flex justify-between text-xs font-semibold">
-                                <span class="text-slate-200">Kota Kendari</span>
-                                <span class="text-blue-400 font-bold">~1.250 Kasus</span>
-                            </div>
-                            <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden">
-                                <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full" style="width: 95%;"></div>
-                            </div>
-                        </div>
-                        <div class="space-y-1">
-                            <div class="flex justify-between text-xs font-semibold">
-                                <span class="text-slate-200">Kota Baubau</span>
-                                <span class="text-blue-400 font-bold">~680 Kasus</span>
-                            </div>
-                            <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden">
-                                <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full" style="width: 55%;"></div>
-                            </div>
-                        </div>
-                        <div class="space-y-1">
-                            <div class="flex justify-between text-xs font-semibold">
-                                <span class="text-slate-200">Kabupaten Kolaka</span>
-                                <span class="text-blue-400 font-bold">~420 Kasus</span>
-                            </div>
-                            <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden">
-                                <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full" style="width: 38%;"></div>
-                            </div>
-                        </div>
-                        <div class="space-y-1">
-                            <div class="flex justify-between text-xs font-semibold">
-                                <span class="text-slate-200">Kabupaten Muna</span>
-                                <span class="text-blue-400 font-bold">~310 Kasus</span>
-                            </div>
-                            <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden">
-                                <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full" style="width: 27%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="space-y-3">
                     <h3 class="text-sm font-bold text-white flex items-center gap-2"><i class="fa-solid fa-users text-xs text-purple-400"></i> Persentase Kerentanan Berdasarkan Kelompok Umur Produktif</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
@@ -699,7 +657,7 @@
 
             if (type === 'peluk') {
                 badge.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> <span class="text-emerald-400">TIDAK MENULARKAN</span>`;
-                exp.innerText = "Sifat virus sangat rapuh dan mati seketika di permukaan kulit luar. Tidak ada pertukaran cairan esensial.";
+                exp.innerText = "Sifat virus sangat rapuh and mati seketika di permukaan kulit luar. Tidak ada pertukaran cairan esensial.";
                 card.classList.add('bg-emerald-500/10', 'border-emerald-500/30');
             } else if (type === 'cium') {
                 badge.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> <span class="text-emerald-400">TIDAK MENULARKAN</span>`;
@@ -903,7 +861,7 @@
                 document.getElementById('btn-posttest').disabled = false;
                 document.getElementById('result-message').innerText = "Pre-Test selesai! Data identitas & nilai tersimpan. Yuk pelajari modul edukasi di Menu Belajar sebelum menguji kemampuanmu di Post-Test.";
             } else if (testMode === 'post') {
-                dataResponden.skorPosttest = finalScore;
+                dataResponden.skorPretest = finalScore;
                 document.getElementById('dash-post').innerText = finalScore;
                 document.getElementById('btn-posttest').classList.add('hidden');
                 
