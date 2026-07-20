@@ -164,11 +164,6 @@
                     <h4 class="font-bold text-white mb-1">Simulasi Risiko</h4>
                     <p class="text-xs text-slate-400">Pilih tindakan simulasi untuk melihat kerentanan paparan virus.</p>
                 </button>
-                <button onclick="showSection('statistik')" class="p-5 text-left bg-slate-800 hover:bg-slate-700/80 rounded-2xl border border-slate-700 transition duration-300 group">
-                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-xl mb-4 group-hover:scale-110 transition"><i class="fa-solid fa-chart-column"></i></div>
-                    <h4 class="font-bold text-white mb-1">Statistik Sultra</h4>
-                    <p class="text-xs text-slate-400">Data sebaran grafik kasus wilayah Sulawesi Tenggara terkini.</p>
-                </button>
                 <button onclick="showSection('vct')" class="p-5 text-left bg-slate-800 hover:bg-slate-700/80 rounded-2xl border border-slate-700 transition duration-300 group">
                     <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-xl mb-4 group-hover:scale-110 transition"><i class="fa-solid fa-map-location-dot"></i></div>
                     <h4 class="font-bold text-white mb-1">Peta Faskes VCT</h4>
@@ -291,54 +286,6 @@
                 <div id="simulasi-result-card" class="hidden p-5 rounded-2xl border transition duration-300 space-y-2">
                     <div class="flex items-center gap-2 font-bold text-base" id="sim-badge-status"></div>
                     <p id="sim-explanation-text" class="text-xs md:text-sm text-slate-300 leading-relaxed"></p>
-                </div>
-            </div>
-        </section>
-
-        <!-- HALAMAN STATISTIK HIV SULAWESI TENGGARA -->
-        <section id="statistik-section" class="hidden space-y-6 animate-fade-in">
-            <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 card-glow space-y-6">
-                <div class="flex items-center gap-3 border-b border-slate-700 pb-3">
-                    <i class="fa-solid fa-chart-column text-blue-400 text-2xl"></i>
-                    <h2 class="text-xl font-bold text-white">Visualisasi Grafik Tren HIV Sulawesi Tenggara</h2>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-center">
-                        <span class="text-[11px] uppercase text-slate-400 font-semibold block mb-1">Total Estimasi Kasus Sultra</span>
-                        <span class="text-2xl font-black text-blue-400">4.100+</span>
-                    </div>
-                    <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-center">
-                        <span class="text-[11px] uppercase text-slate-400 font-semibold block mb-1">Kelompok Usia Dominan</span>
-                        <span class="text-2xl font-black text-purple-400">20 - 29 Tahun</span>
-                    </div>
-                    <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-center">
-                        <span class="text-[11px] uppercase text-slate-400 font-semibold block mb-1">Faktor Risiko Terbanyak</span>
-                        <span class="text-2xl font-black text-pink-400">Seks Berisiko</span>
-                    </div>
-                </div>
-
-                <div class="space-y-3">
-                    <h3 class="text-sm font-bold text-white flex items-center gap-2"><i class="fa-solid fa-users text-xs text-purple-400"></i> Persentase Kerentanan Berdasarkan Kelompok Umur Produktif</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-                        <div class="p-3 bg-slate-900/40 rounded-xl border border-slate-800">
-                            <div class="text-[10px] text-slate-400 uppercase font-medium">&lt; 19 Tahun</div>
-                            <div class="text-lg font-bold text-slate-300 mt-1">3%</div>
-                        </div>
-                        <div class="p-3 bg-slate-950 rounded-xl border-2 border-purple-500/40 shadow-inner">
-                            <div class="text-[10px] text-purple-400 uppercase font-bold">20 - 29 Tahun</div>
-                            <div class="text-xl font-extrabold text-white mt-1">48%</div>
-                        </div>
-                        <div class="p-3 bg-slate-900/40 rounded-xl border border-slate-800">
-                            <div class="text-[10px] text-slate-400 uppercase font-medium">30 - 39 Tahun</div>
-                            <div class="text-lg font-bold text-slate-300 mt-1">31%</div>
-                        </div>
-                        <div class="p-3 bg-slate-900/40 rounded-xl border border-slate-800">
-                            <div class="text-[10px] text-slate-400 uppercase font-medium">40+ Tahun</div>
-                            <div class="text-lg font-bold text-slate-300 mt-1">18%</div>
-                        </div>
-                    </div>
-                    <p class="text-[11px] text-slate-400 italic text-center">Catatan: Tingginya angka di usia 20-29 tahun menunjukkan infeksi sering kali terjadi di masa remaja akhir akibat minimnya literasi objektif.</p>
                 </div>
             </div>
         </section>
@@ -582,7 +529,7 @@
             }
         }
 
-        // --- CORE BUSINESS LOGICS (MODIFIED FOR INTEGRATION WITH FIREBASE ACTIONS) ---
+        // --- CORE BUSINESS LOGICS ---
         const faktaMitosData = [
             { q: "HIV bisa ditularkan melalui gigitan nyamuk atau serangga yang sebelumnya mengigit ODHIV.", isFakta: false, exp: "**Jawabannya: MITOS.** Virus HIV tidak dapat bereplikasi di kelenjar nyamuk." },
             { q: "Ibu hamil yang positif HIV bisa melahirkan anak yang sehat dan bebas dari virus HIV.", isFakta: true, exp: "**Jawabannya: FAKTA.** Berkat terapi ARV dan metode PMTCT, janin bisa lahir 100% sehat." },
@@ -602,7 +549,7 @@
             { q: "Istilah medis dunia internasional 'U=U' dalam penanganan HIV modern memiliki kepanjangan...", options: ["Universal = United", "Undetectable = Untransmittable", "Unique = Universal", "Ultimate = Unstoppable"], correct: 1, exp: "**Undetectable = Untransmittable** (Kadar virus tak terdeteksi = Tidak menularkan)." },
             { q: "Pemberian obat pencegahan darurat pasca paparan insidental yang harus diminum maksimal 72 jam setelah kejadian disebut...", options: ["PrEP", "PEP", "ARV", "Vaksin Covid"], correct: 1, exp: "Disebut **PEP (Post-Exposure Prophylaxis)**, wajib diminum maksimal 72 jam setelah insiden darurat." },
             { q: "Manakah cairan tubuh berikut yang sama sekali TIDAK bisa menularkan virus HIV?", options: ["Darah segar", "Air Keringat dan Air Mata", "Cairan Vagina", "Cairan Sperma"], correct: 1, exp: "**Keringat dan air mata** tidak memiliki kandungan konsentrasi virus yang cukup." },
-            { q: "Jenis pengujian laboratorium awal yang paling jamak digunakan untuk mendeteksi antibodi HIV adalah...", options: ["Rontgen Dada", "Tes Cepat Rapid / ELISA", "Biopsi Kulit", "Cek Urine Standar"], correct: 2, exp: "Pemeriksaan penyaringan awal dilakukan melalui metode **Rapid Test/ELISA** darah." },
+            { q: "Jenis pengujian laboratorium awal yang paling jamak digunakan untuk mendeteksi antibodi HIV adalah...", options: ["Rontgen Dada", "Tes Cepat Rapid / ELISA", "Biopsi Kulit", "Cek Urine Standar"], correct: 1, exp: "Pemeriksaan penyaringan awal dilakukan melalui metode **Rapid Test/ELISA** darah." },
             { q: "Dalam kampanye pencegahan ABCDE, huruf 'A' merepresentasikan perilaku...", options: ["Abstinence (Absen Seks Bebas)", "Alami pengobatan alternatif", "Aktivitas olahraga ketat", "Analisis genetik mandiri"], correct: 0, exp: "**Abstinence** (Absen seks bebas sebelum pernikahan sah) adalah tameng mutlak remaja." },
             { q: "Infeksi penyerta yang muncul secara oportunis memanfaatkan rapuhnya imunitas tubuh penderita AIDS disebut...", options: ["Infeksi Bawaan Lahir", "Infeksi Oportunistis", "Mutasi Super", "Sakit Kronis Luar"], correct: 1, exp: "Disebut **Infeksi Oportunistis**, contohnya infeksi TBC paru parah atau jamur sistemik." },
             { q: "Di bawah ini, manakah fasilitas gratis penanganan kesehatan konseling HIV secara sukarela di Indonesia?", options: ["Klinik VCT", "Klinik Kecantikan Kulit", "IGD Bedah Tulang", "Laboratorium Fisika Nuklir"], correct: 0, exp: "**Klinik VCT** menyediakan sarana konsultasi rahasia & tes gratis." },
@@ -721,7 +668,6 @@
             document.getElementById('result-section').classList.add('hidden');
             document.getElementById('vct-section').classList.add('hidden');
             document.getElementById('simulasi-section').classList.add('hidden');
-            document.getElementById('statistik-section').classList.add('hidden');
 
             document.getElementById(`${sectionId}-section`).classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
