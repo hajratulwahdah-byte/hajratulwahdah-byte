@@ -164,13 +164,14 @@
                     </div>
                 </button>
 
-                <button onclick="startQuiz()" class="p-5 text-left bg-slate-800/90 hover:bg-slate-700/80 rounded-2xl border border-slate-700 transition duration-300 flex flex-col justify-between">
+                <!-- GAME FAKTA VS MITOS (MENGGANTIKAN KUIS INTERAKTIF) -->
+                <button onclick="startFaktaMitos()" class="p-5 text-left bg-slate-800/90 hover:bg-slate-700/80 rounded-2xl border border-slate-700 transition duration-300 flex flex-col justify-between">
                     <div>
                         <div class="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center text-pink-400 text-lg mb-3">
                             <i class="fa-solid fa-gamepad"></i>
                         </div>
-                        <h4 class="font-bold text-white text-base mb-1">Kuis Interaktif</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">Tantang wawasanmu dengan 10 kuis ber-skor otomatis & naikkan XP-mu.</p>
+                        <h4 class="font-bold text-white text-base mb-1">Fakta atau Mitos</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">Uji persepsimu dalam game tantangan 10 mitos dan fakta seputar HIV & raih XP-mu.</p>
                     </div>
                 </button>
 
@@ -323,24 +324,24 @@
             </div>
         </section>
 
-        <!-- SECTION FAKTA MITOS -->
+        <!-- SECTION GAME: FAKTA ATAU MITOS -->
         <section id="fakta-section" class="hidden space-y-6">
             <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 card-glow space-y-4">
                 <div class="flex justify-between items-center text-xs text-slate-400">
-                    <span>Aktivitas: <b class="text-amber-400">Fakta atau Mitos</b></span>
+                    <span>Aktivitas: <b class="text-amber-400">Game Fakta atau Mitos</b></span>
                     <span id="fakta-progress">Soal 1 dari 10</span>
                 </div>
                 <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
                     <div id="fakta-bar" class="bg-amber-500 h-full w-[10%] transition-all"></div>
                 </div>
 
-                <div class="py-4 text-center">
-                    <p id="fakta-question-text" class="text-base font-bold text-white px-2">"Loading..."</p>
+                <div class="py-6 text-center">
+                    <p id="fakta-question-text" class="text-base md:text-lg font-bold text-white px-2">"Loading..."</p>
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
-                    <button id="btn-fakta-true" onclick="checkFakta(true)" class="p-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition disabled:opacity-40">FAKTA</button>
-                    <button id="btn-fakta-false" onclick="checkFakta(false)" class="p-3.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs transition disabled:opacity-40">MITOS</button>
+                    <button id="btn-fakta-true" onclick="checkFakta(true)" class="p-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition disabled:opacity-40"><i class="fa-solid fa-check mr-1"></i> FAKTA</button>
+                    <button id="btn-fakta-false" onclick="checkFakta(false)" class="p-3.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs transition disabled:opacity-40"><i class="fa-solid fa-xmark mr-1"></i> MITOS</button>
                 </div>
 
                 <div id="fakta-feedback" class="hidden p-4 rounded-xl space-y-2 border">
@@ -351,15 +352,15 @@
             </div>
         </section>
 
-        <!-- SECTION KUIS -->
+        <!-- SECTION TEST (PRE-TEST / POST-TEST) -->
         <section id="quiz-section" class="hidden space-y-6">
             <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 card-glow space-y-4">
                 <div class="flex justify-between items-center text-xs text-slate-400">
-                    <span id="quiz-badge-type">Aktivitas: <b class="text-pink-400">Kuis Evaluasi</b></span>
+                    <span id="quiz-badge-type">Aktivitas: <b class="text-indigo-400">Pre-Test</b></span>
                     <span id="quiz-progress">Soal 1 dari 10</span>
                 </div>
                 <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
-                    <div id="quiz-bar" class="bg-pink-500 h-full w-[10%] transition-all"></div>
+                    <div id="quiz-bar" class="bg-indigo-500 h-full w-[10%] transition-all"></div>
                 </div>
 
                 <p id="quiz-question-text" class="text-sm md:text-base font-bold text-white">Loading soal...</p>
@@ -535,8 +536,8 @@
             <button onclick="showSection('vct')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition">
                 <i class="fa-solid fa-map-location-dot text-base"></i><span class="text-[10px] font-medium">Tes HIV</span>
             </button>
-            <button onclick="startQuiz()" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition">
-                <i class="fa-solid fa-gamepad text-base"></i><span class="text-[10px] font-medium">Kuis</span>
+            <button onclick="startFaktaMitos()" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition">
+                <i class="fa-solid fa-gamepad text-base"></i><span class="text-[10px] font-medium">Fakta/Mitos</span>
             </button>
             <button onclick="showSection('about')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition">
                 <i class="fa-solid fa-circle-info text-base"></i><span class="text-[10px] font-medium">Tentang</span>
@@ -563,6 +564,7 @@
         const db = getFirestore(app);
 
         let dataResponden = { nama: "", umur: "", sekolah: "", skorPretest: null, skorPosttest: null };
+        let randomMitosIndex = 0;
 
         window.bukaFormIdentitasOrStart = function() {
             if (!dataResponden.nama) showSection('auth');
@@ -599,44 +601,44 @@
         }
 
         const faktaMitosData = [
-            { q: "HIV dapat menular hanya melalui gigitan nyamuk yang telah menggigit penderita HIV.", isFakta: false, exp: "**MITOS:** Nyamuk tidak dapat menularkan HIV karena virus tidak hidup atau berkembang biak di dalam tubuh nyamuk." },
-            { q: "Virus HIV menyerang sel CD4 yang merupakan bagian penting dari sistem kekebalan tubuh manusia.", isFakta: true, exp: "**FAKTA:** HIV secara khusus menginfeksi dan merusak sel darah putih jenis CD4 yang bertugas melawan infeksi." },
-            { q: "Makan bersama atau menggunakan alat makan yang sama dengan ODHIV dapat menularkan virus.", isFakta: false, exp: "**MITOS:** HIV tidak ditularkan melalui air liur saat makan bersama atau menggunakan piring/sendok yang sama." },
-            { q: "Seseorang yang tampak sehat dan tidak memiliki gejala sama sekali bisa saja mengidap HIV.", isFakta: true, exp: "**FAKTA:** Orang yang terinfeksi HIV bisa tidak menunjukkan gejala selama bertahun-tahun namun tetap dapat menularkan virus." },
-            { q: "Obat ARV (Antiretroviral) dapat menyembuhkan total penyakit HIV sampai virusnya hilang 100%.", isFakta: false, exp: "**MITOS:** ARV tidak menyembuhkan total, melainkan menekan jumlah virus agar tidak aktif dan menjaga kekebalan tubuh." },
-            { q: "Ibu hamil yang terinfeksi HIV tetap bisa melahirkan bayi yang sehat dan negatif HIV jika rutin minum obat ARV.", isFakta: true, exp: "**FAKTA:** Dengan program PPIA (Pencegahan Penularan dari Ibu ke Anak) dan penanganan medis tepat, risiko penularan ke bayi dapat ditekan hingga di bawah 1-2%." },
-            { q: "Penggunaan kondom lateks yang benar saat berhubungan seksual efektif mencegah penularan HIV.", isFakta: true, exp: "**FAKTA:** Kondom lateks terbukti efektif menghalangi cairan tubuh yang mengandung virus HIV." },
-            { q: "HIV dan AIDS adalah istilah medis yang memiliki arti persis sama.", isFakta: false, exp: "**MITOS:** HIV adalah nama virusnya, sedangkan AIDS adalah kumpulan gejala penyakit akibat penurunan kekebalan tubuh tahap lanjut." },
-            { q: "Tes darah HIV bisa langsung mendeteksi virus pada hari pertama seseorang terpapar.", isFakta: false, exp: "**MITOS:** Terdapat 'Masa Jendela' (Window Period) di mana antibodi/virus belum terdeteksi alat tes standar." },
-            { q: "HIV tidak menular melalui sentuhan, pelukan, atau jabat tangan.", isFakta: true, exp: "**FAKTA:** HIV sangat rapuh di luar tubuh dan tidak dapat menular melalui kontak fisik biasa seperti jabat tangan atau pelukan." }
+            { q: "HIV dapat menular hanya melalui gigitan nyamuk yang telah menggigit penderita HIV.", isFakta: false, exp: "<b>MITOS:</b> Nyamuk tidak dapat menularkan HIV karena virus tidak hidup atau berkembang biak di dalam tubuh nyamuk." },
+            { q: "Virus HIV menyerang sel CD4 yang merupakan bagian penting dari sistem kekebalan tubuh manusia.", isFakta: true, exp: "<b>FAKTA:</b> HIV secara khusus menginfeksi dan merusak sel darah putih jenis CD4 yang bertugas melawan infeksi." },
+            { q: "Makan bersama atau menggunakan alat makan yang sama dengan ODHIV dapat menularkan virus.", isFakta: false, exp: "<b>MITOS:</b> HIV tidak ditularkan melalui air liur saat makan bersama atau menggunakan piring/sendok yang sama." },
+            { q: "Seseorang yang tampak sehat dan tidak memiliki gejala sama sekali bisa saja mengidap HIV.", isFakta: true, exp: "<b>FAKTA:</b> Orang yang terinfeksi HIV bisa tidak menunjukkan gejala selama bertahun-tahun namun tetap dapat menularkan virus." },
+            { q: "Obat ARV (Antiretroviral) dapat menyembuhkan total penyakit HIV sampai virusnya hilang 100%.", isFakta: false, exp: "<b>MITOS:</b> ARV tidak menyembuhkan total, melainkan menekan jumlah virus agar tidak aktif dan menjaga kekebalan tubuh." },
+            { q: "Ibu hamil yang terinfeksi HIV tetap bisa melahirkan bayi yang sehat dan negatif HIV jika rutin minum obat ARV.", isFakta: true, exp: "<b>FAKTA:</b> Dengan penanganan medis tepat dan minum ARV rutin, risiko penularan ke bayi dapat ditekan hingga di bawah 1-2%." },
+            { q: "Penggunaan kondom lateks yang benar saat berhubungan seksual efektif mencegah penularan HIV.", isFakta: true, exp: "<b>FAKTA:</b> Kondom lateks terbukti efektif menghalangi cairan tubuh yang mengandung virus HIV." },
+            { q: "HIV dan AIDS adalah istilah medis yang memiliki arti persis sama.", isFakta: false, exp: "<b>MITOS:</b> HIV adalah nama virusnya, sedangkan AIDS adalah kumpulan gejala penyakit akibat penurunan kekebalan tubuh tahap lanjut." },
+            { q: "Tes darah HIV bisa langsung mendeteksi virus pada hari pertama seseorang terpapar.", isFakta: false, exp: "<b>MITOS:</b> Terdapat 'Masa Jendela' (Window Period) di mana antibodi/virus belum terdeteksi alat tes standar." },
+            { q: "HIV tidak menular melalui sentuhan, pelukan, atau jabat tangan.", isFakta: true, exp: "<b>FAKTA:</b> HIV sangat rapuh di luar tubuh dan tidak dapat menular melalui kontak fisik biasa seperti jabat tangan atau pelukan." }
         ];
 
-        const quizData = [
-            { q: "Kepanjangan dari singkatan HIV yang benar adalah...", options: ["Human Immunodeficiency Virus", "Human Infection Virus", "Human Immunity Disease", "Human Immune Deficiency System"], correct: 0, exp: "HIV merupakan singkatan dari **Human Immunodeficiency Virus**." },
-            { q: "Berikut ini yang BUKAN merupakan jalur utama penularan HIV adalah...", options: ["Transfusi darah terinfeksi", "Hubungan seksual tanpa pengaman", "Air liur saat bersin atau batuk", "Penggunaan jarum suntik bergantian"], correct: 2, exp: "Air liur, batuk, dan bersin **tidak menularkan** virus HIV." },
-            { q: "Kumpulan gejala penyakit akibat menurunnya sistem kekebalan tubuh akibat infeksi HIV dinamakan...", options: ["TBC", "AIDS", "Hepatitis", "Influenza"], correct: 1, exp: "AIDS (*Acquired Immunodeficiency Syndrome*) adalah kondisi stadium akhir dari infeksi HIV." },
-            { q: "Jenis sel darah putih yang menjadi target utama dan diserang oleh virus HIV adalah...", options: ["Eritrosit", "Sel CD4 (T-Limfosit)", "Trombosit", "Neutrofil"], correct: 1, exp: "HIV menyerang **sel CD4** yang berperan sebagai komandan sistem imunitas." },
-            { q: "Layanan kesehatan standar untuk tes darah dan konseling HIV secara sukarela dikenal dengan istilah...", options: ["VCT", "ECG", "USG", "MRI"], correct: 0, exp: "VCT singkatan dari *Voluntary Counseling and Testing*." },
-            { q: "Rentang waktu antara masuknya virus HIV ke dalam tubuh hingga dapat terdeteksi oleh tes medis dinamakan...", options: ["Masa Inkubasi", "Masa Jendela (Window Period)", "Masa Karantina", "Masa Imunitas"], correct: 1, exp: "Masa Jendela (*Window Period*) adalah jeda waktu sebelum virus/antibodi dapat terdeteksi tes." },
-            { q: "Konsep U=U dalam pengobatan HIV berarti...", options: ["Undetectable = Untransmittable", "Unfavorable = Unstoppable", "Universal = Unaffected", "Uncure = Unlimited"], correct: 0, exp: "U=U merujuk pada *Undetectable = Untransmittable* (Jumlah virus tak terdeteksi = Tidak menularkan)." },
+        const testQuestionsData = [
+            { q: "Kepanjangan dari singkatan HIV yang benar adalah...", options: ["Human Immunodeficiency Virus", "Human Infection Virus", "Human Immunity Disease", "Human Immune Deficiency System"], correct: 0, exp: "HIV merupakan singkatan dari <b>Human Immunodeficiency Virus</b>." },
+            { q: "Berikut ini yang BUKAN merupakan jalur utama penularan HIV adalah...", options: ["Transfusi darah terinfeksi", "Hubungan seksual tanpa pengaman", "Air liur saat bersin atau batuk", "Penggunaan jarum suntik bergantian"], correct: 2, exp: "Air liur, batuk, dan bersin <b>tidak menularkan</b> virus HIV." },
+            { q: "Kumpulan gejala penyakit akibat menurunnya sistem kekebalan tubuh akibat infeksi HIV dinamakan...", options: ["TBC", "AIDS", "Hepatitis", "Influenza"], correct: 1, exp: "AIDS (<i>Acquired Immunodeficiency Syndrome</i>) adalah kondisi stadium akhir dari infeksi HIV." },
+            { q: "Jenis sel darah putih yang menjadi target utama dan diserang oleh virus HIV adalah...", options: ["Eritrosit", "Sel CD4 (T-Limfosit)", "Trombosit", "Neutrofil"], correct: 1, exp: "HIV menyerang <b>sel CD4</b> yang berperan sebagai komandan sistem imunitas." },
+            { q: "Layanan kesehatan standar untuk tes darah dan konseling HIV secara sukarela dikenal dengan istilah...", options: ["VCT", "ECG", "USG", "MRI"], correct: 0, exp: "VCT singkatan dari <i>Voluntary Counseling and Testing</i>." },
+            { q: "Rentang waktu antara masuknya virus HIV ke dalam tubuh hingga dapat terdeteksi oleh tes medis dinamakan...", options: ["Masa Inkubasi", "Masa Jendela (Window Period)", "Masa Karantina", "Masa Imunitas"], correct: 1, exp: "Masa Jendela (<i>Window Period</i>) adalah jeda waktu sebelum virus/antibodi dapat terdeteksi tes." },
+            { q: "Konsep U=U dalam pengobatan HIV berarti...", options: ["Undetectable = Untransmittable", "Unfavorable = Unstoppable", "Universal = Unaffected", "Uncure = Unlimited"], correct: 0, exp: "U=U merujuk pada <i>Undetectable = Untransmittable</i> (Jumlah virus tak terdeteksi = Tidak menularkan)." },
             { q: "Penyakit infeksi oportunistik yang paling sering dialami oleh penderita AIDS adalah...", options: ["Tuberkulosis (TBC)", "Diabetes Melitus", "Hipertensi", "Gagal Ginjal"], correct: 0, exp: "TBC merupakan infeksi oportunistik yang paling dominan menyerang penderita AIDS." },
             { q: "Prinsip pencegahan HIV 'A' dalam rumus ABCDE kepanjangannya adalah Abstinence, yang berarti...", options: ["Penggunaan kondom", "Tidak melakukan hubungan seksual sebelum menikah", "Setia pada pasangan", "Dilarang narkoba"], correct: 1, exp: "A = Abstinence (Absain/Menahan diri dari hubungan seks pra-nikah)." },
             { q: "Obat utama yang digunakan untuk menekan jumlah virus HIV dalam tubuh ODHIV adalah...", options: ["Antibiotik", "ARV (Antiretroviral)", "Parasetamol", "Vaksin MMR"], correct: 1, exp: "ARV (Antiretroviral) bekerja menekan replikasi virus HIV di dalam tubuh." }
         ];
 
         let currentXP = 0;
-        let testMode = "quiz"; 
+        let testMode = "pre"; 
         let currentIndex = 0;
         let score = 0;
 
         window.onload = function() {
-            const r = Math.floor(Math.random() * faktaMitosData.length);
-            document.getElementById('mhi-question').innerText = `"${faktaMitosData[r].q}"`;
+            randomMitosIndex = Math.floor(Math.random() * faktaMitosData.length);
+            document.getElementById('mhi-question').innerText = `"${faktaMitosData[randomMitosIndex].q}"`;
             document.getElementById('mhi-explanation').classList.add('hidden');
         };
 
         window.revealMitosHariIni = function() {
-            document.getElementById('mhi-explanation').innerHTML = faktaMitosData[0].exp;
+            document.getElementById('mhi-explanation').innerHTML = faktaMitosData[randomMitosIndex].exp;
             document.getElementById('mhi-explanation').classList.remove('hidden');
             document.getElementById('btn-reveal-mhi').classList.add('hidden');
             gainXP(10);
@@ -751,9 +753,11 @@
             document.getElementById('user-xp').innerText = `${currentXP} XP`;
         }
 
+        /* LOGIKA GAME FAKTA VS MITOS */
         window.startFaktaMitos = function() {
-            testMode = "fakta"; currentIndex = 0; score = 0;
-            showSection('fakta'); renderFaktaQuestion();
+            currentIndex = 0; score = 0;
+            showSection('fakta'); 
+            renderFaktaQuestion();
         }
 
         function renderFaktaQuestion() {
@@ -773,25 +777,38 @@
             const isCorrect = (ans === q.isFakta);
             const fb = document.getElementById('fakta-feedback');
             fb.classList.remove('hidden');
-            if (isCorrect) { score++; gainXP(20); document.getElementById('fakta-status-title').innerText = "Jawaban Benar!"; }
-            else { document.getElementById('fakta-status-title').innerText = "Kurang Tepat!"; }
+            if (isCorrect) { 
+                score++; 
+                gainXP(20); 
+                document.getElementById('fakta-status-title').innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Jawaban Benar!`; 
+            } else { 
+                document.getElementById('fakta-status-title').innerHTML = `<i class="fa-solid fa-circle-xmark text-pink-400"></i> Jawaban Kurang Tepat!`; 
+            }
             document.getElementById('fakta-explanation').innerHTML = q.exp;
         }
 
         window.nextFakta = function() {
             currentIndex++;
-            if (currentIndex < faktaMitosData.length) renderFaktaQuestion();
-            else finishAssessment("Fakta vs Mitos");
+            if (currentIndex < faktaMitosData.length) {
+                renderFaktaQuestion();
+            } else {
+                finishAssessment("Game Fakta vs Mitos");
+            }
         }
 
-        window.startQuiz = function() { testMode = "quiz"; initQuizBuild(); }
-        window.startTest = function(t) { testMode = t; initQuizBuild(); }
-
-        function initQuizBuild() { currentIndex = 0; score = 0; showSection('quiz'); renderQuizQuestion(); }
+        /* LOGIKA ASESMEN PRE-TEST & POST-TEST */
+        window.startTest = function(t) { 
+            testMode = t; 
+            currentIndex = 0; 
+            score = 0; 
+            showSection('quiz'); 
+            renderQuizQuestion(); 
+        }
 
         function renderQuizQuestion() {
             document.getElementById('quiz-feedback').classList.add('hidden');
-            const q = quizData[currentIndex];
+            const q = testQuestionsData[currentIndex];
+            document.getElementById('quiz-badge-type').innerHTML = `Aktivitas: <b class="text-indigo-400">${testMode === 'pre' ? 'Pre-Test' : 'Post-Test'}</b>`;
             document.getElementById('quiz-progress').innerText = `Soal ${currentIndex + 1} dari 10`;
             document.getElementById('quiz-bar').style.width = `${(currentIndex + 1) * 10}%`;
             document.getElementById('quiz-question-text').innerText = q.q;
@@ -811,18 +828,26 @@
             const btns = document.getElementById('quiz-options-container').getElementsByTagName('button');
             for(let b of btns) { b.disabled = true; }
 
-            const q = quizData[currentIndex];
+            const q = testQuestionsData[currentIndex];
             const isCorrect = (idx === q.correct);
             document.getElementById('quiz-feedback').classList.remove('hidden');
-            if (isCorrect) { score++; gainXP(25); document.getElementById('quiz-status-title').innerText = "Tepat Sekali!"; }
-            else { document.getElementById('quiz-status-title').innerText = `Kurang Tepat. Jawaban: ${String.fromCharCode(65 + q.correct)}`; }
+            if (isCorrect) { 
+                score++; 
+                gainXP(25); 
+                document.getElementById('quiz-status-title').innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Tepat Sekali!`; 
+            } else { 
+                document.getElementById('quiz-status-title').innerHTML = `<i class="fa-solid fa-circle-xmark text-pink-400"></i> Kurang Tepat. Jawaban: ${String.fromCharCode(65 + q.correct)}`; 
+            }
             document.getElementById('quiz-explanation').innerHTML = q.exp;
         }
 
         window.nextQuiz = function() {
             currentIndex++;
-            if (currentIndex < quizData.length) renderQuizQuestion();
-            else finishAssessment(testMode === 'pre' ? 'Pre-Test' : (testMode === 'post' ? 'Post-Test' : 'Kuis'));
+            if (currentIndex < testQuestionsData.length) {
+                renderQuizQuestion();
+            } else {
+                finishAssessment(testMode === 'pre' ? 'Pre-Test' : 'Post-Test');
+            }
         }
 
         function finishAssessment(title) {
@@ -847,7 +872,7 @@
                 document.getElementById('result-message').innerText = "Post-Test selesai! Data skor telah tersimpan secara otomatis.";
                 kirimDataKeFirebase(dataResponden.skorPretest || 0, finalScore);
             } else {
-                document.getElementById('result-message').innerText = "Kuis selesai! Bagus sekali telah berlatih.";
+                document.getElementById('result-message').innerText = "Game selesai! Bagus sekali telah membedakan mana Fakta dan Mitos seputar HIV.";
             }
         }
     </script>
